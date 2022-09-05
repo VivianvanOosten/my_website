@@ -1,31 +1,31 @@
-baseURL: http://example.org/
+baseURL: https://vivianvanoosten.netlify.app/
 languageCode: en-us
-title: Forty
+title: Vivians portfolio
 theme: forty
 googleAnalytics: ''
 disqusShortname: ''
 params:
   banner:
     buttonText: Get Started
-    subtitle: |-
-      A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
-      AND RELEASED UNDER THE CREATIVE COMMONS.
-    title: 'Hi, my name is Forty'
+    #subtitle: |-
+     # A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
+      #AND RELEASED UNDER THE CREATIVE COMMONS.
+    title: 'Hi, my name is Vivian'
   blog: {}
   contact:
     address:
-      - city: City, ST 00000
-        country: Country
-        street: Street
+      - city: London
+        country: UK
+        street: York Street
         title: Address
     buttonClear: Clear
     buttonSend: Send message
     email:
-      - email: example@domain.com
+      - email: vvanoosten.mam2023@london.edu
         title: Email
     enable: yes
     phone:
-      - phone: (000) 000-0000 x1234
+      - phone: +31 6 10900733
         title: Phone
   custom_css: []
   custom_js: []
@@ -34,20 +34,20 @@ params:
     heading: Page couldn't be found
     text: Please visit [this page](/)
   favicon: favicon.ico
-  footer:
-    copyright: Company Name
-    enable: yes
+ # footer:
+#    copyright: Company Name
+#    enable: yes
     quicklinks:
       - alt: HTML5 UP
         text: 'Design: '
         url: https://www.html5up.net
     social:
-      - icon: fa-twitter
-        label: Twitter
-        url: https://www.twitter.com
-      - icon: fa-facebook
-        label: Facebook
-        url: https://www.facebook.com
+     # - icon: fa-twitter
+    ##    label: Twitter
+    #    url: https://www.twitter.com
+     # - icon: fa-facebook
+      #  label: Facebook
+    #    url: https://www.facebook.com
       - icon: fa-instagram
         label: Instagram
         url: https://www.instagram.com
@@ -71,10 +71,10 @@ params:
         url: '#'
       - name: Blogs
         url: blogs
-      - name: Generic Blog
-        url: blogs/ipsum
-      - name: Elements
-        url: elements.html
+     # - name: Generic Blog
+    #    url: blogs/ipsum
+    #  - name: Elements
+    #    url: elements.html
     menu: Menu
     subtitle: By HTML5 Up
     title: Forty
