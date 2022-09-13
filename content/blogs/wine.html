@@ -1,0 +1,484 @@
+---
+title: "Wine Quality"
+output: html_notebook
+---
+
+
+
+<p>We are working with a dataset of wines from Kaggle, which includes over 1500 wines with their chemical properties and a professionally determined quality between 3 and 8. One of the Kaggle challenges associated with this dataset was to predict the quality of the wine based on the chemical properties listed in the dataset. We decided to take up the challenge. Thus, our research question is:</p>
+<p>How can we predict the quality of wine based on its chemical properties?</p>
+<p>First we load the necessary libraries.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+## ✔ tibble  3.1.8     ✔ dplyr   1.0.9
+## ✔ tidyr   1.2.0     ✔ stringr 1.4.1
+## ✔ readr   2.1.2     ✔ forcats 0.5.2
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(viridis)</code></pre>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<pre class="r"><code>library(scales)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;
+## 
+## The following object is masked from &#39;package:viridis&#39;:
+## 
+##     viridis_pal
+## 
+## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard
+## 
+## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<pre class="r"><code>library(dplyr)
+library(magrittr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;magrittr&#39;
+## 
+## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     set_names
+## 
+## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
+<pre class="r"><code>library(mvtnorm)
+library(ISLR)
+library(here)</code></pre>
+<pre><code>## here() starts at /Users/vivian/Library/Mobile Documents/com~apple~CloudDocs/Vivian/Uni/Applied Statistics/Portfolio website</code></pre>
+<pre class="r"><code>library(skimr)
+set.seed(123)</code></pre>
+<p>We read in the dataframe and take a look at the variables and their types. We see that this is a very clean dataset, without missing data and already in tidy format.</p>
+<pre class="r"><code>wine  &lt;- read.csv(here::here(&#39;data/winequality-red.csv&#39;))
+skim(wine)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-2">Table 1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">wine</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">1599</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">12</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">numeric</td>
+<td align="left">12</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="22%" />
+<col width="10%" />
+<col width="15%" />
+<col width="6%" />
+<col width="6%" />
+<col width="5%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+<col width="6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">fixed.acidity</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8.32</td>
+<td align="right">1.74</td>
+<td align="right">4.60</td>
+<td align="right">7.10</td>
+<td align="right">7.90</td>
+<td align="right">9.20</td>
+<td align="right">15.90</td>
+<td align="left">▂▇▂▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">volatile.acidity</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.53</td>
+<td align="right">0.18</td>
+<td align="right">0.12</td>
+<td align="right">0.39</td>
+<td align="right">0.52</td>
+<td align="right">0.64</td>
+<td align="right">1.58</td>
+<td align="left">▅▇▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">citric.acid</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.27</td>
+<td align="right">0.19</td>
+<td align="right">0.00</td>
+<td align="right">0.09</td>
+<td align="right">0.26</td>
+<td align="right">0.42</td>
+<td align="right">1.00</td>
+<td align="left">▇▆▅▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">residual.sugar</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.54</td>
+<td align="right">1.41</td>
+<td align="right">0.90</td>
+<td align="right">1.90</td>
+<td align="right">2.20</td>
+<td align="right">2.60</td>
+<td align="right">15.50</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">chlorides</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.09</td>
+<td align="right">0.05</td>
+<td align="right">0.01</td>
+<td align="right">0.07</td>
+<td align="right">0.08</td>
+<td align="right">0.09</td>
+<td align="right">0.61</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">free.sulfur.dioxide</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">15.87</td>
+<td align="right">10.46</td>
+<td align="right">1.00</td>
+<td align="right">7.00</td>
+<td align="right">14.00</td>
+<td align="right">21.00</td>
+<td align="right">72.00</td>
+<td align="left">▇▅▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">total.sulfur.dioxide</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">46.47</td>
+<td align="right">32.90</td>
+<td align="right">6.00</td>
+<td align="right">22.00</td>
+<td align="right">38.00</td>
+<td align="right">62.00</td>
+<td align="right">289.00</td>
+<td align="left">▇▂▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">density</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.00</td>
+<td align="right">0.00</td>
+<td align="right">0.99</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="right">1.00</td>
+<td align="left">▁▃▇▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">pH</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.31</td>
+<td align="right">0.15</td>
+<td align="right">2.74</td>
+<td align="right">3.21</td>
+<td align="right">3.31</td>
+<td align="right">3.40</td>
+<td align="right">4.01</td>
+<td align="left">▁▅▇▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">sulphates</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.66</td>
+<td align="right">0.17</td>
+<td align="right">0.33</td>
+<td align="right">0.55</td>
+<td align="right">0.62</td>
+<td align="right">0.73</td>
+<td align="right">2.00</td>
+<td align="left">▇▅▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">alcohol</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">10.42</td>
+<td align="right">1.07</td>
+<td align="right">8.40</td>
+<td align="right">9.50</td>
+<td align="right">10.20</td>
+<td align="right">11.10</td>
+<td align="right">14.90</td>
+<td align="left">▇▇▃▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">quality</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.64</td>
+<td align="right">0.81</td>
+<td align="right">3.00</td>
+<td align="right">5.00</td>
+<td align="right">6.00</td>
+<td align="right">6.00</td>
+<td align="right">8.00</td>
+<td align="left">▁▇▇▂▁</td>
+</tr>
+</tbody>
+</table>
+<p>While exploring the data, we found that for a lot of the variables, there didn’t seem to be a correlation between the chemical property and the quality of the wine. For the alcohol level and the volatile acidity of the wine, there did seem to be a correlation. We see lighter colors toward the top left of the plot, and darker colors in the bottom right. This does not fully answer our research question, but shows that these variables in part could explain the quality of the wine.
+For this visualisation, we have filtered out one outlier of the volatile acidity to ensure legibility of the plot.</p>
+<pre class="r"><code># Creating a scatterplot from alcohol and volatile acidity
+
+# Filter out one outlier with very high acidity
+wine_plot &lt;- filter(wine, volatile.acidity &lt; 1.5)
+
+# Plotting with quality as the color
+ggplot(wine_plot , mapping = aes( y = `alcohol`, x = `volatile.acidity`, color = as.factor(quality))) +
+  geom_point() +
+  scale_color_viridis_d(name = &#39;Quality&#39;) +
+  labs( # adding labels
+    y = &#39;Alcohol (%)&#39;,
+    x = &#39;Volatile Acidity&#39;,
+    title = &#39;Effect of Alcohol and Volatile Acidity on Quality of Red Wine&#39;
+  ) +
+  theme_minimal()</code></pre>
+<p><img src="/blogs/wine_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Now we are going to split our dataset in train (50%), validation (30%) and test (20%).</p>
+<pre class="r"><code># create the splitting vector
+# We selected the numbers based on the length of the dataset
+split &lt;- c(rep(&quot;Train&quot;, 800), rep(&quot;Valid&quot;, 480), rep(&quot;Test&quot;,  319))
+wine &lt;- wine  %&gt;% mutate(split = sample(split))
+
+# we create dataframes for each of the splits
+wine_train &lt;- wine %&gt;% filter(split == &quot;Train&quot;)
+wine_valid &lt;- wine %&gt;% filter(split == &quot;Valid&quot;)
+wine_test  &lt;- wine %&gt;% filter(split == &quot;Test&quot;)</code></pre>
+<p>Below, we see the distribution of the wine-quality over the different datasets. We see that the distributions are very similar across the different datasets, so this split is okay.
+Besides that, we see that the distribution is now equal across all categories. There are a lot more wines with qualities 5 and 6, so average wines, than there are really bad and really good wines. This will probably make it harder to predict the quality of the wines, as the data is imbalanced. Imbalanced data means that some datapoints should be considered more important than others, as there are only a few of the high and low quality wines. To be able to predict those high and low quality wines as well, we should have a different metric than mean squared error, as this counts errors in all catgories as equally important, while for us, it is much more significant if the high and low quality wines are not predicted well. Our new metric should take into account the frequency of that datapoint, so that we can overvalue mistakes in the 3 and 8 categories. Unfortunately, creating a metric like that was a bit out of the scope of this assignment, so we will be using the mean squared error, but we will also keep in mind that our results will probably not be optimal.</p>
+<p>In the appendix, there is an attempt at using a different metric to evaluate the regression. This will try to value mistakes based on the frequency of the actual category the observation is in.</p>
+<pre class="r"><code># creating a histogram showing the distribution over dataset
+ggplot() + 
+  geom_bar(data = wine, mapping = aes(x = (quality) , fill = split), alpha = 0.7 )  + 
+  # getting pretty colours
+  scale_fill_viridis_d(name = &#39;Dataset&#39;) +
+  labs( # adding labels
+    y = &#39;Count&#39;,
+    x = &#39;Quality&#39;,
+    title = &#39;Quality of wines in the datasets&#39;
+    ) +
+  theme_minimal()</code></pre>
+<p><img src="/blogs/wine_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>We have chosen to use a subset selection rather than regularisation methods, because we think thatlimiting the number of columns we use but still allowing for large values in those coefficients will be better than limiting all coefficients. Because, if all coefficients are small, they will likely tend to predict only average qualities rather than also the outliers. With the subset selection, we can cater to the outliers as well.</p>
+<p>From here on, the best subset selection method will be implemented.</p>
+<p>We write an mse function to get the mean squared error of a certain formula. Note that we have added an argument that has NULL as a default to be able to use this one interchangeably with the error function that takes the frequency into account.</p>
+<pre class="r"><code>lm_mse &lt;- function(formula, train_data, valid_data, valid_with_freq = NULL) {
+  y_name &lt;- as.character(formula)[2]
+  y_true &lt;- valid_data[[y_name]]
+  
+  lm_fit &lt;- lm(formula, train_data)
+  y_pred &lt;- predict(lm_fit, newdata = valid_data)
+  
+  mean((y_true - y_pred)^2)
+}</code></pre>
+<p>We source the generate_formulas file written by the teacher from a class to be able to implement the subset selection method.</p>
+<pre class="r"><code>source(&quot;generate_formulas.R&quot;)</code></pre>
+<p>We define the x and y variables to be able to apply the generate_formulas function</p>
+<pre class="r"><code>wine &lt;- select(wine, -split) # removing the split column
+x_vars &lt;- colnames(wine)
+x_vars &lt;- x_vars[x_vars != &quot;quality&quot;] #using all variables except quality for the x</code></pre>
+<p>We get a vector of all functions.</p>
+<pre class="r"><code>formulas &lt;- generate_formulas(p = 3, x_vars = x_vars, y_var = &quot;quality&quot;)
+len &lt;- length(formulas)</code></pre>
+<p>We use a for loop to find the best set of 3 predictors in the wine dataset based on MSE. Use the wine_train and wine_valid datasets.</p>
+<pre class="r"><code># Initialise a vector we will fill with MSE values
+mses_3 &lt;- rep(0, len)
+
+# loop over all the formulas
+for (i in 1:len) {
+  mses_3[i] &lt;- lm_mse(as.formula(formulas[i]), wine_train, wine_valid)
+}
+
+# select the formula with the lowest MSE
+best_3_preds &lt;- formulas[which.min(mses_3)]
+best_3_preds</code></pre>
+<pre><code>## [1] &quot;quality ~ volatile.acidity + total.sulfur.dioxide + alcohol&quot;</code></pre>
+<p>We now use that knowledge to create a for-loop over all the numbers of parameters we want to consider and wrap it all in a function. Here we make the function that calculates the error, in this case lm_mse, a parameter to be able to change that in the appendix.</p>
+<pre class="r"><code># We find the best formula
+
+find_best_formula &lt;- function(error_function, train_data, valid_data, valid_with_freq = NULL){
+  
+  # Initialise formula lists to be able to access the formulas later
+  formula_list &lt;- list()
+  # initialise smallest error
+  overall_min &lt;- 100000000
+  
+  for (i in 1:4){
+    formulas &lt;- generate_formulas(p = i, x_vars = x_vars, y_var = &quot;quality&quot;)
+    formula_list &lt;- c(formula_list, list(formulas))
+    
+    # Initialise a vector we will fill with MSE values
+    errors &lt;- rep(0, length(formulas))
+    
+    for (j in 1:length(formulas)) {
+    errors[j] &lt;- error_function(as.formula(formulas[i]), train_data, valid_data, valid_with_freq)
+    }
+    
+    localmin &lt;- min(errors)
+    
+    if (localmin &lt;= overall_min){
+      overall_min &lt;- localmin
+      nr_param &lt;- i
+      min_formula &lt;- formulas[which.min(errors)]
+    }
+  }
+  
+  min_formula
+  
+}</code></pre>
+<p>Applying the formula</p>
+<pre class="r"><code>best_formula &lt;- find_best_formula(lm_mse, wine_train, wine_valid)</code></pre>
+<p>We have now found the model with the lowest mean squared error, which we will use to get the optimal model.</p>
+<pre class="r"><code># Estimate model and calculate mse
+lm_best &lt;- lm(best_formula, data = wine_train)
+mse &lt;- function(y_true, y_pred) mean((y_true - y_pred)^2)
+mse(wine_test$quality, predict(lm_best, newdata = wine_test))</code></pre>
+<pre><code>## [1] 0.5025736</code></pre>
+<p>Finally, we plot the result of our regression model. The green line represents where the data would be in a case of a perfect prediction. We see that in general, our values are closer to the middle than they should be. This is probably due to the earlier mentioned imbalanced data. The regression fit is now optimalised for the average wines and does not do well for the exceptionally bad or exceptionally good wines, which makes sense due to the few observations we have in that range. Overall, our mean squared error is not that big, but the regression seems skewed still. We could improve this with a different evaluation method like mentioned above or even a sampling method where we pick fewer of the average wines to train our model on. Unfortunately, all of those methods are outside the scope of this assignment.</p>
+<pre class="r"><code># create a simple scatterplot plot
+create_evaluation_plot &lt;- function(model){
+  tibble(
+    y_true_plt = wine_test$quality,
+    y_pred_plt = predict(model, newdata = wine_test)
+  ) %&gt;% 
+    ggplot(aes(x = y_pred_plt, y = factor(y_true_plt))) +
+    # note that the intercept here is based on the number of categories
+    # So like this it creates the line y = x for reference
+    geom_abline(slope = 1, intercept = -2, lty = 2, col = &#39;darkgreen&#39; ) +
+    # we plot the datapoints as a violin to show the distribution
+    geom_violin(orientation = &#39;y&#39;, alpha = 0.6) +
+    labs( # add labels
+      y = &#39;True quality&#39;,
+      x = &#39;Predicted quality&#39;,
+      title = &#39;Evaluation of predictions&#39;,
+      color = &#39;Fit&#39;
+      ) +
+    theme_minimal() 
+}</code></pre>
+<pre class="r"><code>create_evaluation_plot(lm_best)</code></pre>
+<pre><code>## Warning: Groups with fewer than two data points have been dropped.
+## Groups with fewer than two data points have been dropped.</code></pre>
+<p><img src="/blogs/wine_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<pre class="r"><code>summary(lm_best)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = best_formula, data = wine_train)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.58905 -0.57077 -0.00538  0.46400  2.97688 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       6.369954   0.178676  35.651   &lt;2e-16 ***
+## fixed.acidity     0.032992   0.022023   1.498    0.135    
+## volatile.acidity -1.800172   0.185559  -9.701   &lt;2e-16 ***
+## citric.acid      -0.201637   0.220180  -0.916    0.360    
+## residual.sugar    0.006171   0.018964   0.325    0.745    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.765 on 795 degrees of freedom
+## Multiple R-squared:  0.1443, Adjusted R-squared:   0.14 
+## F-statistic: 33.51 on 4 and 795 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>In conclusion, the quality of the wine can be predicted to some extent by the volatile acidity, chlorides, sulphates and alcohol level in the wine. We see that lower acidity means a higher quality, while higher sulphate and alcohol levels are also indicators of a higher quality wine. Chlorides actually don’t significantly predict the quality, but did lower the mean squared error, which is why it’s still included. So, next time you’re standing in the supermarket looking for a good but cheap wine, taking the alcohol level as an indicator is actually a good idea!</p>
+<p>Appendix A: Different error function</p>
+<p>In order to account for the skewed data we have and hopefully be better able to predict whether a wine is really good or really bad, we have implemented a slightly different error function here. First we define a frequency column in the validation dataset.</p>
+<pre class="r"><code>freq &lt;- as.data.frame(table(wine_valid$quality) / length(wine_valid$quality ))
+names(freq) &lt;- c(&#39;quality&#39;, &#39;freq&#39;)
+wine_valid_incl_freq &lt;- merge(wine_valid, freq, by = &#39;quality&#39;, all.x = TRUE) %&gt;%
+  mutate(freq = 1 - freq)</code></pre>
+<p>We then use this column to add a ‘weight’ to the errors of each datapoint.
+The inverted frequency is used to give more weight to the qualities that have a lower frequency. The goal is to make the chosen function more accurate for higher and lower quality wines.</p>
+<pre class="r"><code>weighted_error &lt;- function(formula, train_data, valid_data, valid_with_freq) {
+  # this code is the same as before
+  y_name &lt;- &#39;quality&#39;
+  y_true &lt;- valid_data[[y_name]]
+  
+  
+  lm_fit &lt;- lm(best_formula, train_data)
+  y_pred &lt;- predict(lm_fit, newdata = valid_data)
+    
+  # we create an inverted frquency vector
+  freq_vector &lt;- valid_with_freq[[&#39;freq&#39;]]
+  
+  # Then, we use roughly the same error function
+  mean((freq_vector*(y_true - y_pred))^2)
+}</code></pre>
+<p>Below we see that exactly the same formula came from this error function. From this we can conclude that the chosen formula already classifies high and low quality wines correctly.</p>
+<pre class="r"><code>new_best_formula &lt;- find_best_formula(weighted_error, wine_train, wine_valid, wine_valid_incl_freq)
+new_best &lt;- lm(new_best_formula, data = wine_train)
+mse(wine_test$quality, predict(new_best, newdata = wine_test))</code></pre>
+<pre><code>## [1] 0.5025736</code></pre>
+<pre class="r"><code>print(new_best_formula)</code></pre>
+<pre><code>## [1] &quot;quality ~ fixed.acidity + volatile.acidity + citric.acid + residual.sugar&quot;</code></pre>
+<pre class="r"><code>print(best_formula)</code></pre>
+<pre><code>## [1] &quot;quality ~ fixed.acidity + volatile.acidity + citric.acid + residual.sugar&quot;</code></pre>
+<p>Unfortunately, this way of accounting for the imbalanced data did not work. In the future we will have to choose a different way, for example over or undersampling the data. However, I could not find such a function for multi-category data. This could be something for a follow-up research question.</p>
+<p>This entry was created based on a class assignment created in collaboration with Cedric Gevers (student nr 8051003), in June 2021.</p>
