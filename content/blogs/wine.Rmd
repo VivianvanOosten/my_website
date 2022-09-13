@@ -23,7 +23,7 @@ How can we predict the quality of wine based on its chemical properties?
 
 First we load the necessary libraries. 
 
-```{r}
+```{r echo = T, results = 'hide'}
 library(tidyverse)
 library(ggplot2)
 library(viridis)
