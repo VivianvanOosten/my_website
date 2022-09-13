@@ -85,7 +85,7 @@ params:
         subtitle: Example from Kostis
         title: Risk Return
         url: blogs/risk_return
-      - image: pic02.jpg
+      - image: wine_glass2.jpeg
         subtitle: Predicting quality of wine based on chemical properties
         title: Wine Quality
         url: blogs/wine
