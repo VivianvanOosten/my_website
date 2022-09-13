@@ -12,7 +12,6 @@ image: wine_glass.jpeg # save picture in \static\img\blogs. Acceptable formats= 
 
 keywords: ""
 slug: wine # slug is the shorthand URL address... no spaces plz
-title: RPredicting Wine Quality
 
 ---
 
