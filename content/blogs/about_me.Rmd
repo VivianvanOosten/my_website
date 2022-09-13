@@ -1,0 +1,31 @@
+---
+categories:  
+- ""    #the front matter should be like the one found in, e.g., blog2.md. It cannot be like the normal Rmd we used
+- ""
+date: "13-9-2022"
+description: About me  # the title that will show up once someone gets to this page
+draft: false
+image: tree.jpeg # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
+
+keywords: ""
+slug: about_me # slug is the shorthand URL address... no spaces plz
+title: About me
+---
+
+I am Vivian van Oosten, an enthusiastic data scientist interested in learning more about machine learning applications.
+  
+
+## Academics
+
+I majored in Economics and Mathematics for my undergraduate, with a focus on statistics and data science. My favorite course was called Data Analytics for Liberal Arts and Sciences. This was taught by alumni from the programme, who had a passion for data science. The course was a great introduction to the field and sparked my interest to study data science further. Following that, I have taken courses in Machine Learning and Applied Data Science. 
+
+## Work experience
+
+To experience what working with data is like in a company, I interned at Stater, a mortgage services firm in the Netherlands. I was part of their Data Lab that experiments with data and tries to automate processes and provide insights to the business. I learned the importance of legibility, version control and documentation. As part of the internship, I have applied best practices in terms of code organisation to various applications (Flash and R-Shiny). 
+
+## Interests
+
+In my spare time, I love to read and play boardgames. My favorite genre is fantasy, as it provides an amazing escape from reality. If you were looking to try it out, a suggestion would be Assassin's Apprentice from Robin Hobb. 
+
+
+
