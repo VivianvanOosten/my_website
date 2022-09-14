@@ -89,14 +89,14 @@ params:
         subtitle: Predicting quality of wine based on chemical properties
         title: Wine Quality
         url: blogs/wine
-      - image: pic03.jpg
-        subtitle: Lorem Etiam Nullam
-        title: Magna
-        url: blogs/magna
-    #  - image: pic04.jpg
-    #    subtitle: Nisl Sed Aliquam
-    #    title: Ipsum
-     #   url: blogs/ipsum
+      - image: movies.jpeg
+        subtitle: Comparing Steven Spielberg and Tim Burton
+        title: Director ratings
+        url: blogs/directors
+      - image: pic04.jpg
+        subtitle: Spotify Danceability Regression (R-Shiny app)
+        title: Danceability
+        url: blogs/spotify
     #  - image: pic05.jpg
     #    subtitle: Ipsum Dolor Sit Amet
     #    title: Consequat
@@ -108,11 +108,8 @@ params:
   two:
     buttonText: Get Started
     enable: yes
-    subtitle: "Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero.
-      \n    Mauris aliquet magna magna sed nunc rhoncus pharetra. \n    Pellentesque
-      condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia
-      pellentesque lorem ipsum dolor. \n    Nullam et orci eu lorem consequat tincidunt.
-      Vivamus et sagittis libero.\n    Mauris aliquet magna magna sed nunc rhoncus
-      amet pharetra et feugiat tempus."
-    title: Massa libero
+    subtitle: "Welcome to my portfolio website! This is made to showcase my work 
+    of the past few years and provide you with some insights into my way of working.
+    It will also show me "
+    title: Quick introduction
     url: blogs

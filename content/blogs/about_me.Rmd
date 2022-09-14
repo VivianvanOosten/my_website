@@ -21,11 +21,12 @@ I majored in Economics and Mathematics for my undergraduate, with a focus on sta
 
 ## Work experience
 
-To experience what working with data is like in a company, I interned at Stater, a mortgage services firm in the Netherlands. I was part of their Data Lab that experiments with data and tries to automate processes and provide insights to the business. I learned the importance of legibility, version control and documentation. As part of the internship, I have applied best practices in terms of code organisation to various applications (Flash and R-Shiny). 
+To experience what working with data is like in a company, I interned at Stater, a mortgage services firm in the Netherlands. I was part of their Data Lab that experiments with data and tries to automate processes and provide insights to the business. I learned the importance of legibility, version control and documentation. As part of the internship, I have applied best practices in terms of code organisation to various applications (Flash and R-Shiny). I found that the data science environment was not fast-moving enough and the team not collaborative. In 2022, I worked full-time for Oliver Wyman as a consultant, which was the opposite of that. Very little data-related work but a highly dynamic environment and teams dedicated to learning and improving.
 
 ## Interests
 
-In my spare time, I love to read and play boardgames. My favorite genre is fantasy, as it provides an amazing escape from reality. If you were looking to try it out, a suggestion would be Assassin's Apprentice from Robin Hobb. 
+In my spare time, I love to read and play boardgames. I mostly read fantasy, as it provides an amazing escape from reality. I started reading when I was a teenager with typical books such as Harry Potter, diving deeper and deeper into the genre after that. My current favorite author is Robin Hobb, for the depth of her characters. 
+
 
 
 

@@ -1,0 +1,138 @@
+---
+title: "Director ratings"
+output: html_notebook
+
+categories:  
+- ""    #the front matter should be like the one found in, e.g., blog2.md. It cannot be like the normal Rmd we used
+- ""
+date: "14-09-2022"
+description: Analysing the ratings  # the title that will show up once someone gets to this page
+draft: false
+#image: wine_glass.jpeg # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
+
+keywords: ""
+slug: directors # slug is the shorthand URL address... no spaces plz
+---
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
+```
+
+
+# IMDB ratings: Differences between directors
+
+We have a dataset containing a few thousand movies and their IMBD ratings. We want to explore whether movies directed by Steven Spielberg and Tim Burton are rated the same. 
+
+We have loaded the data and shown a glimpse of it below.
+
+```{r load-movies-data}
+movies <- read_csv(here::here('data/movies.csv'))
+glimpse(movies)
+```
+
+To start assessing this, we create a dataframe with the 95% confidence interval for the mean of the rating for each of the directors, using the t-statistic. Then we plot the confidence intervals on the same graph to see if they overlap a lot.
+
+```{r}
+
+chosen_directors <- c('Tim Burton','Steven Spielberg')
+
+# summarising the ratings of both of the directors
+directors <- movies %>% 
+  filter(director %in% chosen_directors) %>%
+  group_by(director) %>%
+  summarise(mean_rating = mean(rating),
+            sd_rating = sd(rating),
+            count = n(),
+            t_critical = qt(0.975, count-1),
+            se_rating = sd_rating/sqrt(count),
+            margin_of_error = t_critical * se_rating,
+            lower = mean_rating - margin_of_error,
+            upper = mean_rating + margin_of_error) %>%
+  mutate(labels = round(mean_rating, 2))
+
+skim(directors)
+
+
+# making a plot containing the confidence intervals of the mean of the ratings of each of the directors
+ggplot(data = directors) +
+  aes(y = director) +
+  geom_errorbarh(aes(xmin = lower, xmax = upper, color = director), size = 2, height = 0.1) +
+  geom_point(aes(x = mean_rating, color = director), size = 5) +
+  geom_rect(aes(xmin = 7.27, xmax = 7.33, ymin=0,ymax=3), fill = 'grey70', alpha=0.5) +
+  geom_text(aes(x = mean_rating, label = labels), vjust = 0, nudge_y = 0.05, overlap=FALSE) +
+  labs(
+    title = 'Do Tim Burton and Steven Spielberg have the same mean IMDB rating?',
+    subtitle = '95% confidence intervals overlap',
+    x = 'Rating',
+    y = NULL
+  ) +
+  theme_minimal()
+
+
+```
+
+Seeing that the two intervals overalp in the grey highlighted area, we need to also conduct a statistical test to see if the means are statistically significantly different. For this, we run a t-test and use the infer package to bootstrap the data as well.
+
+Our null hypothesis is that the means of the ratings of their films is the same. The alternative hypothesis is that there is a difference between the means of the ratings of Tim Burtons and Steven Spielbergs films. We will be using the t-statistic for the difference between the means. We are looking for a p-value smaller than 0.05 or a t-statistic bigger than 1.75 or smaller than -1.75 (based on df = 15 and p = 0.05). We have chosen the degrees of freedom as the smallest count - 1, which was 16 for Tim Burton.
+
+```{r}
+df_directors <- movies  %>%
+  filter(director %in% chosen_directors)
+
+t.test(rating ~ director, data = df_directors)
+
+
+directors_infer <- df_directors %>%
+  # specify variables
+  specify(rating ~ director) %>%
+  
+  # assume independence, i.e, there is no difference
+  hypothesize(null = "independence") %>%
+  
+  # generate 1000 reps, of type "permute"
+  generate(reps = 1000, type = "permute") %>%
+  
+  # calculate statistic of difference, namely "diff in means"
+  calculate(stat = "diff in means", order = chosen_directors)
+
+directors_infer %>%
+  get_p_value(obs_stat = obs_diff, direction = "two-sided")
+
+
+```
+
+According to both the t.test and the bootstrapped result, there is a signficant difference in the ratings of the movies of Tim Burton and Steven Spielberg. We see that Tim has a lower mean rating than Steven. The p-value for the t.test was 0.01 and the p-value for infer was 0.
+
+
+# Details 
+
+I collaborated with Samarth Sharma, Anastasia Fu, Jaelyn Shi, Andrew Robak and Shivant Maharaj
+

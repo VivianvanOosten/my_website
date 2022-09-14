@@ -1,0 +1,933 @@
+---
+title: "Session 2: Homework 1"
+author: "Group 12"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    code_folding: show
+---
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(here)
+library(skimr)
+library(janitor)
+library(vroom)
+library(tidyquant)
+library(scales)
+```
+
+# Rents in San Francisco 2000-2018
+
+We are analysing a dataset of Craiglist listings for rental properties in the greater SF area.
+The data dictionary is as follows
+
+| variable    | class     | description           |
+|-------------|-----------|-----------------------|
+| post_id     | character | Unique ID             |
+| date        | double    | date                  |
+| year        | double    | year                  |
+| nhood       | character | neighborhood          |
+| city        | character | city                  |
+| county      | character | county                |
+| price       | double    | price in USD          |
+| beds        | double    | n of beds             |
+| baths       | double    | n of baths            |
+| sqft        | double    | square feet of rental |
+| room_in_apt | double    | room in apartment     |
+| address     | character | address               |
+| lat         | double    | latitude              |
+| lon         | double    | longitude             |
+| title       | character | title of listing      |
+| descr       | character | description           |
+| details     | character | additional details    |
+
+The dataset was used in a recent [tidyTuesday](https://github.com/rfordatascience/tidytuesday) project, which is where we sourced the data. 
+
+```{r}
+# download directly off tidytuesdaygithub repo
+
+rent <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-05/rent.csv')
+
+```
+
+We have conducted an analysis on the variables. View the analysis below.
+
+```{r skim_data}
+skimr::skim(rent)
+str(rent)
+head(rent)
+
+```
+
+
+Most column types correspond with what they should be, but date is stored as a double '20050111' instead of a date 2005-01-11. Other column types like number of bedrooms (beds) are a double where an integer suffices. We could change this to integer to use less storage space. Description has the most missing values, after which address and details follow with also 190000+ missing values.
+
+
+We have plotted the top 20 cities in terms of % of rental listings. 
+
+```{r top_cities}
+# creating a dataset with the top 20 cities by number of listings
+top_20_cities <- rent %>%
+  group_by(city) %>%
+  filter(year < 2019) %>% # ensuring we have the right years
+  summarize(total_listings = n()) %>%
+  mutate(percentage = total_listings/sum(total_listings), # changing number to a percentage
+         city = fct_reorder(city, total_listings)) %>% #ordering by # listings
+  slice_max(total_listings, n=20) 
+
+# graphing the top 20 cities as a barplot
+ggplot(top_20_cities) +
+  aes(x = percentage, y = city) +
+  geom_col() +
+  labs(
+    title = 'San Fransisco accounts for more than a quarter of all rental classifieds',
+    subtitle = '% of Craigslist listings, 2000-2018',
+    x = NULL,
+    y = NULL,
+    caption = 'Source: Pennington, Kate(2018). Bay Area Craigslist Rental Housing Posts, 2000-2018',
+    xticks = 'percentage'
+  ) +
+  scale_x_continuous(labels = scales::percent) +
+  theme_minimal(base_size=16)
+  
+
+```
+
+It is clear that San Francisco is responsible for 25% of the listings, making that the most interesting city to start investigating. To analyse what is happening with the rental prices in San Francisco, we have plotted the evolution of median prices in San Francisco for 0, 1, 2 and 3 bedroom listings. 
+
+```{r sf_median_prices}
+
+# YOUR CODE GOES HERE
+
+sf_rentals <- rent %>%
+  filter(city == 'san francisco',
+         beds < 4) %>% 
+  mutate(beds = factor(beds)) %>%
+  group_by(beds, year) %>%
+  summarise(rent = median(price))
+  
+
+ggplot(sf_rentals) +
+ aes(x = year, y = rent, color = beds) +
+  facet_wrap(vars(beds), nrow = 1) +
+  geom_line() +
+  theme( legend.position = 'none') +
+  labs(
+    title = 'San Francisco rents have been steadily increasing',
+    subtitle = '0 to 3-bed listings, 2000-2018',
+    x = NULL,
+    y = NULL,
+    caption = 'Source: Pennington, Kate(2018). Bay Area Craigslist Rental Housing Posts, 2000-2018',
+  )
+
+
+```
+
+We see that the rents have been increasing sincd 2005, with an exception for the recession in 2008. Since 2015 we see another decrease in rents for all sizes. 
+
+Having considered San Francisco, we turn to analyse the top 12 cities by number of listings in the Bay Area. We plot the median rental prices for those cities below.
+
+
+```{r spirit_plot}
+
+# determining the top 12 cities in terms of listings
+top12_cities <- rent %>%
+  group_by(city) %>%
+  summarize(total_listings = n()) %>%
+  slice_max(total_listings, n=12)
+
+# creating a vector with the city names
+top12_cities <- top12_cities$city
+
+# gathering the dataset to plot, focusing on 1-bedroom flats
+one_bed_bay_area <- rent %>%
+  filter(beds == 1,
+         city %in% top12_cities) %>%
+  group_by(city, year) %>%
+  summarize(rent = median(price))
+
+# creating the plot
+ggplot(one_bed_bay_area) +
+  aes(x = year, y = rent, colour = city) +
+  facet_wrap(vars(city)) +
+  geom_line() +
+  theme( legend.position = 'none') +
+  labs(
+    title = 'Rental prices for 1-bedroom flats in the Bay Area',
+    x = NULL,
+    y = NULL,
+    caption = 'Source: Pennington, Kate(2018). Bay Area Craigslist Rental Housing Posts, 2000-2018',
+  )
+
+```
+
+
+We can clearly spot the financial crisis happening in 2008, when all the prices are going down across the cities and types of bedrooms in San Francisco. The effect is the smallest in Santa Rosa and Oakland, where we also don't see an increase ahead of the recession, so a limited decrease is not unsurprising. The effect is the greatest where the increase is also the greatest, for example a three-bedroom in San Francisco or Santa Clara. 
+
+# Analysis of movies- IMDB dataset
+
+We are now analysing a dataset from imbd with 5000 movies. We will analyse the differences between genres in terms of ratings, popularity (facebook likes), and revenue.
+
+```{r,load_movies}
+
+movies <- read_csv(here::here('data',"movies.csv"))
+
+```
+
+The movies dataset was imported and inspected using Skimr, and there were no missing values identified within the dataset. When checking for duplicates within the dataset, we identified that there were 54 duplicated titles which may result in duplicated entries within the dataset.
+
+
+### Table showing the amount of IMBD movies per genre
+
+```{r , count_of_movies_per_genre}
+
+movies_by_genre <- movies %>% 
+  group_by(genre) %>% 
+  summarize(count = n()) %>% 
+  arrange(desc(count))
+  
+movies_by_genre
+```
+
+
+
+### Table showing movie revenue indicators per genre
+
+```{r , avg_gross_earning}
+
+movies %>% 
+  mutate(return_on_budget = gross/budget) %>% 
+  group_by(genre) %>% 
+  summarize(average_gross = mean(gross), average_budget = mean(budget),  average_return_on_budget = mean(return_on_budget)) %>% 
+  arrange(desc(average_return_on_budget)) 
+
+
+```
+
+
+### Table showing the Top 15 directors ranked by highest mean gross revenue
+
+```{r , top_directors}
+
+movies %>% 
+  group_by(director) %>% 
+  summarize(highest_gross_revenue = sum(gross), mean_gross_revenue = mean(gross), median_gross_revenue = median(gross), standard_deviation = sd(gross)) %>% 
+  slice_max(highest_gross_revenue, n = 15)
+
+```
+
+
+## Graphics showing the spread of IMDB ratings per genre
+
+### Table showing the summary statistics for IMDB movie ratings
+
+We have added both a density graph and a box plot to visually represent how ratings are distributed. We believe that the box plot more accurately represents the distribution of ratings per genre, with taking the count of rating submissions as well. When cross-analyzing the various distributions, the box plot diagrams allow for an easier comparison between genres.
+
+```{r, ratings}
+# summarizing the dataset by genre
+data <- movies %>% 
+  group_by(genre) %>% 
+  summarize(mean = mean(rating), min = min(rating), max(rating), median = median(rating), standard_dev = sd(rating))
+
+data
+
+#We have added an additional visualisation for the representation of the distribution of ratings
+ggplot(movies) + aes(x = rating, y = genre ) + geom_boxplot() + labs(
+    title = 'Distribution of IMDb movie ratings is largely uniform accross genres',
+    subtitle = 'Box plot showing the variation of IMDB genre ratings',
+    x = 'Ratings',
+    y = 'Genres',
+    caption = 'Source: Kaggle IMDB 5000 movie dataset',
+    xticks = ''
+  )
+
+#Required visualisation
+ggplot(movies) + aes(rating) + geom_density() +
+  facet_wrap(vars(genre)) + labs(
+    title = 'Distribution of IMDb movie ratings is largely uniform accross genres',
+    subtitle = 'Density graph showing the variation in IMDB genre ratings',
+    x = 'Ratings',
+    y = 'Density',
+    caption = 'Source: Kaggle IMDB 5000 movie dataset',
+    xticks = ''
+  )
+
+```
+
+```{=html}
+<!-- ### Use `ggplot` to answer the following
+
+-   Examine the relationship between `gross` and `cast_facebook_likes`. Produce a scatterplot and write one sentence discussing whether the number of facebook likes that the cast has received is likely to be a good predictor of how much money a movie will make at the box office. What variable are you going to map to the Y- and X- axes? -->
+```
+> The number of facebook likes is not a good predictor of how much money a movie will make at the box office as movies with the same number of likes received by cast earned vastly different amounts.
+
+```{r, gross_on_fblikes}
+# creating a scatterplot of the likes and revenue
+ggplot(movies) +
+  aes(x = cast_facebook_likes, y = gross) +
+  geom_point() +
+  scale_x_log10(labels = comma) +
+  scale_y_continuous(labels = dollar) + #We changed the scale of the visualsation to make it more presentable
+  labs(
+    title = "Number of Cast's Facebook Likes is not a Good Predictor of Gross Movie Earnings",
+    subtitle = 'Relationship Between Facebook Likes Received by Cast and Total US Earnings',
+    x = "# Facebook Likes Cast Members Received",
+    y = "Gross Earnings in the US Box Office, not Inflation-adjusted",
+    caption = 'Source: Kaggle IMDB 5000 movie dataset')
+
+```
+
+
+Gross US Earnings could be predicted by looking at the movie's budget as the two variables display a positive relationship relationship.
+
+```{r, gross_on_budget}
+# creating a scatterplot to analyse the revenue and ratings
+ggplot(movies) +
+  aes(x = budget, y = gross) +
+  geom_point() +
+  scale_x_continuous(labels = dollar) + 
+  scale_y_continuous(labels = dollar) +
+  geom_smooth(method='lm') + #We added a line of best fit to the visualsation to plot the general trend within the revenue
+    labs(
+    title = "Gross US Earnings Can Be Consistently Predicted by the Movie's Budget",
+    subtitle = "Relationship Between Movie's Budget by Cast and Total US Earnings",
+    x = "Movie's Budget",
+    y = "Gross Earnings in the US Box Office, not Inflation-adjusted",
+    caption = 'Source: Kaggle IMDB 5000 movie dataset')
+```
+
+In general, IMDB ratings could be used to predict the gross earnings of movies in the US - this positive relationship is particularly visible in the Action, Adventure, and Comedy genres. However, data in the 'movies' dataset is not uniformly distributed across genres, with some genres containing only a few data points, which prohibits a meaningful analysis of the relationship between IMDB ratings and gross earnings.
+
+Outliers are most visible in the Action, Drama, and Family genres. Some genres (Biography, Crime) only contain movies with a minimum rating of approximately 5.0 - it might be the case that movies of these types generally receive higher ratings. Lastly, genres such as Fantasy and Sci-Fi do not exhibit any relationship between IMDB ratings and gross earnings.
+
+```{r, gross_on_rating}
+# Creating a scatterplot of revenue and rating, faceted by genre
+ggplot(movies) +
+  aes(x = rating, y = gross, color = genre) +
+  facet_wrap(vars(genre)) +
+  theme(legend.position = 'none') +
+  geom_point() +
+  scale_y_continuous(labels = dollar) +
+  labs(
+    title = "Gross earnings could be predicted with IMDB ratings, with some genres lacking enough data points to identify a positive relationship",
+    subtitle = 'Relationship Between IMDB Ratings and Total US Earnings',
+    x = "IMDB Rating",
+    y = "Gross Earnings in the US Box Office, not Inflation-adjusted",
+    caption = 'Source: Kaggle IMDB 5000 movie dataset',
+  )
+```
+
+# Returns of financial stocks
+
+Before we can analyse the returns of stocks, we decide which companies we want to analyse.
+
+```{r load_nyse_data, message=FALSE, warning=FALSE}
+nyse <- read_csv(here::here("data","nyse.csv"))
+glimpse(nyse)
+```
+
+Based on this dataset, we are showing the number of companies per sector.
+
+```{r companies_per_sector}
+comp_per_sector <- nyse %>% 
+  group_by(sector) %>% 
+  summarise(companies = n()) %>% 
+  slice_max(companies, n=100) %>% 
+  mutate(sector = fct_reorder(sector, companies))
+comp_per_sector 
+ggplot(comp_per_sector) +
+  aes(x = companies, y = sector) +
+  geom_col() +
+  labs(
+    title = 'Finance is the Largest Sector, Consumer Durables is the smallest',
+    subtitle = "Companies Per Sector",
+    x = 'Companies',
+    y = 'Sector',
+    caption = 'Source: Federal Reserve Economic Database',
+  ) 
+
+comp_per_sector <- nyse %>% 
+  group_by(sector) %>% 
+  summarise(companies = n()) %>% 
+  slice_max(companies, n=100) %>% 
+  mutate(sector = fct_reorder(sector, companies))
+  
+ggplot(comp_per_sector) +
+  aes(x = companies, y = sector) +
+  geom_col()
+comp_per_sector
+nyse
+
+```
+
+We are choosing some stocks and downloading their ticker data to analyse. 
+
+```{r get_price_data, message=FALSE, warning=FALSE, cache=TRUE}
+# Notice the cache=TRUE argument in the chunk options. Because getting data is time consuming, 
+# cache=TRUE means that once it downloads data, the chunk will not run again next time you knit your Rmd
+
+myStocks <- c("MMM","ABT","ACN","ANTM","AGR","TSLA","SPY" ) %>%
+  tq_get(get  = "stock.prices",
+         from = "2011-01-01",
+         to   = "2022-08-31") %>%
+  group_by(symbol) 
+
+glimpse(myStocks) # examine the structure of the resulting data frame
+```
+
+Financial performance analysis depend on returns; If I buy a stock today for 100 and I sell it tomorrow for 101.75, my one-day return, assuming no transaction costs, is 1.75%. So given the adjusted closing prices, our first step is to calculate daily and monthly returns.
+
+```{r calculate_returns, message=FALSE, warning=FALSE, cache=TRUE}
+#calculate daily returns
+myStocks_returns_daily <- myStocks %>%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = "daily", 
+               type       = "log",
+               col_rename = "daily_returns",
+               cols = c(nested.col))  
+
+#calculate monthly  returns
+myStocks_returns_monthly <- myStocks %>%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = "monthly", 
+               type       = "arithmetic",
+               col_rename = "monthly_returns",
+               cols = c(nested.col)) 
+
+#calculate yearly returns
+myStocks_returns_annual <- myStocks %>%
+  group_by(symbol) %>%
+  tq_transmute(select     = adjusted, 
+               mutate_fun = periodReturn, 
+               period     = "yearly", 
+               type       = "arithmetic",
+               col_rename = "yearly_returns",
+               cols = c(nested.col))
+```
+
+
+
+### Summary Statistics For Monthly Returns
+
+```{r summarise_monthly_returns}
+summary_monthly_returns <- myStocks_returns_monthly %>% 
+  
+  group_by(symbol) %>% 
+  summarise(min_return = min(monthly_returns),
+            max_return = max(monthly_returns),
+            median_return = median(monthly_returns),
+            mean_return = mean(monthly_returns),
+            sd_return = sd(monthly_returns))
+  
+  
+   
+summary_monthly_returns
+```
+
+
+To analyse the distribution of the returns, we plot a density plot for each of the stocks.
+
+```{r density_monthly_returns}
+myStocks_returns_monthly %>% 
+  group_by(symbol) %>% 
+  ggplot() +
+  aes (x = monthly_returns, fill = symbol) +
+  geom_density() +
+  labs(
+    title = 'TSLA Has the Widest Spread',
+    subtitle = 'Density Plot - Stockwise Monthly Return',
+    x = 'Return',
+    y = 'Density',
+    caption = 'Source: Federal Reserve Economic Database'
+  ) +
+  facet_wrap(~symbol, ncol = 1) +
+  #facet_grid()+
+ theme_bw()+
+  theme(legend.position = "none")+
+  scale_x_continuous(labels = scales::percent)
+
+# YOUR CODE GOES HERE
+
+```
+
+
+The graph shows that TSLA has the widest spread, suggesting it has the greatest deviation from the mean and thus is the most risky stock. The remaining stocks have a similar spread, we need further analysis to come to a concrete conclusion to determine which stock is the least risky.
+
+Finally we made a plot to show the expected monthly return per stock. 
+
+```{r risk_return_plot}
+  summary_monthly_returns %>% 
+  ggplot() +
+  aes(x = mean_return, y = sd_return, label = symbol, colour = symbol)+
+  ggrepel::geom_text_repel()+
+  geom_point()+
+  coord_flip()+
+ # theme_minimal()+
+  theme(legend.position = "none")+
+  scale_x_continuous(labels = scales::percent)+
+  scale_y_continuous(labels = scales::percent)+
+  labs(
+    title = "Tesla Stock Involves the Highest Risk and Return" ,
+    subtitle = "Risk Return Analysis",
+    x = "Percentage Risk Involved",
+    y = "Expected Monthly Return",
+    caption = 'Source: Federal Reserve Economic Database'
+  )
+
+```
+
+According to our analysis, TSLA stock is the most risky stock with fluctuations around 5%. It also offers the highest return with an expected monthly return of 16%. On the other hand MMM provides the least risk with fluctations less than 1% and also offers a relatively high retrun, which is above 4%.
+
+
+# On your own: Spotify
+
+We have downloaded a large dataset on spotify songs and are going to analyse what makes a track popular.
+
+```{r, download_spotify_data}
+
+spotify_songs <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv')
+```
+
+The data dictionary can be found below
+
+| **variable**             | **class** | **description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+|-------------------|-------------------|------------------------------------|
+| track_id                 | character | Song unique ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| track_name               | character | Song Name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| track_artist             | character | Song Artist                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| track_popularity         | double    | Song Popularity (0-100) where higher is better                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| track_album_id           | character | Album unique ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| track_album_name         | character | Song album name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| track_album_release_date | character | Date when album released                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| playlist_name            | character | Name of playlist                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| playlist_id              | character | Playlist ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| playlist_genre           | character | Playlist genre                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| playlist_subgenre        | character | Playlist subgenre                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| danceability             | double    | Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.                                                                                                                                                                                                                                                                       |
+| energy                   | double    | Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.                                                                                                                          |
+| key                      | double    | The estimated overall key of the track. Integers map to pitches using standard Pitch Class notation . E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.                                                                                                                                                                                                                                                                                                                            |
+| loudness                 | double    | The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.                                                                                                                                                                                       |
+| mode                     | double    | Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.                                                                                                                                                                                                                                                                                                                                                    |
+| speechiness              | double    | Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks. |
+| acousticness             | double    | A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.                                                                                                                                                                                                                                                                                                                                                                                       |
+| instrumentalness         | double    | Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.                                                                                                                 |
+| liveness                 | double    | Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.                                                                                                                                                                                                                                                                                            |
+| valence                  | double    | A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).                                                                                                                                                                                                                                                                  |
+| tempo                    | double    | The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.                                                                                                                                                                                                                                                                                                                         |
+| duration_ms              | double    | Duration of song in milliseconds                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+Before we can get into analysing this dataset, we need to examine the distribution of the popularity of tracks on spotify. See below the histogram that shows the distribution.
+
+```{r}
+ggplot(spotify_songs) +
+  aes(x = track_popularity) +
+  geom_histogram() +
+  labs(
+    title = 'Many songs have a popularity of 0 on spotify',
+    subtitle = 'A histogram of the popularity rating of spotify songs',
+    x = 'Popularity rating',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+  
+```
+
+The track popularity seems to be a roughly normal distribution, with a lot of tracks with close to 0 popularity that do not fit with the distribution. This can be explained by a lot of small artists posting their own songs that not many people listen to, like someone creating a new podcast in their garage. Like in the music industry in general, not everyone makes it.
+
+
+To start determining why some songs are more popular than others, we first show the distribution and summary statistics of the variables. We will try to see if we can determine whether the features look like a normal distribution.
+
+```{r}
+skim(spotify_songs) # seeing if we can determine whether the audio features look like a normal distribution
+
+ggplot(spotify_songs) +
+  aes(x = acousticness) +
+  geom_histogram() +
+  labs(
+    title = 'Acousticness is exponentially distributed',
+    subtitle = 'Distribution of acousticness',
+    x = 'Acousticness',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+# acousticness looks like an exponential distribution, with most songs not having any acousticness at all.
+
+ggplot(spotify_songs) +
+  aes(x = liveness) +
+  geom_histogram() +
+  labs(
+    title = 'Liveness is skewed right',
+    subtitle = 'Distribution of Liveness',
+    x = 'Liveness',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+#Liveness is skewed right. Most songs have some liveness, but a few have a lot.
+
+ggplot(spotify_songs) +
+  aes(x = speechiness) +
+  geom_histogram() +
+  labs(
+    title = 'Speechiness is exponentially distributed',
+    subtitle = 'Distribution of Speechiness',
+    x = 'Speechiness',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+#Speechiness is an exponential distribution, similar to acousticness. Speechiness, however, has very few songs with exactly 0 speechiness.
+
+ggplot(spotify_songs) +
+  aes(x = instrumentalness) +
+  geom_histogram() +
+  labs(
+    title = 'Instrumentalness is skewed right',
+    subtitle = 'Distribution of Instrumentalness',
+    x = 'Instrumentalness',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+#Instrumentalness is skewed right. The vast majority of songs have a 0 instrumentalness, but there's another small bump around 0.8 where some songs have a lot of instrumentalness.
+
+ggplot(spotify_songs) +
+  aes(x = energy) +
+  geom_histogram() +
+  labs(
+    title = 'Energy is normally distributed with a cutoff',
+    subtitle = 'Distribution of Energy',
+    x = 'Energy',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+#Energy looks like a normal distribution, with a mean around 0.75. However, it is cut off at 1 so it is not a normal distribution.
+
+ggplot(spotify_songs) +
+  aes(x = loudness) +
+  geom_histogram() +
+  labs(
+    title = 'Loudness is normally distributed with a small standard deviation',
+    subtitle = 'Distribution of Loudness',
+    x = 'Loudness',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+#Loudness looks like a normal distribution with a very small standard deviation, though it is slightly skewed left. 
+
+ggplot(spotify_songs) +
+  aes(x = danceability) +
+  geom_histogram() +
+  labs(
+    title = 'Danceability is normally distributed',
+    subtitle = 'Distribution of Danceability',
+    x = 'Danceability',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+#Danceability looks like a normal distribution, slightly skewed left.
+
+ggplot(spotify_songs) +
+  aes(x = valence) +
+  geom_histogram() +
+  labs(
+    title = 'Valence is normally distributed with a cutoff',
+    subtitle = 'Distribution of Valence',
+    x = 'Valence',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+#Valence looks like a normal distribution that's cut off at 0 and 1.
+
+ggplot(spotify_songs) +
+  aes(x = tempo) +
+  geom_histogram()  +
+  labs(
+    title = 'Tempo  is bimodal normally distributed',
+    subtitle = 'Distribution of Tempo',
+    x = 'Tempo',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+#Tempo looks like a bimodal noraml distribution, with the 2 peaks being 2 means. 
+
+ggplot(spotify_songs) +
+  aes(x = duration_ms) +
+  geom_histogram()  +
+  labs(
+    title = 'Duration is normally distributed, skewed to the right',
+    subtitle = 'Distribution of Duration',
+    x = 'Duration',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+#Duration appears as a normal distribution with a skew to the right.
+
+ggplot(spotify_songs) +
+  aes(x = key) +
+  geom_histogram()  +
+  labs(
+    title = 'Key can only be whole numbers',
+    subtitle = 'Distribution of Key',
+    x = 'Key',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+# The key does not have values everywhere on the scale, it looks like only whole numbers are possible on the key. 
+
+ggplot(spotify_songs) +
+  aes(x = mode) +
+  geom_histogram() +
+  labs(
+    title = 'Mode is either 1 (Major) or  0 (Minor)',
+    subtitle = 'Distribution of Mode',
+    x = 'Mode',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+#  Mode only includes 0 or 1, nothing else.
+```
+
+
+We choose valence and danceability to start analysing what determines the track popularity. 
+
+
+```{r}
+ggplot(spotify_songs) +
+  aes(valence, track_popularity) +
+  geom_point() +
+  geom_smooth() +
+  labs(
+    title = 'Valence and track popularity appear unrelated',
+    subtitle = 'Scatterplot of Valence and popularity',
+    x = 'Valence',
+    y = 'Popularity', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+
+cor(spotify_songs$valence, spotify_songs$track_popularity)
+```
+
+Track popularity and valence do not appear to have a clear relationship, the values for both are spread out across the scatter plot and the correlation coefficient is very low.
+
+
+```{r}
+ggplot(spotify_songs) +
+  aes(danceability, track_popularity) +
+  geom_point() +
+  geom_smooth() +
+  labs(
+    title = 'High danceability is related with a higher popularity',
+    subtitle = 'Scatterplot of danceability and popularity',
+    x = 'Danceability',
+    y = 'Popularity', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+
+cor(spotify_songs$danceability, spotify_songs$track_popularity)
+```
+
+The correlation coefficient is again very low, but a much higher danceability is associated with a slightly higher popularity. It seems that both of these tracks do not do much to predict the popularity of songs.
+
+Next we determine whether the modality matters for the danceability and track popularity.
+
+```{r}
+mode_analysis <- spotify_songs %>%
+  group_by(mode) %>%
+  summarize(avg_danceability = mean(danceability),
+            median_danceability = median(danceability),
+            avg_popularity = mean(track_popularity),
+            median_popularity = median(track_popularity))
+
+mode_analysis
+```
+
+
+```{r}
+library(BSDA)
+
+spotify_songs %>%
+  mutate(mode = factor(mode)) %>%
+ggplot() +
+  aes(x = danceability, fill = mode) +
+  geom_histogram(alpha = 0.2, position = 'identity') +
+  labs(
+    title = 'Danceability does not differ between major and minor',
+    subtitle = 'Histograms of danceability for major (1) and minor (0) songs',
+    x = 'Danceability',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+
+mode1 <- filter(spotify_songs, mode == 1)
+mode0 <- filter(spotify_songs, mode == 0)
+
+```
+
+There appears to be no significant difference in danceability between major and minor modes, as the mean appears in the same in both graphs and the spread does not appear different.
+
+```{r}
+
+spotify_songs %>%
+  mutate(mode = factor(mode)) %>%
+ggplot() +
+  aes(x = track_popularity, fill = mode) +
+  geom_histogram(alpha = 0.2, position = 'identity') +
+  labs(
+    title = 'Track popularity does not differ between major and minor',
+    subtitle = 'Histograms of Track popularity for major (1) and minor (0) songs',
+    x = 'Track popularity',
+    y = 'Count', 
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+
+mode1 <- filter(spotify_songs, mode == 1)
+mode0 <- filter(spotify_songs, mode == 0)
+
+```
+
+There appears to be no significant difference in track_popularity between major and minor modes. Based on these analyses, we cannot yet decide what audio features determine the popularity of songs.
+
+# Challenge 1: Replicating a chart
+
+We have created a graph to show the cumulative % change in median rental prices for 0-, 1-, and 2-bed flats between 2000 and 2018 for the top twelve cities in Bay Area.
+
+
+```{r}
+base_years <- rent %>%
+  group_by(beds, city) %>%
+  top_n(-1, year ) %>%
+  summarize(base_rent = median(price))
+
+
+rent_cum_change <- rent %>%
+  filter(beds < 3,
+         city %in% top12_cities) %>%
+  group_by(beds, city, year) %>%
+  summarize(med_rent = median(price)) %>% 
+  left_join(base_years, by = c('beds','city')) %>%
+  mutate(index = med_rent/base_rent * 100)
+
+head(rent_cum_change)
+
+```
+
+
+
+```{r}
+ggplot(rent_cum_change) +
+  aes(x = year, y = index, color = city) +
+  geom_line(show.legend = FALSE) + 
+  facet_grid( beds ~ city ) +
+  labs(
+    title = 'Cumulative % change in 0, 1, and 2-bed rentals in Bay Area',
+    subtitle = '2000-2018',
+    x = NULL,
+    y = NULL,
+    caption = 'Tidy Tuesday Spotify Songs dataset (accessed 04-09-2022)'
+  )
+```
+
+
+# Challenge 2: 2016 California Contributors plots
+
+We are looking to create a plot to analyse the origin of the contributions to the campaigns of Hillary Clinton and Donald Trump in the 2016. This we will do by joining a dataset with the names of the cities and their zipcodes with a dataset featuring the contributions of each of the candidates. 
+
+```{r challenge2, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here::here("images", "challenge2.png"), error = FALSE)
+```
+
+
+
+```{r, load_CA_data, warnings= FALSE, message=FALSE}
+library(tidytext)
+# Make sure you use vroom() as it is significantly faster than read.csv()
+CA_contributors_2016 <- vroom::vroom(here::here("data","CA_contributors_2016.csv"))
+zipcodes <- vroom::vroom(here::here("data","zip_code_database.csv"))
+
+```
+
+```{r}
+head(CA_contributors_2016)
+head(zipcodes)
+# inspecting the dataframes to find out what the columns look like & how to join them later
+```
+
+```{r}
+# preparing zipcodes dataset for merging --> change type of zip-column to double
+zipcodes <- zipcodes %>%
+  mutate(zip = as.double(zip)) %>%
+  select(zip, primary_city) #selecting only relevant columns
+
+# combining the 2 datasets by zip code
+contributors_by_city <- left_join(CA_contributors_2016, zipcodes, by = 'zip')
+
+#taking a look to see if the join was successful
+head(contributors_by_city)
+```
+```{r}
+candidates <- contributors_by_city %>%
+  group_by(cand_nm) %>% 
+  summarise(total_contr = sum(contb_receipt_amt)) %>%
+  top_n(10, total_contr)
+
+candidates <- candidates$cand_nm
+
+total_contb_by_city <- contributors_by_city %>%
+  group_by(cand_nm, primary_city) %>%
+  summarize(total_contr = sum(contb_receipt_amt)) %>% 
+  ungroup %>% group_by(cand_nm) %>% top_n(10) %>%
+  ungroup
+
+candidates
+
+```
+
+```{r}
+total_contb_by_city %>% 
+  filter(cand_nm %in% candidates) %>% # selecting relevant candidates
+  # ordering the values by size of contribution
+  mutate(cand_nm = as.factor(cand_nm),
+        primary_city = reorder_within(primary_city, total_contr, cand_nm)) %>%
+  ggplot() + # plotting the graph
+  aes(primary_city, total_contr, fill = cand_nm) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~cand_nm, scales = 'free') +
+  coord_flip() +
+  scale_x_reordered() +
+  labs(x = NULL,
+         y = "Amount raised",
+         title = "Where did candidates raise the most money") +
+  scale_y_continuous(labels = scales::dollar_format())
+  
+```
+
+
+# Details
+
+-   Who did you collaborate with: Samarth Sharma, Vivian van Oosten, Anastasia Fu, Jaelyn Shi, Andrew Robak, Shivant Maharaj
+-   Approximately how much time did you spend on this problem set: 12 hours
+-   What, if anything, gave you the most trouble: Figuring out GIT to be able to work together effectively. 
+
