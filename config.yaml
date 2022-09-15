@@ -81,6 +81,10 @@ params:
   tiles:
     enable: yes
     showcase:
+      - image: tree.jpeg
+        subtitle: 
+        title: My CV
+        url: docs/CV.pdf
       - image: lbs.jpg
         subtitle: Short introduction to Vivian
         title: About Me
@@ -93,17 +97,13 @@ params:
         subtitle: Comparing Steven Spielberg and Tim Burton
         title: Director ratings
         url: blogs/directors
-      - image: pic04.jpg
+      - image: spotify.jpeg
         subtitle: Spotify Danceability Regression (R-Shiny app)
         title: Danceability
         url: blogs/spotify
     #  - image: pic05.jpg
     #    subtitle: Ipsum Dolor Sit Amet
     #    title: Consequat
-    #    url: blogs/ipsum
-    #  - image: pic06.jpg
-    #    subtitle: Feugiat Amet Tempus
-    #    title: Etiam
     #    url: blogs/ipsum
   two:
     buttonText: Get Started
