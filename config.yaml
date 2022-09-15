@@ -72,7 +72,7 @@ params:
       - name: Blogs
         url: blogs
       - name: Most recent project
-        url: blogs/recent
+        url: blogs/directors
       - name: About me
         url: elements.html
     menu: Menu
@@ -110,6 +110,6 @@ params:
     enable: yes
     subtitle: "Welcome to my portfolio website! This is made to showcase my work 
     of the past few years and provide you with some insights into my way of working.
-    It will also show me "
+    It also contains the link to my linkedin if you're looking to learn more about me."
     title: Quick introduction
     url: blogs
