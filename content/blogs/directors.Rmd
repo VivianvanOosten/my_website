@@ -1,6 +1,5 @@
 ---
-
-title: "Director ratings"
+title: Director ratings
 output: html_notebook
 date: "14-09-2022"
 description: Analysing the ratings  # the title that will show up once someone gets to this page
@@ -15,8 +14,8 @@ slug: directors # slug is the shorthand URL address... no spaces plz
 knitr::opts_chunk$set(
   message = FALSE, 
   warning = FALSE, 
-  tidy=FALSE,     # display code as typed
-  size="small")   # slightly smaller font for code
+  tidy=FALSE,      # display code as typed
+  size="small" )   # slightly smaller font for code
 options(digits = 3)
 
 # default figure size
@@ -58,7 +57,7 @@ glimpse(movies)
 
 To start assessing this, we create a dataframe with the 95% confidence interval for the mean of the rating for each of the directors, using the t-statistic. Then we plot the confidence intervals on the same graph to see if they overlap a lot.
 
-```{r}
+```{r making graph}
 
 chosen_directors <- c('Tim Burton','Steven Spielberg')
 
@@ -78,6 +77,10 @@ directors <- movies %>%
 
 skim(directors)
 
+```
+
+
+```{r plotting data}
 
 # making a plot containing the confidence intervals of the mean of the ratings of each of the directors
 ggplot(data = directors) +
@@ -101,7 +104,7 @@ Seeing that the two intervals overalp in the grey highlighted area, we need to a
 
 Our null hypothesis is that the means of the ratings of their films is the same. The alternative hypothesis is that there is a difference between the means of the ratings of Tim Burtons and Steven Spielbergs films. We will be using the t-statistic for the difference between the means. We are looking for a p-value smaller than 0.05 or a t-statistic bigger than 1.75 or smaller than -1.75 (based on df = 15 and p = 0.05). We have chosen the degrees of freedom as the smallest count - 1, which was 16 for Tim Burton.
 
-```{r}
+```{r t-test}
 df_directors <- movies  %>%
   filter(director %in% chosen_directors)
 
@@ -121,8 +124,12 @@ directors_infer <- df_directors %>%
   # calculate statistic of difference, namely "diff in means"
   calculate(stat = "diff in means", order = chosen_directors)
 
+```
+
+
+```{r bootstrapping} 
 directors_infer %>%
-  get_p_value(obs_stat = obs_diff, direction = "two-sided")
+  get_p_value(obs_stat = directors_infer, direction = "two-sided")
 
 
 ```
@@ -131,6 +138,5 @@ According to both the t.test and the bootstrapped result, there is a signficant 
 
 
 # Details 
-
 I collaborated with Samarth Sharma, Anastasia Fu, Jaelyn Shi, Andrew Robak and Shivant Maharaj
 
