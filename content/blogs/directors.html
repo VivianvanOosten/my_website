@@ -1,0 +1,335 @@
+---
+title: Director ratings
+output: html_notebook
+date: "14-09-2022"
+description: Analysing the ratings  # the title that will show up once someone gets to this page
+draft: false
+image: movies.jpeg # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
+keywords: ""
+slug: directors # slug is the shorthand URL address... no spaces plz
+
+---
+
+
+
+<div id="imdb-ratings-differences-between-directors" class="section level1">
+<h1>IMDB ratings: Differences between directors</h1>
+<p>We have a dataset containing a few thousand movies and their IMBD ratings. We want to explore whether movies directed by Steven Spielberg and Tim Burton are rated the same.</p>
+<p>We have loaded the data and shown a glimpse of it below.</p>
+<pre class="r"><code>movies &lt;- read_csv(here::here(&#39;data/movies.csv&#39;))
+glimpse(movies)</code></pre>
+<pre><code>## Rows: 2,961
+## Columns: 11
+## $ title               &lt;chr&gt; &quot;Avatar&quot;, &quot;Titanic&quot;, &quot;Jurassic World&quot;, &quot;The Avenge…
+## $ genre               &lt;chr&gt; &quot;Action&quot;, &quot;Drama&quot;, &quot;Action&quot;, &quot;Action&quot;, &quot;Action&quot;, &quot;…
+## $ director            &lt;chr&gt; &quot;James Cameron&quot;, &quot;James Cameron&quot;, &quot;Colin Trevorrow…
+## $ year                &lt;dbl&gt; 2009, 1997, 2015, 2012, 2008, 1999, 1977, 2015, 20…
+## $ duration            &lt;dbl&gt; 178, 194, 124, 173, 152, 136, 125, 141, 164, 93, 1…
+## $ gross               &lt;dbl&gt; 7.61e+08, 6.59e+08, 6.52e+08, 6.23e+08, 5.33e+08, …
+## $ budget              &lt;dbl&gt; 2.37e+08, 2.00e+08, 1.50e+08, 2.20e+08, 1.85e+08, …
+## $ cast_facebook_likes &lt;dbl&gt; 4834, 45223, 8458, 87697, 57802, 37723, 13485, 920…
+## $ votes               &lt;dbl&gt; 886204, 793059, 418214, 995415, 1676169, 534658, 9…
+## $ reviews             &lt;dbl&gt; 3777, 2843, 1934, 2425, 5312, 3917, 1752, 1752, 35…
+## $ rating              &lt;dbl&gt; 7.9, 7.7, 7.0, 8.1, 9.0, 6.5, 8.7, 7.5, 8.5, 7.2, …</code></pre>
+<p>To start assessing this, we create a dataframe with the 95% confidence interval for the mean of the rating for each of the directors, using the t-statistic. Then we plot the confidence intervals on the same graph to see if they overlap a lot.</p>
+<pre class="r"><code>chosen_directors &lt;- c(&#39;Tim Burton&#39;,&#39;Steven Spielberg&#39;)
+
+# summarising the ratings of both of the directors
+directors &lt;- movies %&gt;% 
+  filter(director %in% chosen_directors) %&gt;%
+  group_by(director) %&gt;%
+  summarise(mean_rating = mean(rating),
+            sd_rating = sd(rating),
+            count = n(),
+            t_critical = qt(0.975, count-1),
+            se_rating = sd_rating/sqrt(count),
+            margin_of_error = t_critical * se_rating,
+            lower = mean_rating - margin_of_error,
+            upper = mean_rating + margin_of_error) %&gt;%
+  mutate(labels = round(mean_rating, 2))
+
+skim(directors)</code></pre>
+<table>
+<caption>(#tab:making graph)Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">directors</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">10</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">9</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<colgroup>
+<col width="19%" />
+<col width="13%" />
+<col width="19%" />
+<col width="5%" />
+<col width="5%" />
+<col width="8%" />
+<col width="12%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">director</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">10</td>
+<td align="right">16</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<colgroup>
+<col width="18%" />
+<col width="11%" />
+<col width="16%" />
+<col width="6%" />
+<col width="5%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">mean_rating</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.25</td>
+<td align="right">0.45</td>
+<td align="right">6.93</td>
+<td align="right">7.09</td>
+<td align="right">7.25</td>
+<td align="right">7.41</td>
+<td align="right">7.57</td>
+<td align="left">▇▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td align="left">sd_rating</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.72</td>
+<td align="right">0.04</td>
+<td align="right">0.69</td>
+<td align="right">0.71</td>
+<td align="right">0.72</td>
+<td align="right">0.74</td>
+<td align="right">0.75</td>
+<td align="left">▇▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td align="left">count</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">19.50</td>
+<td align="right">4.95</td>
+<td align="right">16.00</td>
+<td align="right">17.75</td>
+<td align="right">19.50</td>
+<td align="right">21.25</td>
+<td align="right">23.00</td>
+<td align="left">▇▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td align="left">t_critical</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.10</td>
+<td align="right">0.04</td>
+<td align="right">2.07</td>
+<td align="right">2.09</td>
+<td align="right">2.10</td>
+<td align="right">2.12</td>
+<td align="right">2.13</td>
+<td align="left">▇▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td align="left">se_rating</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.17</td>
+<td align="right">0.03</td>
+<td align="right">0.14</td>
+<td align="right">0.16</td>
+<td align="right">0.17</td>
+<td align="right">0.18</td>
+<td align="right">0.19</td>
+<td align="left">▇▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td align="left">margin_of_error</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.35</td>
+<td align="right">0.07</td>
+<td align="right">0.30</td>
+<td align="right">0.33</td>
+<td align="right">0.35</td>
+<td align="right">0.37</td>
+<td align="right">0.40</td>
+<td align="left">▇▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td align="left">lower</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.90</td>
+<td align="right">0.52</td>
+<td align="right">6.53</td>
+<td align="right">6.72</td>
+<td align="right">6.90</td>
+<td align="right">7.09</td>
+<td align="right">7.27</td>
+<td align="left">▇▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td align="left">upper</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.60</td>
+<td align="right">0.38</td>
+<td align="right">7.33</td>
+<td align="right">7.47</td>
+<td align="right">7.60</td>
+<td align="right">7.74</td>
+<td align="right">7.87</td>
+<td align="left">▇▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td align="left">labels</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">7.25</td>
+<td align="right">0.45</td>
+<td align="right">6.93</td>
+<td align="right">7.09</td>
+<td align="right">7.25</td>
+<td align="right">7.41</td>
+<td align="right">7.57</td>
+<td align="left">▇▁▁▁▇</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># making a plot containing the confidence intervals of the mean of the ratings of each of the directors
+ggplot(data = directors) +
+  aes(y = director) +
+  geom_errorbarh(aes(xmin = lower, xmax = upper, color = director), size = 2, height = 0.1) +
+  geom_point(aes(x = mean_rating, color = director), size = 5) +
+  geom_rect(aes(xmin = 7.27, xmax = 7.33, ymin=0,ymax=3), fill = &#39;grey70&#39;, alpha=0.5) +
+  geom_text(aes(x = mean_rating, label = labels), vjust = 0, nudge_y = 0.05, overlap=FALSE) +
+  labs(
+    title = &#39;Do Tim Burton and Steven Spielberg have the same mean IMDB rating?&#39;,
+    subtitle = &#39;95% confidence intervals overlap&#39;,
+    x = &#39;Rating&#39;,
+    y = NULL
+  ) +
+  theme_minimal()</code></pre>
+<p><img src="/blogs/directors_files/figure-html/plotting%20data-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>Seeing that the two intervals overalp in the grey highlighted area, we need to also conduct a statistical test to see if the means are statistically significantly different. For this, we run a t-test and use the infer package to bootstrap the data as well.</p>
+<p>Our null hypothesis is that the means of the ratings of their films is the same. The alternative hypothesis is that there is a difference between the means of the ratings of Tim Burtons and Steven Spielbergs films. We will be using the t-statistic for the difference between the means. We are looking for a p-value smaller than 0.05 or a t-statistic bigger than 1.75 or smaller than -1.75 (based on df = 15 and p = 0.05). We have chosen the degrees of freedom as the smallest count - 1, which was 16 for Tim Burton.</p>
+<pre class="r"><code>df_directors &lt;- movies  %&gt;%
+  filter(director %in% chosen_directors)
+
+t.test(rating ~ director, data = df_directors)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  rating by director
+## t = 3, df = 31, p-value = 0.01
+## alternative hypothesis: true difference in means between group Steven Spielberg and group Tim Burton is not equal to 0
+## 95 percent confidence interval:
+##  0.16 1.13
+## sample estimates:
+## mean in group Steven Spielberg       mean in group Tim Burton 
+##                           7.57                           6.93</code></pre>
+<pre class="r"><code>directors_infer &lt;- df_directors %&gt;%
+  # specify variables
+  specify(rating ~ director) %&gt;%
+  
+  # assume independence, i.e, there is no difference
+  hypothesize(null = &quot;independence&quot;) %&gt;%
+  
+  # generate 1000 reps, of type &quot;permute&quot;
+  generate(reps = 1000, type = &quot;permute&quot;) %&gt;%
+  
+  # calculate statistic of difference, namely &quot;diff in means&quot;
+  calculate(stat = &quot;diff in means&quot;, order = chosen_directors)</code></pre>
+<pre class="r"><code>directors_infer %&gt;%
+  get_p_value(obs_stat = directors_infer, direction = &quot;two-sided&quot;)</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##   p_value
+##     &lt;dbl&gt;
+## 1       0</code></pre>
+<p>According to both the t.test and the bootstrapped result, there is a signficant difference in the ratings of the movies of Tim Burton and Steven Spielberg. We see that Tim has a lower mean rating than Steven. The p-value for the t.test was 0.01 and the p-value for infer was 0.</p>
+</div>
+<div id="details" class="section level1">
+<h1>Details</h1>
+<p>I collaborated with Samarth Sharma, Anastasia Fu, Jaelyn Shi, Andrew Robak and Shivant Maharaj</p>
+</div>

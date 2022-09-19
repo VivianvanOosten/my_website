@@ -14,18 +14,18 @@ params:
   blog: {}
   #contact:
     #address:
-    #  - city: London, W1H 1FF
-    #    country: United Kingdom
-    #    street: York Street
+    #  - city:
+    #    country: 
+    #    street: 
     #    title: Address
   #  buttonClear: Clear
   #  buttonSend: Send message
   #  email:
-  #    - email: vvanoosten.mam2023@london.edu
+  #    - email:
   #      title: Email
   #  enable: yes
   #  phone:
-  #    - phone: (+316) 10900733
+  #    - phone:
   #      title: Phone
   custom_css: []
   custom_js: []
@@ -74,14 +74,14 @@ params:
       - name: Most recent project
         url: blogs/directors
       - name: About me
-        url: elements.html
+        url: blogs/about_me
     menu: Menu
     subtitle: By HTML5 Up
     title: Forty
   tiles:
     enable: yes
     showcase:
-      - image: tree.jpeg
+      - image: tree.JPG
         subtitle: 
         title: My CV
         url: docs/CV.pdf
