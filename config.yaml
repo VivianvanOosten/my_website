@@ -57,7 +57,7 @@ params:
       - icon: fa-linkedin
         label: LinkedIn
         url: https://www.linkedin.com/in/vivian-van-oosten-lbs/
-  image: ''
+  image: 
   name: Vivian van Oosten
   navigation:
     button1:
