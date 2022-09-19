@@ -29,7 +29,7 @@ params:
   #      title: Phone
   custom_css: []
   custom_js: []
-  description: Description of me
+  description: 
   error404:
     heading: Page couldn't be found
     text: Please visit [this page](/)
@@ -107,7 +107,7 @@ params:
     #    url: blogs/ipsum
   two:
     buttonText: Get Started
-    enable: yes
+    enable: No
     subtitle: "Welcome to my portfolio website! This is made to showcase my work 
     of the past few years and provide you with some insights into my way of working.
     It also contains the link to my linkedin if you're looking to learn more about me."

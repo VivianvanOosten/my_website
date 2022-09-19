@@ -2,7 +2,7 @@
 title: About me
 date: "13-9-2022"
 description: A short introduction to my background and interests  # the title that will show up once someone gets to this page
-draft: false
+draft: FALSE
 image: frog.JPG # save picture in \static\img\blogs. Acceptable formats= jpg, jpeg, or png . Your iPhone pics wont work
 slug: about_me # slug is the shorthand URL address... no spaces plz
 ---
