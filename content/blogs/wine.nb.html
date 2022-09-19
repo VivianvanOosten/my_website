@@ -1784,26 +1784,35 @@ types. We see that this is a very clean dataset, without missing data
 and already in tidy format.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2luZSAgPC0gcmVhZC5jc3YoaGVyZTo6aGVyZSgnZGF0YS93aW5lcXVhbGl0eS1yZWQuY3N2JykpXG5za2ltKHdpbmUpXG5cbmBgYCJ9 -->
-<pre class="r"><code>wine  &lt;- read.csv(here::here(&#39;data/winequality-red.csv&#39;))
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxud2luZSAgPC0gcmVhZC5jc3YoaGVyZTo6aGVyZSgnZGF0YS93aW5lcXVhbGl0eS1yZWQuY3N2JykpXG5za2ltKHdpbmUpXG5cbmBgYFxuYGBgIn0= -->
+<pre class="r"><code>```r
+wine  &lt;- read.csv(here::here(&#39;data/winequality-red.csv&#39;))
 skim(wine)
 </code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>While exploring the data, we found that for a lot of the variables,
-there didn’t seem to be a correlation between the chemical property and
-the quality of the wine. For the alcohol level and the volatile acidity
-of the wine, there did seem to be a correlation. We see lighter colors
-toward the top left of the plot, and darker colors in the bottom right.
-This does not fully answer our research question, but shows that these
-variables in part could explain the quality of the wine. For this
-visualisation, we have filtered out one outlier of the volatile acidity
-to ensure legibility of the plot.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGluZyBhIHNjYXR0ZXJwbG90IGZyb20gYWxjb2hvbCBhbmQgdm9sYXRpbGUgYWNpZGl0eVxuXG4jIEZpbHRlciBvdXQgb25lIG91dGxpZXIgd2l0aCB2ZXJ5IGhpZ2ggYWNpZGl0eVxud2luZV9wbG90IDwtIGZpbHRlcih3aW5lLCB2b2xhdGlsZS5hY2lkaXR5IDwgMS41KVxuXG4jIFBsb3R0aW5nIHdpdGggcXVhbGl0eSBhcyB0aGUgY29sb3JcbmdncGxvdCh3aW5lX3Bsb3QgLCBtYXBwaW5nID0gYWVzKCB5ID0gYGFsY29ob2xgLCB4ID0gYHZvbGF0aWxlLmFjaWRpdHlgLCBjb2xvciA9IGFzLmZhY3RvcihxdWFsaXR5KSkpICtcbiAgZ2VvbV9wb2ludCgpICtcbiAgc2NhbGVfY29sb3JfdmlyaWRpc19kKG5hbWUgPSAnUXVhbGl0eScpICtcbiAgbGFicyggIyBhZGRpbmcgbGFiZWxzXG4gICAgeSA9ICdBbGNvaG9sICglKScsXG4gICAgeCA9ICdWb2xhdGlsZSBBY2lkaXR5JyxcbiAgICB0aXRsZSA9ICdFZmZlY3Qgb2YgQWxjb2hvbCBhbmQgVm9sYXRpbGUgQWNpZGl0eSBvbiBRdWFsaXR5IG9mIFJlZCBXaW5lJ1xuICApICtcbiAgdGhlbWVfbWluaW1hbCgpXG5cbmBgYCJ9 -->
-<pre class="r"><code># Creating a scatterplot from alcohol and volatile acidity
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+While exploring the data, we found that for a lot of the variables, there didn&#39;t seem to be a correlation between the chemical property and the quality of the wine. For the alcohol level and the volatile acidity of the wine, there did seem to be a correlation. We see lighter colors toward the top left of the plot, and darker colors in the bottom right. This does not fully answer our research question, but shows that these variables in part could explain the quality of the wine. 
+For this visualisation, we have filtered out one outlier of the volatile acidity to ensure legibility of the plot. 
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBDcmVhdGluZyBhIHNjYXR0ZXJwbG90IGZyb20gYWxjb2hvbCBhbmQgdm9sYXRpbGUgYWNpZGl0eVxuXG4jIEZpbHRlciBvdXQgb25lIG91dGxpZXIgd2l0aCB2ZXJ5IGhpZ2ggYWNpZGl0eVxud2luZV9wbG90IDwtIGZpbHRlcih3aW5lLCB2b2xhdGlsZS5hY2lkaXR5IDwgMS41KVxuXG4jIFBsb3R0aW5nIHdpdGggcXVhbGl0eSBhcyB0aGUgY29sb3JcbmdncGxvdCh3aW5lX3Bsb3QgLCBtYXBwaW5nID0gYWVzKCB5ID0gYGFsY29ob2xgLCB4ID0gYHZvbGF0aWxlLmFjaWRpdHlgLCBjb2xvciA9IGFzLmZhY3RvcihxdWFsaXR5KSkpICtcbiAgZ2VvbV9wb2ludCgpICtcbiAgc2NhbGVfY29sb3JfdmlyaWRpc19kKG5hbWUgPSAnUXVhbGl0eScpICtcbiAgbGFicyggIyBhZGRpbmcgbGFiZWxzXG4gICAgeSA9ICdBbGNvaG9sICglKScsXG4gICAgeCA9ICdWb2xhdGlsZSBBY2lkaXR5JyxcbiAgICB0aXRsZSA9ICdFZmZlY3Qgb2YgQWxjb2hvbCBhbmQgVm9sYXRpbGUgQWNpZGl0eSBvbiBRdWFsaXR5IG9mIFJlZCBXaW5lJ1xuICApICtcbiAgdGhlbWVfbWluaW1hbCgpXG5cbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+# Creating a scatterplot from alcohol and volatile acidity
 
 # Filter out one outlier with very high acidity
 wine_plot &lt;- filter(wine, volatile.acidity &lt; 1.5)
@@ -1819,52 +1828,66 @@ ggplot(wine_plot , mapping = aes( y = `alcohol`, x = `volatile.acidity`, color =
   ) +
   theme_minimal()
 </code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Now we are going to split our dataset in train (50%), validation
-(30%) and test (20%).</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjcmVhdGUgdGhlIHNwbGl0dGluZyB2ZWN0b3JcbiMgV2Ugc2VsZWN0ZWQgdGhlIG51bWJlcnMgYmFzZWQgb24gdGhlIGxlbmd0aCBvZiB0aGUgZGF0YXNldFxuc3BsaXQgPC0gYyhyZXAoXCJUcmFpblwiLCA4MDApLCByZXAoXCJWYWxpZFwiLCA0ODApLCByZXAoXCJUZXN0XCIsICAzMTkpKVxud2luZSA8LSB3aW5lICAlPiUgbXV0YXRlKHNwbGl0ID0gc2FtcGxlKHNwbGl0KSlcblxuIyB3ZSBjcmVhdGUgZGF0YWZyYW1lcyBmb3IgZWFjaCBvZiB0aGUgc3BsaXRzXG53aW5lX3RyYWluIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSBcIlRyYWluXCIpXG53aW5lX3ZhbGlkIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSBcIlZhbGlkXCIpXG53aW5lX3Rlc3QgIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSBcIlRlc3RcIilcblxuYGBgIn0= -->
-<pre class="r"><code># create the splitting vector
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+Now we are going to split our dataset in train (50%), validation (30%) and test (20%).
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBjcmVhdGUgdGhlIHNwbGl0dGluZyB2ZWN0b3JcbiMgV2Ugc2VsZWN0ZWQgdGhlIG51bWJlcnMgYmFzZWQgb24gdGhlIGxlbmd0aCBvZiB0aGUgZGF0YXNldFxuc3BsaXQgPC0gYyhyZXAoXFxUcmFpblxcLCA4MDApLCByZXAoXFxWYWxpZFxcLCA0ODApLCByZXAoXFxUZXN0XFwsICAzMTkpKVxud2luZSA8LSB3aW5lICAlPiUgbXV0YXRlKHNwbGl0ID0gc2FtcGxlKHNwbGl0KSlcblxuIyB3ZSBjcmVhdGUgZGF0YWZyYW1lcyBmb3IgZWFjaCBvZiB0aGUgc3BsaXRzXG53aW5lX3RyYWluIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSBcXFRyYWluXFwpXG53aW5lX3ZhbGlkIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSBcXFZhbGlkXFwpXG53aW5lX3Rlc3QgIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSBcXFRlc3RcXClcblxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+# create the splitting vector
 # We selected the numbers based on the length of the dataset
-split &lt;- c(rep(&quot;Train&quot;, 800), rep(&quot;Valid&quot;, 480), rep(&quot;Test&quot;,  319))
+split &lt;- c(rep(\Train\, 800), rep(\Valid\, 480), rep(\Test\,  319))
 wine &lt;- wine  %&gt;% mutate(split = sample(split))
 
 # we create dataframes for each of the splits
-wine_train &lt;- wine %&gt;% filter(split == &quot;Train&quot;)
-wine_valid &lt;- wine %&gt;% filter(split == &quot;Valid&quot;)
-wine_test  &lt;- wine %&gt;% filter(split == &quot;Test&quot;)
+wine_train &lt;- wine %&gt;% filter(split == \Train\)
+wine_valid &lt;- wine %&gt;% filter(split == \Valid\)
+wine_test  &lt;- wine %&gt;% filter(split == \Test\)
 </code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Below, we see the distribution of the wine-quality over the different
-datasets. We see that the distributions are very similar across the
-different datasets, so this split is okay. Besides that, we see that the
-distribution is now equal across all categories. There are a lot more
-wines with qualities 5 and 6, so average wines, than there are really
-bad and really good wines. This will probably make it harder to predict
-the quality of the wines, as the data is imbalanced. Imbalanced data
-means that some datapoints should be considered more important than
-others, as there are only a few of the high and low quality wines. To be
-able to predict those high and low quality wines as well, we should have
-a different metric than mean squared error, as this counts errors in all
-catgories as equally important, while for us, it is much more
-significant if the high and low quality wines are not predicted well.
-Our new metric should take into account the frequency of that datapoint,
-so that we can overvalue mistakes in the 3 and 8 categories.
-Unfortunately, creating a metric like that was a bit out of the scope of
-this assignment, so we will be using the mean squared error, but we will
-also keep in mind that our results will probably not be optimal.</p>
-<p>In the appendix, there is an attempt at using a different metric to
-evaluate the regression. This will try to value mistakes based on the
-frequency of the actual category the observation is in.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjcmVhdGluZyBhIGhpc3RvZ3JhbSBzaG93aW5nIHRoZSBkaXN0cmlidXRpb24gb3ZlciBkYXRhc2V0XG5nZ3Bsb3QoKSArIFxuICBnZW9tX2JhcihkYXRhID0gd2luZSwgbWFwcGluZyA9IGFlcyh4ID0gKHF1YWxpdHkpICwgZmlsbCA9IHNwbGl0KSwgYWxwaGEgPSAwLjcgKSAgKyBcbiAgIyBnZXR0aW5nIHByZXR0eSBjb2xvdXJzXG4gIHNjYWxlX2ZpbGxfdmlyaWRpc19kKG5hbWUgPSAnRGF0YXNldCcpICtcbiAgbGFicyggIyBhZGRpbmcgbGFiZWxzXG4gICAgeSA9ICdDb3VudCcsXG4gICAgeCA9ICdRdWFsaXR5JyxcbiAgICB0aXRsZSA9ICdRdWFsaXR5IG9mIHdpbmVzIGluIHRoZSBkYXRhc2V0cydcbiAgICApICtcbiAgdGhlbWVfbWluaW1hbCgpXG5cbiAgXG5gYGAifQ== -->
-<pre class="r"><code># creating a histogram showing the distribution over dataset
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+Below, we see the distribution of the wine-quality over the different datasets. We see that the distributions are very similar across the different datasets, so this split is okay.
+Besides that, we see that the distribution is now equal across all categories. There are a lot more wines with qualities 5 and 6, so average wines, than there are really bad and really good wines. This will probably make it harder to predict the quality of the wines, as the data is imbalanced. Imbalanced data means that some datapoints should be considered more important than others, as there are only a few of the high and low quality wines. To be able to predict those high and low quality wines as well, we should have a different metric than mean squared error, as this counts errors in all catgories as equally important, while for us, it is much more significant if the high and low quality wines are not predicted well. Our new metric should take into account the frequency of that datapoint, so that we can overvalue mistakes in the 3 and 8 categories. Unfortunately, creating a metric like that was a bit out of the scope of this assignment, so we will be using the mean squared error, but we will also keep in mind that our results will probably not be optimal. 
+
+In the appendix, there is an attempt at using a different metric to evaluate the regression. This will try to value mistakes based on the frequency of the actual category the observation is in. 
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBjcmVhdGluZyBhIGhpc3RvZ3JhbSBzaG93aW5nIHRoZSBkaXN0cmlidXRpb24gb3ZlciBkYXRhc2V0XG5nZ3Bsb3QoKSArIFxuICBnZW9tX2JhcihkYXRhID0gd2luZSwgbWFwcGluZyA9IGFlcyh4ID0gKHF1YWxpdHkpICwgZmlsbCA9IHNwbGl0KSwgYWxwaGEgPSAwLjcgKSAgKyBcbiAgIyBnZXR0aW5nIHByZXR0eSBjb2xvdXJzXG4gIHNjYWxlX2ZpbGxfdmlyaWRpc19kKG5hbWUgPSAnRGF0YXNldCcpICtcbiAgbGFicyggIyBhZGRpbmcgbGFiZWxzXG4gICAgeSA9ICdDb3VudCcsXG4gICAgeCA9ICdRdWFsaXR5JyxcbiAgICB0aXRsZSA9ICdRdWFsaXR5IG9mIHdpbmVzIGluIHRoZSBkYXRhc2V0cydcbiAgICApICtcbiAgdGhlbWVfbWluaW1hbCgpXG5cbiAgXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+# creating a histogram showing the distribution over dataset
 ggplot() + 
   geom_bar(data = wine, mapping = aes(x = (quality) , fill = split), alpha = 0.7 )  + 
   # getting pretty colours
@@ -1877,26 +1900,33 @@ ggplot() +
   theme_minimal()
 
   </code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We have chosen to use a subset selection rather than regularisation
-methods, because we think thatlimiting the number of columns we use but
-still allowing for large values in those coefficients will be better
-than limiting all coefficients. Because, if all coefficients are small,
-they will likely tend to predict only average qualities rather than also
-the outliers. With the subset selection, we can cater to the outliers as
-well.</p>
-<p>From here on, the best subset selection method will be
-implemented.</p>
-<p>We write an mse function to get the mean squared error of a certain
-formula. Note that we have added an argument that has NULL as a default
-to be able to use this one interchangeably with the error function that
-takes the frequency into account.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubG1fbXNlIDwtIGZ1bmN0aW9uKGZvcm11bGEsIHRyYWluX2RhdGEsIHZhbGlkX2RhdGEsIHZhbGlkX3dpdGhfZnJlcSA9IE5VTEwpIHtcbiAgeV9uYW1lIDwtIGFzLmNoYXJhY3Rlcihmb3JtdWxhKVsyXVxuICB5X3RydWUgPC0gdmFsaWRfZGF0YVtbeV9uYW1lXV1cbiAgXG4gIGxtX2ZpdCA8LSBsbShmb3JtdWxhLCB0cmFpbl9kYXRhKVxuICB5X3ByZWQgPC0gcHJlZGljdChsbV9maXQsIG5ld2RhdGEgPSB2YWxpZF9kYXRhKVxuICBcbiAgbWVhbigoeV90cnVlIC0geV9wcmVkKV4yKVxufVxuXG5gYGAifQ== -->
-<pre class="r"><code>lm_mse &lt;- function(formula, train_data, valid_data, valid_with_freq = NULL) {
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+We have chosen to use a subset selection rather than regularisation methods, because we think thatlimiting the number of columns we use but still allowing for large values in those coefficients will be better than limiting all coefficients. Because, if all coefficients are small, they will likely tend to predict only average qualities rather than also the outliers. With the subset selection, we can cater to the outliers as well. 
+
+From here on, the best subset selection method will be implemented. 
+
+We write an mse function to get the mean squared error of a certain formula. Note that we have added an argument that has NULL as a default to be able to use this one interchangeably with the error function that takes the frequency into account.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubG1fbXNlIDwtIGZ1bmN0aW9uKGZvcm11bGEsIHRyYWluX2RhdGEsIHZhbGlkX2RhdGEsIHZhbGlkX3dpdGhfZnJlcSA9IE5VTEwpIHtcbiAgeV9uYW1lIDwtIGFzLmNoYXJhY3Rlcihmb3JtdWxhKVsyXVxuICB5X3RydWUgPC0gdmFsaWRfZGF0YVtbeV9uYW1lXV1cbiAgXG4gIGxtX2ZpdCA8LSBsbShmb3JtdWxhLCB0cmFpbl9kYXRhKVxuICB5X3ByZWQgPC0gcHJlZGljdChsbV9maXQsIG5ld2RhdGEgPSB2YWxpZF9kYXRhKVxuICBcbiAgbWVhbigoeV90cnVlIC0geV9wcmVkKV4yKVxufVxuXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+lm_mse &lt;- function(formula, train_data, valid_data, valid_with_freq = NULL) {
   y_name &lt;- as.character(formula)[2]
   y_true &lt;- valid_data[[y_name]]
   
@@ -1906,44 +1936,105 @@ takes the frequency into account.</p>
   mean((y_true - y_pred)^2)
 }
 </code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We source the generate_formulas file written by the teacher from a
-class to be able to implement the subset selection method.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiZ2VuZXJhdGVfZm9ybXVsYXMuUlwiKVxuYGBgIn0= -->
-<pre class="r"><code>source(&quot;generate_formulas.R&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We define the x and y variables to be able to apply the
-generate_formulas function</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2luZSA8LSBzZWxlY3Qod2luZSwgLXNwbGl0KSAjIHJlbW92aW5nIHRoZSBzcGxpdCBjb2x1bW5cbnhfdmFycyA8LSBjb2xuYW1lcyh3aW5lKVxueF92YXJzIDwtIHhfdmFyc1t4X3ZhcnMgIT0gXCJxdWFsaXR5XCJdICN1c2luZyBhbGwgdmFyaWFibGVzIGV4Y2VwdCBxdWFsaXR5IGZvciB0aGUgeFxuYGBgIn0= -->
-<pre class="r"><code>wine &lt;- select(wine, -split) # removing the split column
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+We source the generate_formulas file written by the teacher from a class to be able to implement the subset selection method.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuc291cmNlKFxcZ2VuZXJhdGVfZm9ybXVsYXMuUlxcKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+source(\generate_formulas.R\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+We define the x and y variables to be able to apply the generate_formulas function
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxud2luZSA8LSBzZWxlY3Qod2luZSwgLXNwbGl0KSAjIHJlbW92aW5nIHRoZSBzcGxpdCBjb2x1bW5cbnhfdmFycyA8LSBjb2xuYW1lcyh3aW5lKVxueF92YXJzIDwtIHhfdmFyc1t4X3ZhcnMgIT0gXFxxdWFsaXR5XFxdICN1c2luZyBhbGwgdmFyaWFibGVzIGV4Y2VwdCBxdWFsaXR5IGZvciB0aGUgeFxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+wine &lt;- select(wine, -split) # removing the split column
 x_vars &lt;- colnames(wine)
-x_vars &lt;- x_vars[x_vars != &quot;quality&quot;] #using all variables except quality for the x</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We get a vector of all functions.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9ybXVsYXMgPC0gZ2VuZXJhdGVfZm9ybXVsYXMocCA9IDMsIHhfdmFycyA9IHhfdmFycywgeV92YXIgPSBcInF1YWxpdHlcIilcbmxlbiA8LSBsZW5ndGgoZm9ybXVsYXMpXG5gYGAifQ== -->
-<pre class="r"><code>formulas &lt;- generate_formulas(p = 3, x_vars = x_vars, y_var = &quot;quality&quot;)
+x_vars &lt;- x_vars[x_vars != \quality\] #using all variables except quality for the x</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+We get a vector of all functions.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZm9ybXVsYXMgPC0gZ2VuZXJhdGVfZm9ybXVsYXMocCA9IDMsIHhfdmFycyA9IHhfdmFycywgeV92YXIgPSBcXHF1YWxpdHlcXClcbmxlbiA8LSBsZW5ndGgoZm9ybXVsYXMpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+formulas &lt;- generate_formulas(p = 3, x_vars = x_vars, y_var = \quality\)
 len &lt;- length(formulas)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We use a for loop to find the best set of 3 predictors in the wine
-dataset based on MSE. Use the wine_train and wine_valid datasets.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBJbml0aWFsaXNlIGEgdmVjdG9yIHdlIHdpbGwgZmlsbCB3aXRoIE1TRSB2YWx1ZXNcbm1zZXNfMyA8LSByZXAoMCwgbGVuKVxuXG4jIGxvb3Agb3ZlciBhbGwgdGhlIGZvcm11bGFzXG5mb3IgKGkgaW4gMTpsZW4pIHtcbiAgbXNlc18zW2ldIDwtIGxtX21zZShhcy5mb3JtdWxhKGZvcm11bGFzW2ldKSwgd2luZV90cmFpbiwgd2luZV92YWxpZClcbn1cblxuIyBzZWxlY3QgdGhlIGZvcm11bGEgd2l0aCB0aGUgbG93ZXN0IE1TRVxuYmVzdF8zX3ByZWRzIDwtIGZvcm11bGFzW3doaWNoLm1pbihtc2VzXzMpXVxuYmVzdF8zX3ByZWRzXG5gYGAifQ== -->
-<pre class="r"><code># Initialise a vector we will fill with MSE values
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+We use a for loop to find the best set of 3 predictors in the wine dataset based on MSE. Use the wine_train and wine_valid datasets.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBJbml0aWFsaXNlIGEgdmVjdG9yIHdlIHdpbGwgZmlsbCB3aXRoIE1TRSB2YWx1ZXNcbm1zZXNfMyA8LSByZXAoMCwgbGVuKVxuXG4jIGxvb3Agb3ZlciBhbGwgdGhlIGZvcm11bGFzXG5mb3IgKGkgaW4gMTpsZW4pIHtcbiAgbXNlc18zW2ldIDwtIGxtX21zZShhcy5mb3JtdWxhKGZvcm11bGFzW2ldKSwgd2luZV90cmFpbiwgd2luZV92YWxpZClcbn1cblxuIyBzZWxlY3QgdGhlIGZvcm11bGEgd2l0aCB0aGUgbG93ZXN0IE1TRVxuYmVzdF8zX3ByZWRzIDwtIGZvcm11bGFzW3doaWNoLm1pbihtc2VzXzMpXVxuYmVzdF8zX3ByZWRzXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+# Initialise a vector we will fill with MSE values
 mses_3 &lt;- rep(0, len)
 
 # loop over all the formulas
@@ -1954,17 +2045,30 @@ for (i in 1:len) {
 # select the formula with the lowest MSE
 best_3_preds &lt;- formulas[which.min(mses_3)]
 best_3_preds</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We now use that knowledge to create a for-loop over all the numbers
-of parameters we want to consider and wrap it all in a function. Here we
-make the function that calculates the error, in this case lm_mse, a
-parameter to be able to change that in the appendix.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBXZSBmaW5kIHRoZSBiZXN0IGZvcm11bGFcblxuZmluZF9iZXN0X2Zvcm11bGEgPC0gZnVuY3Rpb24oZXJyb3JfZnVuY3Rpb24sIHRyYWluX2RhdGEsIHZhbGlkX2RhdGEsIHZhbGlkX3dpdGhfZnJlcSA9IE5VTEwpe1xuICBcbiAgIyBJbml0aWFsaXNlIGZvcm11bGEgbGlzdHMgdG8gYmUgYWJsZSB0byBhY2Nlc3MgdGhlIGZvcm11bGFzIGxhdGVyXG4gIGZvcm11bGFfbGlzdCA8LSBsaXN0KClcbiAgIyBpbml0aWFsaXNlIHNtYWxsZXN0IGVycm9yXG4gIG92ZXJhbGxfbWluIDwtIDEwMDAwMDAwMFxuICBcbiAgZm9yIChpIGluIDE6NCl7XG4gICAgZm9ybXVsYXMgPC0gZ2VuZXJhdGVfZm9ybXVsYXMocCA9IGksIHhfdmFycyA9IHhfdmFycywgeV92YXIgPSBcInF1YWxpdHlcIilcbiAgICBmb3JtdWxhX2xpc3QgPC0gYyhmb3JtdWxhX2xpc3QsIGxpc3QoZm9ybXVsYXMpKVxuICAgIFxuICAgICMgSW5pdGlhbGlzZSBhIHZlY3RvciB3ZSB3aWxsIGZpbGwgd2l0aCBNU0UgdmFsdWVzXG4gICAgZXJyb3JzIDwtIHJlcCgwLCBsZW5ndGgoZm9ybXVsYXMpKVxuICAgIFxuICAgIGZvciAoaiBpbiAxOmxlbmd0aChmb3JtdWxhcykpIHtcbiAgICBlcnJvcnNbal0gPC0gZXJyb3JfZnVuY3Rpb24oYXMuZm9ybXVsYShmb3JtdWxhc1tpXSksIHRyYWluX2RhdGEsIHZhbGlkX2RhdGEsIHZhbGlkX3dpdGhfZnJlcSlcbiAgICB9XG4gICAgXG4gICAgbG9jYWxtaW4gPC0gbWluKGVycm9ycylcbiAgICBcbiAgICBpZiAobG9jYWxtaW4gPD0gb3ZlcmFsbF9taW4pe1xuICAgICAgb3ZlcmFsbF9taW4gPC0gbG9jYWxtaW5cbiAgICAgIG5yX3BhcmFtIDwtIGlcbiAgICAgIG1pbl9mb3JtdWxhIDwtIGZvcm11bGFzW3doaWNoLm1pbihlcnJvcnMpXVxuICAgIH1cbiAgfVxuICBcbiAgbWluX2Zvcm11bGFcbiAgXG59XG5cblxuYGBgIn0= -->
-<pre class="r"><code># We find the best formula
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+We now use that knowledge to create a for-loop over all the numbers of parameters we want to consider and wrap it all in a function. Here we make the function that calculates the error, in this case lm_mse, a parameter to be able to change that in the appendix.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBXZSBmaW5kIHRoZSBiZXN0IGZvcm11bGFcblxuZmluZF9iZXN0X2Zvcm11bGEgPC0gZnVuY3Rpb24oZXJyb3JfZnVuY3Rpb24sIHRyYWluX2RhdGEsIHZhbGlkX2RhdGEsIHZhbGlkX3dpdGhfZnJlcSA9IE5VTEwpe1xuICBcbiAgIyBJbml0aWFsaXNlIGZvcm11bGEgbGlzdHMgdG8gYmUgYWJsZSB0byBhY2Nlc3MgdGhlIGZvcm11bGFzIGxhdGVyXG4gIGZvcm11bGFfbGlzdCA8LSBsaXN0KClcbiAgIyBpbml0aWFsaXNlIHNtYWxsZXN0IGVycm9yXG4gIG92ZXJhbGxfbWluIDwtIDEwMDAwMDAwMFxuICBcbiAgZm9yIChpIGluIDE6NCl7XG4gICAgZm9ybXVsYXMgPC0gZ2VuZXJhdGVfZm9ybXVsYXMocCA9IGksIHhfdmFycyA9IHhfdmFycywgeV92YXIgPSBcXHF1YWxpdHlcXClcbiAgICBmb3JtdWxhX2xpc3QgPC0gYyhmb3JtdWxhX2xpc3QsIGxpc3QoZm9ybXVsYXMpKVxuICAgIFxuICAgICMgSW5pdGlhbGlzZSBhIHZlY3RvciB3ZSB3aWxsIGZpbGwgd2l0aCBNU0UgdmFsdWVzXG4gICAgZXJyb3JzIDwtIHJlcCgwLCBsZW5ndGgoZm9ybXVsYXMpKVxuICAgIFxuICAgIGZvciAoaiBpbiAxOmxlbmd0aChmb3JtdWxhcykpIHtcbiAgICBlcnJvcnNbal0gPC0gZXJyb3JfZnVuY3Rpb24oYXMuZm9ybXVsYShmb3JtdWxhc1tpXSksIHRyYWluX2RhdGEsIHZhbGlkX2RhdGEsIHZhbGlkX3dpdGhfZnJlcSlcbiAgICB9XG4gICAgXG4gICAgbG9jYWxtaW4gPC0gbWluKGVycm9ycylcbiAgICBcbiAgICBpZiAobG9jYWxtaW4gPD0gb3ZlcmFsbF9taW4pe1xuICAgICAgb3ZlcmFsbF9taW4gPC0gbG9jYWxtaW5cbiAgICAgIG5yX3BhcmFtIDwtIGlcbiAgICAgIG1pbl9mb3JtdWxhIDwtIGZvcm11bGFzW3doaWNoLm1pbihlcnJvcnMpXVxuICAgIH1cbiAgfVxuICBcbiAgbWluX2Zvcm11bGFcbiAgXG59XG5cblxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+# We find the best formula
 
 find_best_formula &lt;- function(error_function, train_data, valid_data, valid_with_freq = NULL){
   
@@ -1974,7 +2078,7 @@ find_best_formula &lt;- function(error_function, train_data, valid_data, valid_w
   overall_min &lt;- 100000000
   
   for (i in 1:4){
-    formulas &lt;- generate_formulas(p = i, x_vars = x_vars, y_var = &quot;quality&quot;)
+    formulas &lt;- generate_formulas(p = i, x_vars = x_vars, y_var = \quality\)
     formula_list &lt;- c(formula_list, list(formulas))
     
     # Initialise a vector we will fill with MSE values
@@ -1997,46 +2101,81 @@ find_best_formula &lt;- function(error_function, train_data, valid_data, valid_w
   
 }
 </code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Applying the formula</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmVzdF9mb3JtdWxhIDwtIGZpbmRfYmVzdF9mb3JtdWxhKGxtX21zZSwgd2luZV90cmFpbiwgd2luZV92YWxpZClcblxuYGBgIn0= -->
-<pre class="r"><code>best_formula &lt;- find_best_formula(lm_mse, wine_train, wine_valid)
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+Applying the formula
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYmVzdF9mb3JtdWxhIDwtIGZpbmRfYmVzdF9mb3JtdWxhKGxtX21zZSwgd2luZV90cmFpbiwgd2luZV92YWxpZClcblxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+best_formula &lt;- find_best_formula(lm_mse, wine_train, wine_valid)
 </code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We have now found the model with the lowest mean squared error, which
-we will use to get the optimal model.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBFc3RpbWF0ZSBtb2RlbCBhbmQgY2FsY3VsYXRlIG1zZVxubG1fYmVzdCA8LSBsbShiZXN0X2Zvcm11bGEsIGRhdGEgPSB3aW5lX3RyYWluKVxubXNlIDwtIGZ1bmN0aW9uKHlfdHJ1ZSwgeV9wcmVkKSBtZWFuKCh5X3RydWUgLSB5X3ByZWQpXjIpXG5tc2Uod2luZV90ZXN0JHF1YWxpdHksIHByZWRpY3QobG1fYmVzdCwgbmV3ZGF0YSA9IHdpbmVfdGVzdCkpXG5gYGAifQ== -->
-<pre class="r"><code># Estimate model and calculate mse
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+We have now found the model with the lowest mean squared error, which we will use to get the optimal model.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBFc3RpbWF0ZSBtb2RlbCBhbmQgY2FsY3VsYXRlIG1zZVxubG1fYmVzdCA8LSBsbShiZXN0X2Zvcm11bGEsIGRhdGEgPSB3aW5lX3RyYWluKVxubXNlIDwtIGZ1bmN0aW9uKHlfdHJ1ZSwgeV9wcmVkKSBtZWFuKCh5X3RydWUgLSB5X3ByZWQpXjIpXG5tc2Uod2luZV90ZXN0JHF1YWxpdHksIHByZWRpY3QobG1fYmVzdCwgbmV3ZGF0YSA9IHdpbmVfdGVzdCkpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+# Estimate model and calculate mse
 lm_best &lt;- lm(best_formula, data = wine_train)
 mse &lt;- function(y_true, y_pred) mean((y_true - y_pred)^2)
 mse(wine_test$quality, predict(lm_best, newdata = wine_test))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Finally, we plot the result of our regression model. The green line
-represents where the data would be in a case of a perfect prediction. We
-see that in general, our values are closer to the middle than they
-should be. This is probably due to the earlier mentioned imbalanced
-data. The regression fit is now optimalised for the average wines and
-does not do well for the exceptionally bad or exceptionally good wines,
-which makes sense due to the few observations we have in that range.
-Overall, our mean squared error is not that big, but the regression
-seems skewed still. We could improve this with a different evaluation
-method like mentioned above or even a sampling method where we pick
-fewer of the average wines to train our model on. Unfortunately, all of
-those methods are outside the scope of this assignment.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjcmVhdGUgYSBzaW1wbGUgc2NhdHRlcnBsb3QgcGxvdFxuY3JlYXRlX2V2YWx1YXRpb25fcGxvdCA8LSBmdW5jdGlvbihtb2RlbCl7XG4gIHRpYmJsZShcbiAgICB5X3RydWVfcGx0ID0gd2luZV90ZXN0JHF1YWxpdHksXG4gICAgeV9wcmVkX3BsdCA9IHByZWRpY3QobW9kZWwsIG5ld2RhdGEgPSB3aW5lX3Rlc3QpXG4gICkgJT4lIFxuICAgIGdncGxvdChhZXMoeCA9IHlfcHJlZF9wbHQsIHkgPSBmYWN0b3IoeV90cnVlX3BsdCkpKSArXG4gICAgIyBub3RlIHRoYXQgdGhlIGludGVyY2VwdCBoZXJlIGlzIGJhc2VkIG9uIHRoZSBudW1iZXIgb2YgY2F0ZWdvcmllc1xuICAgICMgU28gbGlrZSB0aGlzIGl0IGNyZWF0ZXMgdGhlIGxpbmUgeSA9IHggZm9yIHJlZmVyZW5jZVxuICAgIGdlb21fYWJsaW5lKHNsb3BlID0gMSwgaW50ZXJjZXB0ID0gLTIsIGx0eSA9IDIsIGNvbCA9ICdkYXJrZ3JlZW4nICkgK1xuICAgICMgd2UgcGxvdCB0aGUgZGF0YXBvaW50cyBhcyBhIHZpb2xpbiB0byBzaG93IHRoZSBkaXN0cmlidXRpb25cbiAgICBnZW9tX3Zpb2xpbihvcmllbnRhdGlvbiA9ICd5JywgYWxwaGEgPSAwLjYpICtcbiAgICBsYWJzKCAjIGFkZCBsYWJlbHNcbiAgICAgIHkgPSAnVHJ1ZSBxdWFsaXR5JyxcbiAgICAgIHggPSAnUHJlZGljdGVkIHF1YWxpdHknLFxuICAgICAgdGl0bGUgPSAnRXZhbHVhdGlvbiBvZiBwcmVkaWN0aW9ucycsXG4gICAgICBjb2xvciA9ICdGaXQnXG4gICAgICApICtcbiAgICB0aGVtZV9taW5pbWFsKCkgXG59XG5gYGAifQ== -->
-<pre class="r"><code># create a simple scatterplot plot
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Finally, we plot the result of our regression model. The green line represents where the data would be in a case of a perfect prediction. We see that in general, our values are closer to the middle than they should be. This is probably due to the earlier mentioned imbalanced data. The regression fit is now optimalised for the average wines and does not do well for the exceptionally bad or exceptionally good wines, which makes sense due to the few observations we have in that range. Overall, our mean squared error is not that big, but the regression seems skewed still. We could improve this with a different evaluation method like mentioned above or even a sampling method where we pick fewer of the average wines to train our model on. Unfortunately, all of those methods are outside the scope of this assignment.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBjcmVhdGUgYSBzaW1wbGUgc2NhdHRlcnBsb3QgcGxvdFxuY3JlYXRlX2V2YWx1YXRpb25fcGxvdCA8LSBmdW5jdGlvbihtb2RlbCl7XG4gIHRpYmJsZShcbiAgICB5X3RydWVfcGx0ID0gd2luZV90ZXN0JHF1YWxpdHksXG4gICAgeV9wcmVkX3BsdCA9IHByZWRpY3QobW9kZWwsIG5ld2RhdGEgPSB3aW5lX3Rlc3QpXG4gICkgJT4lIFxuICAgIGdncGxvdChhZXMoeCA9IHlfcHJlZF9wbHQsIHkgPSBmYWN0b3IoeV90cnVlX3BsdCkpKSArXG4gICAgIyBub3RlIHRoYXQgdGhlIGludGVyY2VwdCBoZXJlIGlzIGJhc2VkIG9uIHRoZSBudW1iZXIgb2YgY2F0ZWdvcmllc1xuICAgICMgU28gbGlrZSB0aGlzIGl0IGNyZWF0ZXMgdGhlIGxpbmUgeSA9IHggZm9yIHJlZmVyZW5jZVxuICAgIGdlb21fYWJsaW5lKHNsb3BlID0gMSwgaW50ZXJjZXB0ID0gLTIsIGx0eSA9IDIsIGNvbCA9ICdkYXJrZ3JlZW4nICkgK1xuICAgICMgd2UgcGxvdCB0aGUgZGF0YXBvaW50cyBhcyBhIHZpb2xpbiB0byBzaG93IHRoZSBkaXN0cmlidXRpb25cbiAgICBnZW9tX3Zpb2xpbihvcmllbnRhdGlvbiA9ICd5JywgYWxwaGEgPSAwLjYpICtcbiAgICBsYWJzKCAjIGFkZCBsYWJlbHNcbiAgICAgIHkgPSAnVHJ1ZSBxdWFsaXR5JyxcbiAgICAgIHggPSAnUHJlZGljdGVkIHF1YWxpdHknLFxuICAgICAgdGl0bGUgPSAnRXZhbHVhdGlvbiBvZiBwcmVkaWN0aW9ucycsXG4gICAgICBjb2xvciA9ICdGaXQnXG4gICAgICApICtcbiAgICB0aGVtZV9taW5pbWFsKCkgXG59XG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+# create a simple scatterplot plot
 create_evaluation_plot &lt;- function(model){
   tibble(
     y_true_plt = wine_test$quality,
@@ -2056,55 +2195,108 @@ create_evaluation_plot &lt;- function(model){
       ) +
     theme_minimal() 
 }</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY3JlYXRlX2V2YWx1YXRpb25fcGxvdChsbV9iZXN0KVxuYGBgIn0= -->
-<pre class="r"><code>create_evaluation_plot(lm_best)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShsbV9iZXN0KVxuYGBgIn0= -->
-<pre class="r"><code>summary(lm_best)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>In conclusion, the quality of the wine can be predicted to some
-extent by the volatile acidity, chlorides, sulphates and alcohol level
-in the wine. We see that lower acidity means a higher quality, while
-higher sulphate and alcohol levels are also indicators of a higher
-quality wine. Chlorides actually don’t significantly predict the
-quality, but did lower the mean squared error, which is why it’s still
-included. So, next time you’re standing in the supermarket looking for a
-good but cheap wine, taking the alcohol level as an indicator is
-actually a good idea!</p>
-<p>Appendix A: Different error function</p>
-<p>In order to account for the skewed data we have and hopefully be
-better able to predict whether a wine is really good or really bad, we
-have implemented a slightly different error function here. First we
-define a frequency column in the validation dataset.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZnJlcSA8LSBhcy5kYXRhLmZyYW1lKHRhYmxlKHdpbmVfdmFsaWQkcXVhbGl0eSkgLyBsZW5ndGgod2luZV92YWxpZCRxdWFsaXR5ICkpXG5uYW1lcyhmcmVxKSA8LSBjKCdxdWFsaXR5JywgJ2ZyZXEnKVxud2luZV92YWxpZF9pbmNsX2ZyZXEgPC0gbWVyZ2Uod2luZV92YWxpZCwgZnJlcSwgYnkgPSAncXVhbGl0eScsIGFsbC54ID0gVFJVRSkgJT4lXG4gIG11dGF0ZShmcmVxID0gMSAtIGZyZXEpXG5gYGAifQ== -->
-<pre class="r"><code>freq &lt;- as.data.frame(table(wine_valid$quality) / length(wine_valid$quality ))
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuY3JlYXRlX2V2YWx1YXRpb25fcGxvdChsbV9iZXN0KVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+create_evaluation_plot(lm_best)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuc3VtbWFyeShsbV9iZXN0KVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+summary(lm_best)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+In conclusion, the quality of the wine can be predicted to some extent by the volatile acidity, chlorides, sulphates and alcohol level in the wine. We see that lower acidity means a higher quality, while higher sulphate and alcohol levels are also indicators of a higher quality wine. Chlorides actually don&#39;t significantly predict the quality, but did lower the mean squared error, which is why it&#39;s still included. So, next time you&#39;re standing in the supermarket looking for a good but cheap wine, taking the alcohol level as an indicator is actually a good idea! 
+
+
+
+
+
+Appendix A: Different error function
+
+In order to account for the skewed data we have and hopefully be better able to predict whether a wine is really good or really bad, we have implemented a slightly different error function here. First we define a frequency column in the validation dataset. 
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZnJlcSA8LSBhcy5kYXRhLmZyYW1lKHRhYmxlKHdpbmVfdmFsaWQkcXVhbGl0eSkgLyBsZW5ndGgod2luZV92YWxpZCRxdWFsaXR5ICkpXG5uYW1lcyhmcmVxKSA8LSBjKCdxdWFsaXR5JywgJ2ZyZXEnKVxud2luZV92YWxpZF9pbmNsX2ZyZXEgPC0gbWVyZ2Uod2luZV92YWxpZCwgZnJlcSwgYnkgPSAncXVhbGl0eScsIGFsbC54ID0gVFJVRSkgJT4lXG4gIG11dGF0ZShmcmVxID0gMSAtIGZyZXEpXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+freq &lt;- as.data.frame(table(wine_valid$quality) / length(wine_valid$quality ))
 names(freq) &lt;- c(&#39;quality&#39;, &#39;freq&#39;)
 wine_valid_incl_freq &lt;- merge(wine_valid, freq, by = &#39;quality&#39;, all.x = TRUE) %&gt;%
   mutate(freq = 1 - freq)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We then use this column to add a ‘weight’ to the errors of each
-datapoint. The inverted frequency is used to give more weight to the
-qualities that have a lower frequency. The goal is to make the chosen
-function more accurate for higher and lower quality wines.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2VpZ2h0ZWRfZXJyb3IgPC0gZnVuY3Rpb24oZm9ybXVsYSwgdHJhaW5fZGF0YSwgdmFsaWRfZGF0YSwgdmFsaWRfd2l0aF9mcmVxKSB7XG4gICMgdGhpcyBjb2RlIGlzIHRoZSBzYW1lIGFzIGJlZm9yZVxuICB5X25hbWUgPC0gJ3F1YWxpdHknXG4gIHlfdHJ1ZSA8LSB2YWxpZF9kYXRhW1t5X25hbWVdXVxuICBcbiAgXG4gIGxtX2ZpdCA8LSBsbShiZXN0X2Zvcm11bGEsIHRyYWluX2RhdGEpXG4gIHlfcHJlZCA8LSBwcmVkaWN0KGxtX2ZpdCwgbmV3ZGF0YSA9IHZhbGlkX2RhdGEpXG4gICAgXG4gICMgd2UgY3JlYXRlIGFuIGludmVydGVkIGZycXVlbmN5IHZlY3RvclxuICBmcmVxX3ZlY3RvciA8LSB2YWxpZF93aXRoX2ZyZXFbWydmcmVxJ11dXG4gIFxuICAjIFRoZW4sIHdlIHVzZSByb3VnaGx5IHRoZSBzYW1lIGVycm9yIGZ1bmN0aW9uXG4gIG1lYW4oKGZyZXFfdmVjdG9yKih5X3RydWUgLSB5X3ByZWQpKV4yKVxufVxuXG5cbmBgYCJ9 -->
-<pre class="r"><code>weighted_error &lt;- function(formula, train_data, valid_data, valid_with_freq) {
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+We then use this column to add a &#39;weight&#39; to the errors of each datapoint.
+The inverted frequency is used to give more weight to the qualities that have a lower frequency. The goal is to make the chosen function more accurate for higher and lower quality wines.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxud2VpZ2h0ZWRfZXJyb3IgPC0gZnVuY3Rpb24oZm9ybXVsYSwgdHJhaW5fZGF0YSwgdmFsaWRfZGF0YSwgdmFsaWRfd2l0aF9mcmVxKSB7XG4gICMgdGhpcyBjb2RlIGlzIHRoZSBzYW1lIGFzIGJlZm9yZVxuICB5X25hbWUgPC0gJ3F1YWxpdHknXG4gIHlfdHJ1ZSA8LSB2YWxpZF9kYXRhW1t5X25hbWVdXVxuICBcbiAgXG4gIGxtX2ZpdCA8LSBsbShiZXN0X2Zvcm11bGEsIHRyYWluX2RhdGEpXG4gIHlfcHJlZCA8LSBwcmVkaWN0KGxtX2ZpdCwgbmV3ZGF0YSA9IHZhbGlkX2RhdGEpXG4gICAgXG4gICMgd2UgY3JlYXRlIGFuIGludmVydGVkIGZycXVlbmN5IHZlY3RvclxuICBmcmVxX3ZlY3RvciA8LSB2YWxpZF93aXRoX2ZyZXFbWydmcmVxJ11dXG4gIFxuICAjIFRoZW4sIHdlIHVzZSByb3VnaGx5IHRoZSBzYW1lIGVycm9yIGZ1bmN0aW9uXG4gIG1lYW4oKGZyZXFfdmVjdG9yKih5X3RydWUgLSB5X3ByZWQpKV4yKVxufVxuXG5cbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+weighted_error &lt;- function(formula, train_data, valid_data, valid_with_freq) {
   # this code is the same as before
   y_name &lt;- &#39;quality&#39;
   y_true &lt;- valid_data[[y_name]]
@@ -2120,16 +2312,30 @@ function more accurate for higher and lower quality wines.</p>
   mean((freq_vector*(y_true - y_pred))^2)
 }
 </code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Below we see that exactly the same formula came from this error
-function. From this we can conclude that the chosen formula already
-classifies high and low quality wines correctly.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5uZXdfYmVzdF9mb3JtdWxhIDwtIGZpbmRfYmVzdF9mb3JtdWxhKHdlaWdodGVkX2Vycm9yLCB3aW5lX3RyYWluLCB3aW5lX3ZhbGlkLCB3aW5lX3ZhbGlkX2luY2xfZnJlcSlcbm5ld19iZXN0IDwtIGxtKG5ld19iZXN0X2Zvcm11bGEsIGRhdGEgPSB3aW5lX3RyYWluKVxubXNlKHdpbmVfdGVzdCRxdWFsaXR5LCBwcmVkaWN0KG5ld19iZXN0LCBuZXdkYXRhID0gd2luZV90ZXN0KSlcblxucHJpbnQobmV3X2Jlc3RfZm9ybXVsYSlcbnByaW50KGJlc3RfZm9ybXVsYSlcblxuYGBgIn0= -->
-<pre class="r"><code>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+
+Below we see that exactly the same formula came from this error function. From this we can conclude that the chosen formula already classifies high and low quality wines correctly.
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuXG5uZXdfYmVzdF9mb3JtdWxhIDwtIGZpbmRfYmVzdF9mb3JtdWxhKHdlaWdodGVkX2Vycm9yLCB3aW5lX3RyYWluLCB3aW5lX3ZhbGlkLCB3aW5lX3ZhbGlkX2luY2xfZnJlcSlcbm5ld19iZXN0IDwtIGxtKG5ld19iZXN0X2Zvcm11bGEsIGRhdGEgPSB3aW5lX3RyYWluKVxubXNlKHdpbmVfdGVzdCRxdWFsaXR5LCBwcmVkaWN0KG5ld19iZXN0LCBuZXdkYXRhID0gd2luZV90ZXN0KSlcblxucHJpbnQobmV3X2Jlc3RfZm9ybXVsYSlcbnByaW50KGJlc3RfZm9ybXVsYSlcblxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+
 new_best_formula &lt;- find_best_formula(weighted_error, wine_train, wine_valid, wine_valid_incl_freq)
 new_best &lt;- lm(new_best_formula, data = wine_train)
 mse(wine_test$quality, predict(new_best, newdata = wine_test))
@@ -2137,6 +2343,7 @@ mse(wine_test$quality, predict(new_best, newdata = wine_test))
 print(new_best_formula)
 print(best_formula)
 </code></pre>
+<p>```</p>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2149,7 +2356,7 @@ follow-up research question.</p>
 collaboration with Cedric Gevers (student nr 8051003), in June 2021.</p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2luZSBRdWFsaXR5IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKCmNhdGVnb3JpZXM6ICAKLSAiIiAgICAjdGhlIGZyb250IG1hdHRlciBzaG91bGQgYmUgbGlrZSB0aGUgb25lIGZvdW5kIGluLCBlLmcuLCBibG9nMi5tZC4gSXQgY2Fubm90IGJlIGxpa2UgdGhlIG5vcm1hbCBSbWQgd2UgdXNlZAotICIiCmRhdGU6ICIxMi0wOS0yMDIyIgpkZXNjcmlwdGlvbjogUHJlZGljdGluZyBXaW5lIFF1YWxpdHkgICMgdGhlIHRpdGxlIHRoYXQgd2lsbCBzaG93IHVwIG9uY2Ugc29tZW9uZSBnZXRzIHRvIHRoaXMgcGFnZQpkcmFmdDogZmFsc2UKaW1hZ2U6IHdpbmVfZ2xhc3MuanBlZyAjIHNhdmUgcGljdHVyZSBpbiBcc3RhdGljXGltZ1xibG9ncy4gQWNjZXB0YWJsZSBmb3JtYXRzPSBqcGcsIGpwZWcsIG9yIHBuZyAuIFlvdXIgaVBob25lIHBpY3Mgd29udCB3b3JrCgprZXl3b3JkczogIiIKc2x1Zzogd2luZSAjIHNsdWcgaXMgdGhlIHNob3J0aGFuZCBVUkwgYWRkcmVzcy4uLiBubyBzcGFjZXMgcGx6CgotLS0KCgpXZSBhcmUgd29ya2luZyB3aXRoIGEgZGF0YXNldCBvZiB3aW5lcyBmcm9tIEthZ2dsZSwgd2hpY2ggaW5jbHVkZXMgb3ZlciAxNTAwIHdpbmVzIHdpdGggdGhlaXIgY2hlbWljYWwgcHJvcGVydGllcyBhbmQgYSBwcm9mZXNzaW9uYWxseSBkZXRlcm1pbmVkIHF1YWxpdHkgYmV0d2VlbiAzIGFuZCA4LiBPbmUgb2YgdGhlIEthZ2dsZSBjaGFsbGVuZ2VzIGFzc29jaWF0ZWQgd2l0aCB0aGlzIGRhdGFzZXQgd2FzIHRvIHByZWRpY3QgdGhlIHF1YWxpdHkgb2YgdGhlIHdpbmUgYmFzZWQgb24gdGhlIGNoZW1pY2FsIHByb3BlcnRpZXMgbGlzdGVkIGluIHRoZSBkYXRhc2V0LiBXZSBkZWNpZGVkIHRvIHRha2UgdXAgdGhlIGNoYWxsZW5nZS4gVGh1cywgb3VyIHJlc2VhcmNoIHF1ZXN0aW9uIGlzOiAKCkhvdyBjYW4gd2UgcHJlZGljdCB0aGUgcXVhbGl0eSBvZiB3aW5lIGJhc2VkIG9uIGl0cyBjaGVtaWNhbCBwcm9wZXJ0aWVzPwoKYGBge3IgZWNobyA9IFQsIHJlc3VsdHMgPSAnaGlkZScsIGluY2x1ZGUgPSBGQUxTRX0KbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkoZ2dwbG90MikKbGlicmFyeSh2aXJpZGlzKQpsaWJyYXJ5KHNjYWxlcykKbGlicmFyeShkcGx5cikKbGlicmFyeShtYWdyaXR0cikKbGlicmFyeShtdnRub3JtKQpsaWJyYXJ5KElTTFIpCmxpYnJhcnkoaGVyZSkKbGlicmFyeShza2ltcikKc2V0LnNlZWQoMTIzKQpgYGAKCldlIHJlYWQgaW4gdGhlIGRhdGFmcmFtZSBhbmQgdGFrZSBhIGxvb2sgYXQgdGhlIHZhcmlhYmxlcyBhbmQgdGhlaXIgdHlwZXMuIFdlIHNlZSB0aGF0IHRoaXMgaXMgYSB2ZXJ5IGNsZWFuIGRhdGFzZXQsIHdpdGhvdXQgbWlzc2luZyBkYXRhIGFuZCBhbHJlYWR5IGluIHRpZHkgZm9ybWF0LiAKCmBgYHtyfQp3aW5lICA8LSByZWFkLmNzdihoZXJlOjpoZXJlKCdkYXRhL3dpbmVxdWFsaXR5LXJlZC5jc3YnKSkKc2tpbSh3aW5lKQoKYGBgCgpXaGlsZSBleHBsb3JpbmcgdGhlIGRhdGEsIHdlIGZvdW5kIHRoYXQgZm9yIGEgbG90IG9mIHRoZSB2YXJpYWJsZXMsIHRoZXJlIGRpZG4ndCBzZWVtIHRvIGJlIGEgY29ycmVsYXRpb24gYmV0d2VlbiB0aGUgY2hlbWljYWwgcHJvcGVydHkgYW5kIHRoZSBxdWFsaXR5IG9mIHRoZSB3aW5lLiBGb3IgdGhlIGFsY29ob2wgbGV2ZWwgYW5kIHRoZSB2b2xhdGlsZSBhY2lkaXR5IG9mIHRoZSB3aW5lLCB0aGVyZSBkaWQgc2VlbSB0byBiZSBhIGNvcnJlbGF0aW9uLiBXZSBzZWUgbGlnaHRlciBjb2xvcnMgdG93YXJkIHRoZSB0b3AgbGVmdCBvZiB0aGUgcGxvdCwgYW5kIGRhcmtlciBjb2xvcnMgaW4gdGhlIGJvdHRvbSByaWdodC4gVGhpcyBkb2VzIG5vdCBmdWxseSBhbnN3ZXIgb3VyIHJlc2VhcmNoIHF1ZXN0aW9uLCBidXQgc2hvd3MgdGhhdCB0aGVzZSB2YXJpYWJsZXMgaW4gcGFydCBjb3VsZCBleHBsYWluIHRoZSBxdWFsaXR5IG9mIHRoZSB3aW5lLiAKRm9yIHRoaXMgdmlzdWFsaXNhdGlvbiwgd2UgaGF2ZSBmaWx0ZXJlZCBvdXQgb25lIG91dGxpZXIgb2YgdGhlIHZvbGF0aWxlIGFjaWRpdHkgdG8gZW5zdXJlIGxlZ2liaWxpdHkgb2YgdGhlIHBsb3QuIAoKYGBge3J9CiMgQ3JlYXRpbmcgYSBzY2F0dGVycGxvdCBmcm9tIGFsY29ob2wgYW5kIHZvbGF0aWxlIGFjaWRpdHkKCiMgRmlsdGVyIG91dCBvbmUgb3V0bGllciB3aXRoIHZlcnkgaGlnaCBhY2lkaXR5CndpbmVfcGxvdCA8LSBmaWx0ZXIod2luZSwgdm9sYXRpbGUuYWNpZGl0eSA8IDEuNSkKCiMgUGxvdHRpbmcgd2l0aCBxdWFsaXR5IGFzIHRoZSBjb2xvcgpnZ3Bsb3Qod2luZV9wbG90ICwgbWFwcGluZyA9IGFlcyggeSA9IGBhbGNvaG9sYCwgeCA9IGB2b2xhdGlsZS5hY2lkaXR5YCwgY29sb3IgPSBhcy5mYWN0b3IocXVhbGl0eSkpKSArCiAgZ2VvbV9wb2ludCgpICsKICBzY2FsZV9jb2xvcl92aXJpZGlzX2QobmFtZSA9ICdRdWFsaXR5JykgKwogIGxhYnMoICMgYWRkaW5nIGxhYmVscwogICAgeSA9ICdBbGNvaG9sICglKScsCiAgICB4ID0gJ1ZvbGF0aWxlIEFjaWRpdHknLAogICAgdGl0bGUgPSAnRWZmZWN0IG9mIEFsY29ob2wgYW5kIFZvbGF0aWxlIEFjaWRpdHkgb24gUXVhbGl0eSBvZiBSZWQgV2luZScKICApICsKICB0aGVtZV9taW5pbWFsKCkKCmBgYAoKCk5vdyB3ZSBhcmUgZ29pbmcgdG8gc3BsaXQgb3VyIGRhdGFzZXQgaW4gdHJhaW4gKDUwJSksIHZhbGlkYXRpb24gKDMwJSkgYW5kIHRlc3QgKDIwJSkuCgpgYGB7cn0KIyBjcmVhdGUgdGhlIHNwbGl0dGluZyB2ZWN0b3IKIyBXZSBzZWxlY3RlZCB0aGUgbnVtYmVycyBiYXNlZCBvbiB0aGUgbGVuZ3RoIG9mIHRoZSBkYXRhc2V0CnNwbGl0IDwtIGMocmVwKCJUcmFpbiIsIDgwMCksIHJlcCgiVmFsaWQiLCA0ODApLCByZXAoIlRlc3QiLCAgMzE5KSkKd2luZSA8LSB3aW5lICAlPiUgbXV0YXRlKHNwbGl0ID0gc2FtcGxlKHNwbGl0KSkKCiMgd2UgY3JlYXRlIGRhdGFmcmFtZXMgZm9yIGVhY2ggb2YgdGhlIHNwbGl0cwp3aW5lX3RyYWluIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSAiVHJhaW4iKQp3aW5lX3ZhbGlkIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSAiVmFsaWQiKQp3aW5lX3Rlc3QgIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSAiVGVzdCIpCgpgYGAKCgpCZWxvdywgd2Ugc2VlIHRoZSBkaXN0cmlidXRpb24gb2YgdGhlIHdpbmUtcXVhbGl0eSBvdmVyIHRoZSBkaWZmZXJlbnQgZGF0YXNldHMuIFdlIHNlZSB0aGF0IHRoZSBkaXN0cmlidXRpb25zIGFyZSB2ZXJ5IHNpbWlsYXIgYWNyb3NzIHRoZSBkaWZmZXJlbnQgZGF0YXNldHMsIHNvIHRoaXMgc3BsaXQgaXMgb2theS4KQmVzaWRlcyB0aGF0LCB3ZSBzZWUgdGhhdCB0aGUgZGlzdHJpYnV0aW9uIGlzIG5vdyBlcXVhbCBhY3Jvc3MgYWxsIGNhdGVnb3JpZXMuIFRoZXJlIGFyZSBhIGxvdCBtb3JlIHdpbmVzIHdpdGggcXVhbGl0aWVzIDUgYW5kIDYsIHNvIGF2ZXJhZ2Ugd2luZXMsIHRoYW4gdGhlcmUgYXJlIHJlYWxseSBiYWQgYW5kIHJlYWxseSBnb29kIHdpbmVzLiBUaGlzIHdpbGwgcHJvYmFibHkgbWFrZSBpdCBoYXJkZXIgdG8gcHJlZGljdCB0aGUgcXVhbGl0eSBvZiB0aGUgd2luZXMsIGFzIHRoZSBkYXRhIGlzIGltYmFsYW5jZWQuIEltYmFsYW5jZWQgZGF0YSBtZWFucyB0aGF0IHNvbWUgZGF0YXBvaW50cyBzaG91bGQgYmUgY29uc2lkZXJlZCBtb3JlIGltcG9ydGFudCB0aGFuIG90aGVycywgYXMgdGhlcmUgYXJlIG9ubHkgYSBmZXcgb2YgdGhlIGhpZ2ggYW5kIGxvdyBxdWFsaXR5IHdpbmVzLiBUbyBiZSBhYmxlIHRvIHByZWRpY3QgdGhvc2UgaGlnaCBhbmQgbG93IHF1YWxpdHkgd2luZXMgYXMgd2VsbCwgd2Ugc2hvdWxkIGhhdmUgYSBkaWZmZXJlbnQgbWV0cmljIHRoYW4gbWVhbiBzcXVhcmVkIGVycm9yLCBhcyB0aGlzIGNvdW50cyBlcnJvcnMgaW4gYWxsIGNhdGdvcmllcyBhcyBlcXVhbGx5IGltcG9ydGFudCwgd2hpbGUgZm9yIHVzLCBpdCBpcyBtdWNoIG1vcmUgc2lnbmlmaWNhbnQgaWYgdGhlIGhpZ2ggYW5kIGxvdyBxdWFsaXR5IHdpbmVzIGFyZSBub3QgcHJlZGljdGVkIHdlbGwuIE91ciBuZXcgbWV0cmljIHNob3VsZCB0YWtlIGludG8gYWNjb3VudCB0aGUgZnJlcXVlbmN5IG9mIHRoYXQgZGF0YXBvaW50LCBzbyB0aGF0IHdlIGNhbiBvdmVydmFsdWUgbWlzdGFrZXMgaW4gdGhlIDMgYW5kIDggY2F0ZWdvcmllcy4gVW5mb3J0dW5hdGVseSwgY3JlYXRpbmcgYSBtZXRyaWMgbGlrZSB0aGF0IHdhcyBhIGJpdCBvdXQgb2YgdGhlIHNjb3BlIG9mIHRoaXMgYXNzaWdubWVudCwgc28gd2Ugd2lsbCBiZSB1c2luZyB0aGUgbWVhbiBzcXVhcmVkIGVycm9yLCBidXQgd2Ugd2lsbCBhbHNvIGtlZXAgaW4gbWluZCB0aGF0IG91ciByZXN1bHRzIHdpbGwgcHJvYmFibHkgbm90IGJlIG9wdGltYWwuIAoKSW4gdGhlIGFwcGVuZGl4LCB0aGVyZSBpcyBhbiBhdHRlbXB0IGF0IHVzaW5nIGEgZGlmZmVyZW50IG1ldHJpYyB0byBldmFsdWF0ZSB0aGUgcmVncmVzc2lvbi4gVGhpcyB3aWxsIHRyeSB0byB2YWx1ZSBtaXN0YWtlcyBiYXNlZCBvbiB0aGUgZnJlcXVlbmN5IG9mIHRoZSBhY3R1YWwgY2F0ZWdvcnkgdGhlIG9ic2VydmF0aW9uIGlzIGluLiAKCmBgYHtyfQojIGNyZWF0aW5nIGEgaGlzdG9ncmFtIHNob3dpbmcgdGhlIGRpc3RyaWJ1dGlvbiBvdmVyIGRhdGFzZXQKZ2dwbG90KCkgKyAKICBnZW9tX2JhcihkYXRhID0gd2luZSwgbWFwcGluZyA9IGFlcyh4ID0gKHF1YWxpdHkpICwgZmlsbCA9IHNwbGl0KSwgYWxwaGEgPSAwLjcgKSAgKyAKICAjIGdldHRpbmcgcHJldHR5IGNvbG91cnMKICBzY2FsZV9maWxsX3ZpcmlkaXNfZChuYW1lID0gJ0RhdGFzZXQnKSArCiAgbGFicyggIyBhZGRpbmcgbGFiZWxzCiAgICB5ID0gJ0NvdW50JywKICAgIHggPSAnUXVhbGl0eScsCiAgICB0aXRsZSA9ICdRdWFsaXR5IG9mIHdpbmVzIGluIHRoZSBkYXRhc2V0cycKICAgICkgKwogIHRoZW1lX21pbmltYWwoKQoKICAKYGBgCgpXZSBoYXZlIGNob3NlbiB0byB1c2UgYSBzdWJzZXQgc2VsZWN0aW9uIHJhdGhlciB0aGFuIHJlZ3VsYXJpc2F0aW9uIG1ldGhvZHMsIGJlY2F1c2Ugd2UgdGhpbmsgdGhhdGxpbWl0aW5nIHRoZSBudW1iZXIgb2YgY29sdW1ucyB3ZSB1c2UgYnV0IHN0aWxsIGFsbG93aW5nIGZvciBsYXJnZSB2YWx1ZXMgaW4gdGhvc2UgY29lZmZpY2llbnRzIHdpbGwgYmUgYmV0dGVyIHRoYW4gbGltaXRpbmcgYWxsIGNvZWZmaWNpZW50cy4gQmVjYXVzZSwgaWYgYWxsIGNvZWZmaWNpZW50cyBhcmUgc21hbGwsIHRoZXkgd2lsbCBsaWtlbHkgdGVuZCB0byBwcmVkaWN0IG9ubHkgYXZlcmFnZSBxdWFsaXRpZXMgcmF0aGVyIHRoYW4gYWxzbyB0aGUgb3V0bGllcnMuIFdpdGggdGhlIHN1YnNldCBzZWxlY3Rpb24sIHdlIGNhbiBjYXRlciB0byB0aGUgb3V0bGllcnMgYXMgd2VsbC4gCgpGcm9tIGhlcmUgb24sIHRoZSBiZXN0IHN1YnNldCBzZWxlY3Rpb24gbWV0aG9kIHdpbGwgYmUgaW1wbGVtZW50ZWQuIAoKV2Ugd3JpdGUgYW4gbXNlIGZ1bmN0aW9uIHRvIGdldCB0aGUgbWVhbiBzcXVhcmVkIGVycm9yIG9mIGEgY2VydGFpbiBmb3JtdWxhLiBOb3RlIHRoYXQgd2UgaGF2ZSBhZGRlZCBhbiBhcmd1bWVudCB0aGF0IGhhcyBOVUxMIGFzIGEgZGVmYXVsdCB0byBiZSBhYmxlIHRvIHVzZSB0aGlzIG9uZSBpbnRlcmNoYW5nZWFibHkgd2l0aCB0aGUgZXJyb3IgZnVuY3Rpb24gdGhhdCB0YWtlcyB0aGUgZnJlcXVlbmN5IGludG8gYWNjb3VudC4KCmBgYHtyfQpsbV9tc2UgPC0gZnVuY3Rpb24oZm9ybXVsYSwgdHJhaW5fZGF0YSwgdmFsaWRfZGF0YSwgdmFsaWRfd2l0aF9mcmVxID0gTlVMTCkgewogIHlfbmFtZSA8LSBhcy5jaGFyYWN0ZXIoZm9ybXVsYSlbMl0KICB5X3RydWUgPC0gdmFsaWRfZGF0YVtbeV9uYW1lXV0KICAKICBsbV9maXQgPC0gbG0oZm9ybXVsYSwgdHJhaW5fZGF0YSkKICB5X3ByZWQgPC0gcHJlZGljdChsbV9maXQsIG5ld2RhdGEgPSB2YWxpZF9kYXRhKQogIAogIG1lYW4oKHlfdHJ1ZSAtIHlfcHJlZCleMikKfQoKYGBgCgoKV2Ugc291cmNlIHRoZSBnZW5lcmF0ZV9mb3JtdWxhcyBmaWxlIHdyaXR0ZW4gYnkgdGhlIHRlYWNoZXIgZnJvbSBhIGNsYXNzIHRvIGJlIGFibGUgdG8gaW1wbGVtZW50IHRoZSBzdWJzZXQgc2VsZWN0aW9uIG1ldGhvZC4KCmBgYHtyfQpzb3VyY2UoImdlbmVyYXRlX2Zvcm11bGFzLlIiKQpgYGAKCgpXZSBkZWZpbmUgdGhlIHggYW5kIHkgdmFyaWFibGVzIHRvIGJlIGFibGUgdG8gYXBwbHkgdGhlIGdlbmVyYXRlX2Zvcm11bGFzIGZ1bmN0aW9uCgpgYGB7cn0Kd2luZSA8LSBzZWxlY3Qod2luZSwgLXNwbGl0KSAjIHJlbW92aW5nIHRoZSBzcGxpdCBjb2x1bW4KeF92YXJzIDwtIGNvbG5hbWVzKHdpbmUpCnhfdmFycyA8LSB4X3ZhcnNbeF92YXJzICE9ICJxdWFsaXR5Il0gI3VzaW5nIGFsbCB2YXJpYWJsZXMgZXhjZXB0IHF1YWxpdHkgZm9yIHRoZSB4CmBgYAoKCldlIGdldCBhIHZlY3RvciBvZiBhbGwgZnVuY3Rpb25zLgoKYGBge3J9CmZvcm11bGFzIDwtIGdlbmVyYXRlX2Zvcm11bGFzKHAgPSAzLCB4X3ZhcnMgPSB4X3ZhcnMsIHlfdmFyID0gInF1YWxpdHkiKQpsZW4gPC0gbGVuZ3RoKGZvcm11bGFzKQpgYGAKCgpXZSB1c2UgYSBmb3IgbG9vcCB0byBmaW5kIHRoZSBiZXN0IHNldCBvZiAzIHByZWRpY3RvcnMgaW4gdGhlIHdpbmUgZGF0YXNldCBiYXNlZCBvbiBNU0UuIFVzZSB0aGUgd2luZV90cmFpbiBhbmQgd2luZV92YWxpZCBkYXRhc2V0cy4KCmBgYHtyfQojIEluaXRpYWxpc2UgYSB2ZWN0b3Igd2Ugd2lsbCBmaWxsIHdpdGggTVNFIHZhbHVlcwptc2VzXzMgPC0gcmVwKDAsIGxlbikKCiMgbG9vcCBvdmVyIGFsbCB0aGUgZm9ybXVsYXMKZm9yIChpIGluIDE6bGVuKSB7CiAgbXNlc18zW2ldIDwtIGxtX21zZShhcy5mb3JtdWxhKGZvcm11bGFzW2ldKSwgd2luZV90cmFpbiwgd2luZV92YWxpZCkKfQoKIyBzZWxlY3QgdGhlIGZvcm11bGEgd2l0aCB0aGUgbG93ZXN0IE1TRQpiZXN0XzNfcHJlZHMgPC0gZm9ybXVsYXNbd2hpY2gubWluKG1zZXNfMyldCmJlc3RfM19wcmVkcwpgYGAKCgpXZSBub3cgdXNlIHRoYXQga25vd2xlZGdlIHRvIGNyZWF0ZSBhIGZvci1sb29wIG92ZXIgYWxsIHRoZSBudW1iZXJzIG9mIHBhcmFtZXRlcnMgd2Ugd2FudCB0byBjb25zaWRlciBhbmQgd3JhcCBpdCBhbGwgaW4gYSBmdW5jdGlvbi4gSGVyZSB3ZSBtYWtlIHRoZSBmdW5jdGlvbiB0aGF0IGNhbGN1bGF0ZXMgdGhlIGVycm9yLCBpbiB0aGlzIGNhc2UgbG1fbXNlLCBhIHBhcmFtZXRlciB0byBiZSBhYmxlIHRvIGNoYW5nZSB0aGF0IGluIHRoZSBhcHBlbmRpeC4KCmBgYHtyfQojIFdlIGZpbmQgdGhlIGJlc3QgZm9ybXVsYQoKZmluZF9iZXN0X2Zvcm11bGEgPC0gZnVuY3Rpb24oZXJyb3JfZnVuY3Rpb24sIHRyYWluX2RhdGEsIHZhbGlkX2RhdGEsIHZhbGlkX3dpdGhfZnJlcSA9IE5VTEwpewogIAogICMgSW5pdGlhbGlzZSBmb3JtdWxhIGxpc3RzIHRvIGJlIGFibGUgdG8gYWNjZXNzIHRoZSBmb3JtdWxhcyBsYXRlcgogIGZvcm11bGFfbGlzdCA8LSBsaXN0KCkKICAjIGluaXRpYWxpc2Ugc21hbGxlc3QgZXJyb3IKICBvdmVyYWxsX21pbiA8LSAxMDAwMDAwMDAKICAKICBmb3IgKGkgaW4gMTo0KXsKICAgIGZvcm11bGFzIDwtIGdlbmVyYXRlX2Zvcm11bGFzKHAgPSBpLCB4X3ZhcnMgPSB4X3ZhcnMsIHlfdmFyID0gInF1YWxpdHkiKQogICAgZm9ybXVsYV9saXN0IDwtIGMoZm9ybXVsYV9saXN0LCBsaXN0KGZvcm11bGFzKSkKICAgIAogICAgIyBJbml0aWFsaXNlIGEgdmVjdG9yIHdlIHdpbGwgZmlsbCB3aXRoIE1TRSB2YWx1ZXMKICAgIGVycm9ycyA8LSByZXAoMCwgbGVuZ3RoKGZvcm11bGFzKSkKICAgIAogICAgZm9yIChqIGluIDE6bGVuZ3RoKGZvcm11bGFzKSkgewogICAgZXJyb3JzW2pdIDwtIGVycm9yX2Z1bmN0aW9uKGFzLmZvcm11bGEoZm9ybXVsYXNbaV0pLCB0cmFpbl9kYXRhLCB2YWxpZF9kYXRhLCB2YWxpZF93aXRoX2ZyZXEpCiAgICB9CiAgICAKICAgIGxvY2FsbWluIDwtIG1pbihlcnJvcnMpCiAgICAKICAgIGlmIChsb2NhbG1pbiA8PSBvdmVyYWxsX21pbil7CiAgICAgIG92ZXJhbGxfbWluIDwtIGxvY2FsbWluCiAgICAgIG5yX3BhcmFtIDwtIGkKICAgICAgbWluX2Zvcm11bGEgPC0gZm9ybXVsYXNbd2hpY2gubWluKGVycm9ycyldCiAgICB9CiAgfQogIAogIG1pbl9mb3JtdWxhCiAgCn0KCgpgYGAKCgpBcHBseWluZyB0aGUgZm9ybXVsYQoKYGBge3J9CmJlc3RfZm9ybXVsYSA8LSBmaW5kX2Jlc3RfZm9ybXVsYShsbV9tc2UsIHdpbmVfdHJhaW4sIHdpbmVfdmFsaWQpCgpgYGAKCgpXZSBoYXZlIG5vdyBmb3VuZCB0aGUgbW9kZWwgd2l0aCB0aGUgbG93ZXN0IG1lYW4gc3F1YXJlZCBlcnJvciwgd2hpY2ggd2Ugd2lsbCB1c2UgdG8gZ2V0IHRoZSBvcHRpbWFsIG1vZGVsLgoKYGBge3J9CiMgRXN0aW1hdGUgbW9kZWwgYW5kIGNhbGN1bGF0ZSBtc2UKbG1fYmVzdCA8LSBsbShiZXN0X2Zvcm11bGEsIGRhdGEgPSB3aW5lX3RyYWluKQptc2UgPC0gZnVuY3Rpb24oeV90cnVlLCB5X3ByZWQpIG1lYW4oKHlfdHJ1ZSAtIHlfcHJlZCleMikKbXNlKHdpbmVfdGVzdCRxdWFsaXR5LCBwcmVkaWN0KGxtX2Jlc3QsIG5ld2RhdGEgPSB3aW5lX3Rlc3QpKQpgYGAKCkZpbmFsbHksIHdlIHBsb3QgdGhlIHJlc3VsdCBvZiBvdXIgcmVncmVzc2lvbiBtb2RlbC4gVGhlIGdyZWVuIGxpbmUgcmVwcmVzZW50cyB3aGVyZSB0aGUgZGF0YSB3b3VsZCBiZSBpbiBhIGNhc2Ugb2YgYSBwZXJmZWN0IHByZWRpY3Rpb24uIFdlIHNlZSB0aGF0IGluIGdlbmVyYWwsIG91ciB2YWx1ZXMgYXJlIGNsb3NlciB0byB0aGUgbWlkZGxlIHRoYW4gdGhleSBzaG91bGQgYmUuIFRoaXMgaXMgcHJvYmFibHkgZHVlIHRvIHRoZSBlYXJsaWVyIG1lbnRpb25lZCBpbWJhbGFuY2VkIGRhdGEuIFRoZSByZWdyZXNzaW9uIGZpdCBpcyBub3cgb3B0aW1hbGlzZWQgZm9yIHRoZSBhdmVyYWdlIHdpbmVzIGFuZCBkb2VzIG5vdCBkbyB3ZWxsIGZvciB0aGUgZXhjZXB0aW9uYWxseSBiYWQgb3IgZXhjZXB0aW9uYWxseSBnb29kIHdpbmVzLCB3aGljaCBtYWtlcyBzZW5zZSBkdWUgdG8gdGhlIGZldyBvYnNlcnZhdGlvbnMgd2UgaGF2ZSBpbiB0aGF0IHJhbmdlLiBPdmVyYWxsLCBvdXIgbWVhbiBzcXVhcmVkIGVycm9yIGlzIG5vdCB0aGF0IGJpZywgYnV0IHRoZSByZWdyZXNzaW9uIHNlZW1zIHNrZXdlZCBzdGlsbC4gV2UgY291bGQgaW1wcm92ZSB0aGlzIHdpdGggYSBkaWZmZXJlbnQgZXZhbHVhdGlvbiBtZXRob2QgbGlrZSBtZW50aW9uZWQgYWJvdmUgb3IgZXZlbiBhIHNhbXBsaW5nIG1ldGhvZCB3aGVyZSB3ZSBwaWNrIGZld2VyIG9mIHRoZSBhdmVyYWdlIHdpbmVzIHRvIHRyYWluIG91ciBtb2RlbCBvbi4gVW5mb3J0dW5hdGVseSwgYWxsIG9mIHRob3NlIG1ldGhvZHMgYXJlIG91dHNpZGUgdGhlIHNjb3BlIG9mIHRoaXMgYXNzaWdubWVudC4KCmBgYHtyfQojIGNyZWF0ZSBhIHNpbXBsZSBzY2F0dGVycGxvdCBwbG90CmNyZWF0ZV9ldmFsdWF0aW9uX3Bsb3QgPC0gZnVuY3Rpb24obW9kZWwpewogIHRpYmJsZSgKICAgIHlfdHJ1ZV9wbHQgPSB3aW5lX3Rlc3QkcXVhbGl0eSwKICAgIHlfcHJlZF9wbHQgPSBwcmVkaWN0KG1vZGVsLCBuZXdkYXRhID0gd2luZV90ZXN0KQogICkgJT4lIAogICAgZ2dwbG90KGFlcyh4ID0geV9wcmVkX3BsdCwgeSA9IGZhY3Rvcih5X3RydWVfcGx0KSkpICsKICAgICMgbm90ZSB0aGF0IHRoZSBpbnRlcmNlcHQgaGVyZSBpcyBiYXNlZCBvbiB0aGUgbnVtYmVyIG9mIGNhdGVnb3JpZXMKICAgICMgU28gbGlrZSB0aGlzIGl0IGNyZWF0ZXMgdGhlIGxpbmUgeSA9IHggZm9yIHJlZmVyZW5jZQogICAgZ2VvbV9hYmxpbmUoc2xvcGUgPSAxLCBpbnRlcmNlcHQgPSAtMiwgbHR5ID0gMiwgY29sID0gJ2RhcmtncmVlbicgKSArCiAgICAjIHdlIHBsb3QgdGhlIGRhdGFwb2ludHMgYXMgYSB2aW9saW4gdG8gc2hvdyB0aGUgZGlzdHJpYnV0aW9uCiAgICBnZW9tX3Zpb2xpbihvcmllbnRhdGlvbiA9ICd5JywgYWxwaGEgPSAwLjYpICsKICAgIGxhYnMoICMgYWRkIGxhYmVscwogICAgICB5ID0gJ1RydWUgcXVhbGl0eScsCiAgICAgIHggPSAnUHJlZGljdGVkIHF1YWxpdHknLAogICAgICB0aXRsZSA9ICdFdmFsdWF0aW9uIG9mIHByZWRpY3Rpb25zJywKICAgICAgY29sb3IgPSAnRml0JwogICAgICApICsKICAgIHRoZW1lX21pbmltYWwoKSAKfQpgYGAKCmBgYHtyfQpjcmVhdGVfZXZhbHVhdGlvbl9wbG90KGxtX2Jlc3QpCmBgYAoKYGBge3J9CnN1bW1hcnkobG1fYmVzdCkKYGBgCgoKSW4gY29uY2x1c2lvbiwgdGhlIHF1YWxpdHkgb2YgdGhlIHdpbmUgY2FuIGJlIHByZWRpY3RlZCB0byBzb21lIGV4dGVudCBieSB0aGUgdm9sYXRpbGUgYWNpZGl0eSwgY2hsb3JpZGVzLCBzdWxwaGF0ZXMgYW5kIGFsY29ob2wgbGV2ZWwgaW4gdGhlIHdpbmUuIFdlIHNlZSB0aGF0IGxvd2VyIGFjaWRpdHkgbWVhbnMgYSBoaWdoZXIgcXVhbGl0eSwgd2hpbGUgaGlnaGVyIHN1bHBoYXRlIGFuZCBhbGNvaG9sIGxldmVscyBhcmUgYWxzbyBpbmRpY2F0b3JzIG9mIGEgaGlnaGVyIHF1YWxpdHkgd2luZS4gQ2hsb3JpZGVzIGFjdHVhbGx5IGRvbid0IHNpZ25pZmljYW50bHkgcHJlZGljdCB0aGUgcXVhbGl0eSwgYnV0IGRpZCBsb3dlciB0aGUgbWVhbiBzcXVhcmVkIGVycm9yLCB3aGljaCBpcyB3aHkgaXQncyBzdGlsbCBpbmNsdWRlZC4gU28sIG5leHQgdGltZSB5b3UncmUgc3RhbmRpbmcgaW4gdGhlIHN1cGVybWFya2V0IGxvb2tpbmcgZm9yIGEgZ29vZCBidXQgY2hlYXAgd2luZSwgdGFraW5nIHRoZSBhbGNvaG9sIGxldmVsIGFzIGFuIGluZGljYXRvciBpcyBhY3R1YWxseSBhIGdvb2QgaWRlYSEgCgoKCgoKQXBwZW5kaXggQTogRGlmZmVyZW50IGVycm9yIGZ1bmN0aW9uCgpJbiBvcmRlciB0byBhY2NvdW50IGZvciB0aGUgc2tld2VkIGRhdGEgd2UgaGF2ZSBhbmQgaG9wZWZ1bGx5IGJlIGJldHRlciBhYmxlIHRvIHByZWRpY3Qgd2hldGhlciBhIHdpbmUgaXMgcmVhbGx5IGdvb2Qgb3IgcmVhbGx5IGJhZCwgd2UgaGF2ZSBpbXBsZW1lbnRlZCBhIHNsaWdodGx5IGRpZmZlcmVudCBlcnJvciBmdW5jdGlvbiBoZXJlLiBGaXJzdCB3ZSBkZWZpbmUgYSBmcmVxdWVuY3kgY29sdW1uIGluIHRoZSB2YWxpZGF0aW9uIGRhdGFzZXQuIAoKYGBge3J9CmZyZXEgPC0gYXMuZGF0YS5mcmFtZSh0YWJsZSh3aW5lX3ZhbGlkJHF1YWxpdHkpIC8gbGVuZ3RoKHdpbmVfdmFsaWQkcXVhbGl0eSApKQpuYW1lcyhmcmVxKSA8LSBjKCdxdWFsaXR5JywgJ2ZyZXEnKQp3aW5lX3ZhbGlkX2luY2xfZnJlcSA8LSBtZXJnZSh3aW5lX3ZhbGlkLCBmcmVxLCBieSA9ICdxdWFsaXR5JywgYWxsLnggPSBUUlVFKSAlPiUKICBtdXRhdGUoZnJlcSA9IDEgLSBmcmVxKQpgYGAKCgpXZSB0aGVuIHVzZSB0aGlzIGNvbHVtbiB0byBhZGQgYSAnd2VpZ2h0JyB0byB0aGUgZXJyb3JzIG9mIGVhY2ggZGF0YXBvaW50LgpUaGUgaW52ZXJ0ZWQgZnJlcXVlbmN5IGlzIHVzZWQgdG8gZ2l2ZSBtb3JlIHdlaWdodCB0byB0aGUgcXVhbGl0aWVzIHRoYXQgaGF2ZSBhIGxvd2VyIGZyZXF1ZW5jeS4gVGhlIGdvYWwgaXMgdG8gbWFrZSB0aGUgY2hvc2VuIGZ1bmN0aW9uIG1vcmUgYWNjdXJhdGUgZm9yIGhpZ2hlciBhbmQgbG93ZXIgcXVhbGl0eSB3aW5lcy4KCmBgYHtyfQp3ZWlnaHRlZF9lcnJvciA8LSBmdW5jdGlvbihmb3JtdWxhLCB0cmFpbl9kYXRhLCB2YWxpZF9kYXRhLCB2YWxpZF93aXRoX2ZyZXEpIHsKICAjIHRoaXMgY29kZSBpcyB0aGUgc2FtZSBhcyBiZWZvcmUKICB5X25hbWUgPC0gJ3F1YWxpdHknCiAgeV90cnVlIDwtIHZhbGlkX2RhdGFbW3lfbmFtZV1dCiAgCiAgCiAgbG1fZml0IDwtIGxtKGJlc3RfZm9ybXVsYSwgdHJhaW5fZGF0YSkKICB5X3ByZWQgPC0gcHJlZGljdChsbV9maXQsIG5ld2RhdGEgPSB2YWxpZF9kYXRhKQogICAgCiAgIyB3ZSBjcmVhdGUgYW4gaW52ZXJ0ZWQgZnJxdWVuY3kgdmVjdG9yCiAgZnJlcV92ZWN0b3IgPC0gdmFsaWRfd2l0aF9mcmVxW1snZnJlcSddXQogIAogICMgVGhlbiwgd2UgdXNlIHJvdWdobHkgdGhlIHNhbWUgZXJyb3IgZnVuY3Rpb24KICBtZWFuKChmcmVxX3ZlY3RvciooeV90cnVlIC0geV9wcmVkKSleMikKfQoKCmBgYAoKCkJlbG93IHdlIHNlZSB0aGF0IGV4YWN0bHkgdGhlIHNhbWUgZm9ybXVsYSBjYW1lIGZyb20gdGhpcyBlcnJvciBmdW5jdGlvbi4gRnJvbSB0aGlzIHdlIGNhbiBjb25jbHVkZSB0aGF0IHRoZSBjaG9zZW4gZm9ybXVsYSBhbHJlYWR5IGNsYXNzaWZpZXMgaGlnaCBhbmQgbG93IHF1YWxpdHkgd2luZXMgY29ycmVjdGx5LgoKYGBge3J9CgpuZXdfYmVzdF9mb3JtdWxhIDwtIGZpbmRfYmVzdF9mb3JtdWxhKHdlaWdodGVkX2Vycm9yLCB3aW5lX3RyYWluLCB3aW5lX3ZhbGlkLCB3aW5lX3ZhbGlkX2luY2xfZnJlcSkKbmV3X2Jlc3QgPC0gbG0obmV3X2Jlc3RfZm9ybXVsYSwgZGF0YSA9IHdpbmVfdHJhaW4pCm1zZSh3aW5lX3Rlc3QkcXVhbGl0eSwgcHJlZGljdChuZXdfYmVzdCwgbmV3ZGF0YSA9IHdpbmVfdGVzdCkpCgpwcmludChuZXdfYmVzdF9mb3JtdWxhKQpwcmludChiZXN0X2Zvcm11bGEpCgpgYGAKClVuZm9ydHVuYXRlbHksIHRoaXMgd2F5IG9mIGFjY291bnRpbmcgZm9yIHRoZSBpbWJhbGFuY2VkIGRhdGEgZGlkIG5vdCB3b3JrLiBJbiB0aGUgZnV0dXJlIHdlIHdpbGwgaGF2ZSB0byBjaG9vc2UgYSBkaWZmZXJlbnQgd2F5LCBmb3IgZXhhbXBsZSBvdmVyIG9yIHVuZGVyc2FtcGxpbmcgdGhlIGRhdGEuIEhvd2V2ZXIsIEkgY291bGQgbm90IGZpbmQgc3VjaCBhIGZ1bmN0aW9uIGZvciBtdWx0aS1jYXRlZ29yeSBkYXRhLiBUaGlzIGNvdWxkIGJlIHNvbWV0aGluZyBmb3IgYSBmb2xsb3ctdXAgcmVzZWFyY2ggcXVlc3Rpb24uCgoKVGhpcyBlbnRyeSB3YXMgY3JlYXRlZCBiYXNlZCBvbiBhIGNsYXNzIGFzc2lnbm1lbnQgY3JlYXRlZCBpbiBjb2xsYWJvcmF0aW9uIHdpdGggQ2VkcmljIEdldmVycyAoc3R1ZGVudCBuciA4MDUxMDAzKSwgaW4gSnVuZSAyMDIxLgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2luZSBRdWFsaXR5IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKCmNhdGVnb3JpZXM6ICAKLSAiIiAgICAjdGhlIGZyb250IG1hdHRlciBzaG91bGQgYmUgbGlrZSB0aGUgb25lIGZvdW5kIGluLCBlLmcuLCBibG9nMi5tZC4gSXQgY2Fubm90IGJlIGxpa2UgdGhlIG5vcm1hbCBSbWQgd2UgdXNlZAotICIiCmRhdGU6ICIxMi0wOS0yMDIyIgpkZXNjcmlwdGlvbjogUHJlZGljdGluZyBXaW5lIFF1YWxpdHkgZnJvbSBjaGVtaWNhbCBwcm9wZXJ0aWVzICMgdGhlIHRpdGxlIHRoYXQgd2lsbCBzaG93IHVwIG9uY2Ugc29tZW9uZSBnZXRzIHRvIHRoaXMgcGFnZQpkcmFmdDogZmFsc2UKaW1hZ2U6IHdpbmVfZ2xhc3MuanBlZyAjIHNhdmUgcGljdHVyZSBpbiBcc3RhdGljXGltZ1xibG9ncy4gQWNjZXB0YWJsZSBmb3JtYXRzPSBqcGcsIGpwZWcsIG9yIHBuZyAuIFlvdXIgaVBob25lIHBpY3Mgd29udCB3b3JrCgprZXl3b3JkczogIiIKc2x1Zzogd2luZSAjIHNsdWcgaXMgdGhlIHNob3J0aGFuZCBVUkwgYWRkcmVzcy4uLiBubyBzcGFjZXMgcGx6CgotLS0KCgpXZSBhcmUgd29ya2luZyB3aXRoIGEgZGF0YXNldCBvZiB3aW5lcyBmcm9tIEthZ2dsZSwgd2hpY2ggaW5jbHVkZXMgb3ZlciAxNTAwIHdpbmVzIHdpdGggdGhlaXIgY2hlbWljYWwgcHJvcGVydGllcyBhbmQgYSBwcm9mZXNzaW9uYWxseSBkZXRlcm1pbmVkIHF1YWxpdHkgYmV0d2VlbiAzIGFuZCA4LiBPbmUgb2YgdGhlIEthZ2dsZSBjaGFsbGVuZ2VzIGFzc29jaWF0ZWQgd2l0aCB0aGlzIGRhdGFzZXQgd2FzIHRvIHByZWRpY3QgdGhlIHF1YWxpdHkgb2YgdGhlIHdpbmUgYmFzZWQgb24gdGhlIGNoZW1pY2FsIHByb3BlcnRpZXMgbGlzdGVkIGluIHRoZSBkYXRhc2V0LiBXZSBkZWNpZGVkIHRvIHRha2UgdXAgdGhlIGNoYWxsZW5nZS4gVGh1cywgb3VyIHJlc2VhcmNoIHF1ZXN0aW9uIGlzOiAKCkhvdyBjYW4gd2UgcHJlZGljdCB0aGUgcXVhbGl0eSBvZiB3aW5lIGJhc2VkIG9uIGl0cyBjaGVtaWNhbCBwcm9wZXJ0aWVzPwoKYGBge3IgZWNobyA9IFQsIHJlc3VsdHMgPSAnaGlkZScsIGluY2x1ZGUgPSBGQUxTRX0KbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkoZ2dwbG90MikKbGlicmFyeSh2aXJpZGlzKQpsaWJyYXJ5KHNjYWxlcykKbGlicmFyeShkcGx5cikKbGlicmFyeShtYWdyaXR0cikKbGlicmFyeShtdnRub3JtKQpsaWJyYXJ5KElTTFIpCmxpYnJhcnkoaGVyZSkKbGlicmFyeShza2ltcikKc2V0LnNlZWQoMTIzKQpgYGAKCldlIHJlYWQgaW4gdGhlIGRhdGFmcmFtZSBhbmQgdGFrZSBhIGxvb2sgYXQgdGhlIHZhcmlhYmxlcyBhbmQgdGhlaXIgdHlwZXMuIFdlIHNlZSB0aGF0IHRoaXMgaXMgYSB2ZXJ5IGNsZWFuIGRhdGFzZXQsIHdpdGhvdXQgbWlzc2luZyBkYXRhIGFuZCBhbHJlYWR5IGluIHRpZHkgZm9ybWF0LiAKCmBgYHtyfQp3aW5lICA8LSByZWFkLmNzdihoZXJlOjpoZXJlKCdkYXRhL3dpbmVxdWFsaXR5LXJlZC5jc3YnKSkKc2tpbSh3aW5lKQoKYGBgCgpXaGlsZSBleHBsb3JpbmcgdGhlIGRhdGEsIHdlIGZvdW5kIHRoYXQgZm9yIGEgbG90IG9mIHRoZSB2YXJpYWJsZXMsIHRoZXJlIGRpZG4ndCBzZWVtIHRvIGJlIGEgY29ycmVsYXRpb24gYmV0d2VlbiB0aGUgY2hlbWljYWwgcHJvcGVydHkgYW5kIHRoZSBxdWFsaXR5IG9mIHRoZSB3aW5lLiBGb3IgdGhlIGFsY29ob2wgbGV2ZWwgYW5kIHRoZSB2b2xhdGlsZSBhY2lkaXR5IG9mIHRoZSB3aW5lLCB0aGVyZSBkaWQgc2VlbSB0byBiZSBhIGNvcnJlbGF0aW9uLiBXZSBzZWUgbGlnaHRlciBjb2xvcnMgdG93YXJkIHRoZSB0b3AgbGVmdCBvZiB0aGUgcGxvdCwgYW5kIGRhcmtlciBjb2xvcnMgaW4gdGhlIGJvdHRvbSByaWdodC4gVGhpcyBkb2VzIG5vdCBmdWxseSBhbnN3ZXIgb3VyIHJlc2VhcmNoIHF1ZXN0aW9uLCBidXQgc2hvd3MgdGhhdCB0aGVzZSB2YXJpYWJsZXMgaW4gcGFydCBjb3VsZCBleHBsYWluIHRoZSBxdWFsaXR5IG9mIHRoZSB3aW5lLiAKRm9yIHRoaXMgdmlzdWFsaXNhdGlvbiwgd2UgaGF2ZSBmaWx0ZXJlZCBvdXQgb25lIG91dGxpZXIgb2YgdGhlIHZvbGF0aWxlIGFjaWRpdHkgdG8gZW5zdXJlIGxlZ2liaWxpdHkgb2YgdGhlIHBsb3QuIAoKYGBge3J9CiMgQ3JlYXRpbmcgYSBzY2F0dGVycGxvdCBmcm9tIGFsY29ob2wgYW5kIHZvbGF0aWxlIGFjaWRpdHkKCiMgRmlsdGVyIG91dCBvbmUgb3V0bGllciB3aXRoIHZlcnkgaGlnaCBhY2lkaXR5CndpbmVfcGxvdCA8LSBmaWx0ZXIod2luZSwgdm9sYXRpbGUuYWNpZGl0eSA8IDEuNSkKCiMgUGxvdHRpbmcgd2l0aCBxdWFsaXR5IGFzIHRoZSBjb2xvcgpnZ3Bsb3Qod2luZV9wbG90ICwgbWFwcGluZyA9IGFlcyggeSA9IGBhbGNvaG9sYCwgeCA9IGB2b2xhdGlsZS5hY2lkaXR5YCwgY29sb3IgPSBhcy5mYWN0b3IocXVhbGl0eSkpKSArCiAgZ2VvbV9wb2ludCgpICsKICBzY2FsZV9jb2xvcl92aXJpZGlzX2QobmFtZSA9ICdRdWFsaXR5JykgKwogIGxhYnMoICMgYWRkaW5nIGxhYmVscwogICAgeSA9ICdBbGNvaG9sICglKScsCiAgICB4ID0gJ1ZvbGF0aWxlIEFjaWRpdHknLAogICAgdGl0bGUgPSAnRWZmZWN0IG9mIEFsY29ob2wgYW5kIFZvbGF0aWxlIEFjaWRpdHkgb24gUXVhbGl0eSBvZiBSZWQgV2luZScKICApICsKICB0aGVtZV9taW5pbWFsKCkKCmBgYAoKCk5vdyB3ZSBhcmUgZ29pbmcgdG8gc3BsaXQgb3VyIGRhdGFzZXQgaW4gdHJhaW4gKDUwJSksIHZhbGlkYXRpb24gKDMwJSkgYW5kIHRlc3QgKDIwJSkuCgpgYGB7cn0KIyBjcmVhdGUgdGhlIHNwbGl0dGluZyB2ZWN0b3IKIyBXZSBzZWxlY3RlZCB0aGUgbnVtYmVycyBiYXNlZCBvbiB0aGUgbGVuZ3RoIG9mIHRoZSBkYXRhc2V0CnNwbGl0IDwtIGMocmVwKCJUcmFpbiIsIDgwMCksIHJlcCgiVmFsaWQiLCA0ODApLCByZXAoIlRlc3QiLCAgMzE5KSkKd2luZSA8LSB3aW5lICAlPiUgbXV0YXRlKHNwbGl0ID0gc2FtcGxlKHNwbGl0KSkKCiMgd2UgY3JlYXRlIGRhdGFmcmFtZXMgZm9yIGVhY2ggb2YgdGhlIHNwbGl0cwp3aW5lX3RyYWluIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSAiVHJhaW4iKQp3aW5lX3ZhbGlkIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSAiVmFsaWQiKQp3aW5lX3Rlc3QgIDwtIHdpbmUgJT4lIGZpbHRlcihzcGxpdCA9PSAiVGVzdCIpCgpgYGAKCgpCZWxvdywgd2Ugc2VlIHRoZSBkaXN0cmlidXRpb24gb2YgdGhlIHdpbmUtcXVhbGl0eSBvdmVyIHRoZSBkaWZmZXJlbnQgZGF0YXNldHMuIFdlIHNlZSB0aGF0IHRoZSBkaXN0cmlidXRpb25zIGFyZSB2ZXJ5IHNpbWlsYXIgYWNyb3NzIHRoZSBkaWZmZXJlbnQgZGF0YXNldHMsIHNvIHRoaXMgc3BsaXQgaXMgb2theS4KQmVzaWRlcyB0aGF0LCB3ZSBzZWUgdGhhdCB0aGUgZGlzdHJpYnV0aW9uIGlzIG5vdyBlcXVhbCBhY3Jvc3MgYWxsIGNhdGVnb3JpZXMuIFRoZXJlIGFyZSBhIGxvdCBtb3JlIHdpbmVzIHdpdGggcXVhbGl0aWVzIDUgYW5kIDYsIHNvIGF2ZXJhZ2Ugd2luZXMsIHRoYW4gdGhlcmUgYXJlIHJlYWxseSBiYWQgYW5kIHJlYWxseSBnb29kIHdpbmVzLiBUaGlzIHdpbGwgcHJvYmFibHkgbWFrZSBpdCBoYXJkZXIgdG8gcHJlZGljdCB0aGUgcXVhbGl0eSBvZiB0aGUgd2luZXMsIGFzIHRoZSBkYXRhIGlzIGltYmFsYW5jZWQuIEltYmFsYW5jZWQgZGF0YSBtZWFucyB0aGF0IHNvbWUgZGF0YXBvaW50cyBzaG91bGQgYmUgY29uc2lkZXJlZCBtb3JlIGltcG9ydGFudCB0aGFuIG90aGVycywgYXMgdGhlcmUgYXJlIG9ubHkgYSBmZXcgb2YgdGhlIGhpZ2ggYW5kIGxvdyBxdWFsaXR5IHdpbmVzLiBUbyBiZSBhYmxlIHRvIHByZWRpY3QgdGhvc2UgaGlnaCBhbmQgbG93IHF1YWxpdHkgd2luZXMgYXMgd2VsbCwgd2Ugc2hvdWxkIGhhdmUgYSBkaWZmZXJlbnQgbWV0cmljIHRoYW4gbWVhbiBzcXVhcmVkIGVycm9yLCBhcyB0aGlzIGNvdW50cyBlcnJvcnMgaW4gYWxsIGNhdGdvcmllcyBhcyBlcXVhbGx5IGltcG9ydGFudCwgd2hpbGUgZm9yIHVzLCBpdCBpcyBtdWNoIG1vcmUgc2lnbmlmaWNhbnQgaWYgdGhlIGhpZ2ggYW5kIGxvdyBxdWFsaXR5IHdpbmVzIGFyZSBub3QgcHJlZGljdGVkIHdlbGwuIE91ciBuZXcgbWV0cmljIHNob3VsZCB0YWtlIGludG8gYWNjb3VudCB0aGUgZnJlcXVlbmN5IG9mIHRoYXQgZGF0YXBvaW50LCBzbyB0aGF0IHdlIGNhbiBvdmVydmFsdWUgbWlzdGFrZXMgaW4gdGhlIDMgYW5kIDggY2F0ZWdvcmllcy4gVW5mb3J0dW5hdGVseSwgY3JlYXRpbmcgYSBtZXRyaWMgbGlrZSB0aGF0IHdhcyBhIGJpdCBvdXQgb2YgdGhlIHNjb3BlIG9mIHRoaXMgYXNzaWdubWVudCwgc28gd2Ugd2lsbCBiZSB1c2luZyB0aGUgbWVhbiBzcXVhcmVkIGVycm9yLCBidXQgd2Ugd2lsbCBhbHNvIGtlZXAgaW4gbWluZCB0aGF0IG91ciByZXN1bHRzIHdpbGwgcHJvYmFibHkgbm90IGJlIG9wdGltYWwuIAoKSW4gdGhlIGFwcGVuZGl4LCB0aGVyZSBpcyBhbiBhdHRlbXB0IGF0IHVzaW5nIGEgZGlmZmVyZW50IG1ldHJpYyB0byBldmFsdWF0ZSB0aGUgcmVncmVzc2lvbi4gVGhpcyB3aWxsIHRyeSB0byB2YWx1ZSBtaXN0YWtlcyBiYXNlZCBvbiB0aGUgZnJlcXVlbmN5IG9mIHRoZSBhY3R1YWwgY2F0ZWdvcnkgdGhlIG9ic2VydmF0aW9uIGlzIGluLiAKCmBgYHtyfQojIGNyZWF0aW5nIGEgaGlzdG9ncmFtIHNob3dpbmcgdGhlIGRpc3RyaWJ1dGlvbiBvdmVyIGRhdGFzZXQKZ2dwbG90KCkgKyAKICBnZW9tX2JhcihkYXRhID0gd2luZSwgbWFwcGluZyA9IGFlcyh4ID0gKHF1YWxpdHkpICwgZmlsbCA9IHNwbGl0KSwgYWxwaGEgPSAwLjcgKSAgKyAKICAjIGdldHRpbmcgcHJldHR5IGNvbG91cnMKICBzY2FsZV9maWxsX3ZpcmlkaXNfZChuYW1lID0gJ0RhdGFzZXQnKSArCiAgbGFicyggIyBhZGRpbmcgbGFiZWxzCiAgICB5ID0gJ0NvdW50JywKICAgIHggPSAnUXVhbGl0eScsCiAgICB0aXRsZSA9ICdRdWFsaXR5IG9mIHdpbmVzIGluIHRoZSBkYXRhc2V0cycKICAgICkgKwogIHRoZW1lX21pbmltYWwoKQoKICAKYGBgCgpXZSBoYXZlIGNob3NlbiB0byB1c2UgYSBzdWJzZXQgc2VsZWN0aW9uIHJhdGhlciB0aGFuIHJlZ3VsYXJpc2F0aW9uIG1ldGhvZHMsIGJlY2F1c2Ugd2UgdGhpbmsgdGhhdGxpbWl0aW5nIHRoZSBudW1iZXIgb2YgY29sdW1ucyB3ZSB1c2UgYnV0IHN0aWxsIGFsbG93aW5nIGZvciBsYXJnZSB2YWx1ZXMgaW4gdGhvc2UgY29lZmZpY2llbnRzIHdpbGwgYmUgYmV0dGVyIHRoYW4gbGltaXRpbmcgYWxsIGNvZWZmaWNpZW50cy4gQmVjYXVzZSwgaWYgYWxsIGNvZWZmaWNpZW50cyBhcmUgc21hbGwsIHRoZXkgd2lsbCBsaWtlbHkgdGVuZCB0byBwcmVkaWN0IG9ubHkgYXZlcmFnZSBxdWFsaXRpZXMgcmF0aGVyIHRoYW4gYWxzbyB0aGUgb3V0bGllcnMuIFdpdGggdGhlIHN1YnNldCBzZWxlY3Rpb24sIHdlIGNhbiBjYXRlciB0byB0aGUgb3V0bGllcnMgYXMgd2VsbC4gCgpGcm9tIGhlcmUgb24sIHRoZSBiZXN0IHN1YnNldCBzZWxlY3Rpb24gbWV0aG9kIHdpbGwgYmUgaW1wbGVtZW50ZWQuIAoKV2Ugd3JpdGUgYW4gbXNlIGZ1bmN0aW9uIHRvIGdldCB0aGUgbWVhbiBzcXVhcmVkIGVycm9yIG9mIGEgY2VydGFpbiBmb3JtdWxhLiBOb3RlIHRoYXQgd2UgaGF2ZSBhZGRlZCBhbiBhcmd1bWVudCB0aGF0IGhhcyBOVUxMIGFzIGEgZGVmYXVsdCB0byBiZSBhYmxlIHRvIHVzZSB0aGlzIG9uZSBpbnRlcmNoYW5nZWFibHkgd2l0aCB0aGUgZXJyb3IgZnVuY3Rpb24gdGhhdCB0YWtlcyB0aGUgZnJlcXVlbmN5IGludG8gYWNjb3VudC4KCmBgYHtyfQpsbV9tc2UgPC0gZnVuY3Rpb24oZm9ybXVsYSwgdHJhaW5fZGF0YSwgdmFsaWRfZGF0YSwgdmFsaWRfd2l0aF9mcmVxID0gTlVMTCkgewogIHlfbmFtZSA8LSBhcy5jaGFyYWN0ZXIoZm9ybXVsYSlbMl0KICB5X3RydWUgPC0gdmFsaWRfZGF0YVtbeV9uYW1lXV0KICAKICBsbV9maXQgPC0gbG0oZm9ybXVsYSwgdHJhaW5fZGF0YSkKICB5X3ByZWQgPC0gcHJlZGljdChsbV9maXQsIG5ld2RhdGEgPSB2YWxpZF9kYXRhKQogIAogIG1lYW4oKHlfdHJ1ZSAtIHlfcHJlZCleMikKfQoKYGBgCgoKV2Ugc291cmNlIHRoZSBnZW5lcmF0ZV9mb3JtdWxhcyBmaWxlIHdyaXR0ZW4gYnkgdGhlIHRlYWNoZXIgZnJvbSBhIGNsYXNzIHRvIGJlIGFibGUgdG8gaW1wbGVtZW50IHRoZSBzdWJzZXQgc2VsZWN0aW9uIG1ldGhvZC4KCmBgYHtyfQpzb3VyY2UoImdlbmVyYXRlX2Zvcm11bGFzLlIiKQpgYGAKCgpXZSBkZWZpbmUgdGhlIHggYW5kIHkgdmFyaWFibGVzIHRvIGJlIGFibGUgdG8gYXBwbHkgdGhlIGdlbmVyYXRlX2Zvcm11bGFzIGZ1bmN0aW9uCgpgYGB7cn0Kd2luZSA8LSBzZWxlY3Qod2luZSwgLXNwbGl0KSAjIHJlbW92aW5nIHRoZSBzcGxpdCBjb2x1bW4KeF92YXJzIDwtIGNvbG5hbWVzKHdpbmUpCnhfdmFycyA8LSB4X3ZhcnNbeF92YXJzICE9ICJxdWFsaXR5Il0gI3VzaW5nIGFsbCB2YXJpYWJsZXMgZXhjZXB0IHF1YWxpdHkgZm9yIHRoZSB4CmBgYAoKCldlIGdldCBhIHZlY3RvciBvZiBhbGwgZnVuY3Rpb25zLgoKYGBge3J9CmZvcm11bGFzIDwtIGdlbmVyYXRlX2Zvcm11bGFzKHAgPSAzLCB4X3ZhcnMgPSB4X3ZhcnMsIHlfdmFyID0gInF1YWxpdHkiKQpsZW4gPC0gbGVuZ3RoKGZvcm11bGFzKQpgYGAKCgpXZSB1c2UgYSBmb3IgbG9vcCB0byBmaW5kIHRoZSBiZXN0IHNldCBvZiAzIHByZWRpY3RvcnMgaW4gdGhlIHdpbmUgZGF0YXNldCBiYXNlZCBvbiBNU0UuIFVzZSB0aGUgd2luZV90cmFpbiBhbmQgd2luZV92YWxpZCBkYXRhc2V0cy4KCmBgYHtyfQojIEluaXRpYWxpc2UgYSB2ZWN0b3Igd2Ugd2lsbCBmaWxsIHdpdGggTVNFIHZhbHVlcwptc2VzXzMgPC0gcmVwKDAsIGxlbikKCiMgbG9vcCBvdmVyIGFsbCB0aGUgZm9ybXVsYXMKZm9yIChpIGluIDE6bGVuKSB7CiAgbXNlc18zW2ldIDwtIGxtX21zZShhcy5mb3JtdWxhKGZvcm11bGFzW2ldKSwgd2luZV90cmFpbiwgd2luZV92YWxpZCkKfQoKIyBzZWxlY3QgdGhlIGZvcm11bGEgd2l0aCB0aGUgbG93ZXN0IE1TRQpiZXN0XzNfcHJlZHMgPC0gZm9ybXVsYXNbd2hpY2gubWluKG1zZXNfMyldCmJlc3RfM19wcmVkcwpgYGAKCgpXZSBub3cgdXNlIHRoYXQga25vd2xlZGdlIHRvIGNyZWF0ZSBhIGZvci1sb29wIG92ZXIgYWxsIHRoZSBudW1iZXJzIG9mIHBhcmFtZXRlcnMgd2Ugd2FudCB0byBjb25zaWRlciBhbmQgd3JhcCBpdCBhbGwgaW4gYSBmdW5jdGlvbi4gSGVyZSB3ZSBtYWtlIHRoZSBmdW5jdGlvbiB0aGF0IGNhbGN1bGF0ZXMgdGhlIGVycm9yLCBpbiB0aGlzIGNhc2UgbG1fbXNlLCBhIHBhcmFtZXRlciB0byBiZSBhYmxlIHRvIGNoYW5nZSB0aGF0IGluIHRoZSBhcHBlbmRpeC4KCmBgYHtyfQojIFdlIGZpbmQgdGhlIGJlc3QgZm9ybXVsYQoKZmluZF9iZXN0X2Zvcm11bGEgPC0gZnVuY3Rpb24oZXJyb3JfZnVuY3Rpb24sIHRyYWluX2RhdGEsIHZhbGlkX2RhdGEsIHZhbGlkX3dpdGhfZnJlcSA9IE5VTEwpewogIAogICMgSW5pdGlhbGlzZSBmb3JtdWxhIGxpc3RzIHRvIGJlIGFibGUgdG8gYWNjZXNzIHRoZSBmb3JtdWxhcyBsYXRlcgogIGZvcm11bGFfbGlzdCA8LSBsaXN0KCkKICAjIGluaXRpYWxpc2Ugc21hbGxlc3QgZXJyb3IKICBvdmVyYWxsX21pbiA8LSAxMDAwMDAwMDAKICAKICBmb3IgKGkgaW4gMTo0KXsKICAgIGZvcm11bGFzIDwtIGdlbmVyYXRlX2Zvcm11bGFzKHAgPSBpLCB4X3ZhcnMgPSB4X3ZhcnMsIHlfdmFyID0gInF1YWxpdHkiKQogICAgZm9ybXVsYV9saXN0IDwtIGMoZm9ybXVsYV9saXN0LCBsaXN0KGZvcm11bGFzKSkKICAgIAogICAgIyBJbml0aWFsaXNlIGEgdmVjdG9yIHdlIHdpbGwgZmlsbCB3aXRoIE1TRSB2YWx1ZXMKICAgIGVycm9ycyA8LSByZXAoMCwgbGVuZ3RoKGZvcm11bGFzKSkKICAgIAogICAgZm9yIChqIGluIDE6bGVuZ3RoKGZvcm11bGFzKSkgewogICAgZXJyb3JzW2pdIDwtIGVycm9yX2Z1bmN0aW9uKGFzLmZvcm11bGEoZm9ybXVsYXNbaV0pLCB0cmFpbl9kYXRhLCB2YWxpZF9kYXRhLCB2YWxpZF93aXRoX2ZyZXEpCiAgICB9CiAgICAKICAgIGxvY2FsbWluIDwtIG1pbihlcnJvcnMpCiAgICAKICAgIGlmIChsb2NhbG1pbiA8PSBvdmVyYWxsX21pbil7CiAgICAgIG92ZXJhbGxfbWluIDwtIGxvY2FsbWluCiAgICAgIG5yX3BhcmFtIDwtIGkKICAgICAgbWluX2Zvcm11bGEgPC0gZm9ybXVsYXNbd2hpY2gubWluKGVycm9ycyldCiAgICB9CiAgfQogIAogIG1pbl9mb3JtdWxhCiAgCn0KCgpgYGAKCgpBcHBseWluZyB0aGUgZm9ybXVsYQoKYGBge3J9CmJlc3RfZm9ybXVsYSA8LSBmaW5kX2Jlc3RfZm9ybXVsYShsbV9tc2UsIHdpbmVfdHJhaW4sIHdpbmVfdmFsaWQpCgpgYGAKCgpXZSBoYXZlIG5vdyBmb3VuZCB0aGUgbW9kZWwgd2l0aCB0aGUgbG93ZXN0IG1lYW4gc3F1YXJlZCBlcnJvciwgd2hpY2ggd2Ugd2lsbCB1c2UgdG8gZ2V0IHRoZSBvcHRpbWFsIG1vZGVsLgoKYGBge3J9CiMgRXN0aW1hdGUgbW9kZWwgYW5kIGNhbGN1bGF0ZSBtc2UKbG1fYmVzdCA8LSBsbShiZXN0X2Zvcm11bGEsIGRhdGEgPSB3aW5lX3RyYWluKQptc2UgPC0gZnVuY3Rpb24oeV90cnVlLCB5X3ByZWQpIG1lYW4oKHlfdHJ1ZSAtIHlfcHJlZCleMikKbXNlKHdpbmVfdGVzdCRxdWFsaXR5LCBwcmVkaWN0KGxtX2Jlc3QsIG5ld2RhdGEgPSB3aW5lX3Rlc3QpKQpgYGAKCkZpbmFsbHksIHdlIHBsb3QgdGhlIHJlc3VsdCBvZiBvdXIgcmVncmVzc2lvbiBtb2RlbC4gVGhlIGdyZWVuIGxpbmUgcmVwcmVzZW50cyB3aGVyZSB0aGUgZGF0YSB3b3VsZCBiZSBpbiBhIGNhc2Ugb2YgYSBwZXJmZWN0IHByZWRpY3Rpb24uIFdlIHNlZSB0aGF0IGluIGdlbmVyYWwsIG91ciB2YWx1ZXMgYXJlIGNsb3NlciB0byB0aGUgbWlkZGxlIHRoYW4gdGhleSBzaG91bGQgYmUuIFRoaXMgaXMgcHJvYmFibHkgZHVlIHRvIHRoZSBlYXJsaWVyIG1lbnRpb25lZCBpbWJhbGFuY2VkIGRhdGEuIFRoZSByZWdyZXNzaW9uIGZpdCBpcyBub3cgb3B0aW1hbGlzZWQgZm9yIHRoZSBhdmVyYWdlIHdpbmVzIGFuZCBkb2VzIG5vdCBkbyB3ZWxsIGZvciB0aGUgZXhjZXB0aW9uYWxseSBiYWQgb3IgZXhjZXB0aW9uYWxseSBnb29kIHdpbmVzLCB3aGljaCBtYWtlcyBzZW5zZSBkdWUgdG8gdGhlIGZldyBvYnNlcnZhdGlvbnMgd2UgaGF2ZSBpbiB0aGF0IHJhbmdlLiBPdmVyYWxsLCBvdXIgbWVhbiBzcXVhcmVkIGVycm9yIGlzIG5vdCB0aGF0IGJpZywgYnV0IHRoZSByZWdyZXNzaW9uIHNlZW1zIHNrZXdlZCBzdGlsbC4gV2UgY291bGQgaW1wcm92ZSB0aGlzIHdpdGggYSBkaWZmZXJlbnQgZXZhbHVhdGlvbiBtZXRob2QgbGlrZSBtZW50aW9uZWQgYWJvdmUgb3IgZXZlbiBhIHNhbXBsaW5nIG1ldGhvZCB3aGVyZSB3ZSBwaWNrIGZld2VyIG9mIHRoZSBhdmVyYWdlIHdpbmVzIHRvIHRyYWluIG91ciBtb2RlbCBvbi4gVW5mb3J0dW5hdGVseSwgYWxsIG9mIHRob3NlIG1ldGhvZHMgYXJlIG91dHNpZGUgdGhlIHNjb3BlIG9mIHRoaXMgYXNzaWdubWVudC4KCmBgYHtyfQojIGNyZWF0ZSBhIHNpbXBsZSBzY2F0dGVycGxvdCBwbG90CmNyZWF0ZV9ldmFsdWF0aW9uX3Bsb3QgPC0gZnVuY3Rpb24obW9kZWwpewogIHRpYmJsZSgKICAgIHlfdHJ1ZV9wbHQgPSB3aW5lX3Rlc3QkcXVhbGl0eSwKICAgIHlfcHJlZF9wbHQgPSBwcmVkaWN0KG1vZGVsLCBuZXdkYXRhID0gd2luZV90ZXN0KQogICkgJT4lIAogICAgZ2dwbG90KGFlcyh4ID0geV9wcmVkX3BsdCwgeSA9IGZhY3Rvcih5X3RydWVfcGx0KSkpICsKICAgICMgbm90ZSB0aGF0IHRoZSBpbnRlcmNlcHQgaGVyZSBpcyBiYXNlZCBvbiB0aGUgbnVtYmVyIG9mIGNhdGVnb3JpZXMKICAgICMgU28gbGlrZSB0aGlzIGl0IGNyZWF0ZXMgdGhlIGxpbmUgeSA9IHggZm9yIHJlZmVyZW5jZQogICAgZ2VvbV9hYmxpbmUoc2xvcGUgPSAxLCBpbnRlcmNlcHQgPSAtMiwgbHR5ID0gMiwgY29sID0gJ2RhcmtncmVlbicgKSArCiAgICAjIHdlIHBsb3QgdGhlIGRhdGFwb2ludHMgYXMgYSB2aW9saW4gdG8gc2hvdyB0aGUgZGlzdHJpYnV0aW9uCiAgICBnZW9tX3Zpb2xpbihvcmllbnRhdGlvbiA9ICd5JywgYWxwaGEgPSAwLjYpICsKICAgIGxhYnMoICMgYWRkIGxhYmVscwogICAgICB5ID0gJ1RydWUgcXVhbGl0eScsCiAgICAgIHggPSAnUHJlZGljdGVkIHF1YWxpdHknLAogICAgICB0aXRsZSA9ICdFdmFsdWF0aW9uIG9mIHByZWRpY3Rpb25zJywKICAgICAgY29sb3IgPSAnRml0JwogICAgICApICsKICAgIHRoZW1lX21pbmltYWwoKSAKfQpgYGAKCmBgYHtyfQpjcmVhdGVfZXZhbHVhdGlvbl9wbG90KGxtX2Jlc3QpCmBgYAoKYGBge3J9CnN1bW1hcnkobG1fYmVzdCkKYGBgCgoKSW4gY29uY2x1c2lvbiwgdGhlIHF1YWxpdHkgb2YgdGhlIHdpbmUgY2FuIGJlIHByZWRpY3RlZCB0byBzb21lIGV4dGVudCBieSB0aGUgdm9sYXRpbGUgYWNpZGl0eSwgY2hsb3JpZGVzLCBzdWxwaGF0ZXMgYW5kIGFsY29ob2wgbGV2ZWwgaW4gdGhlIHdpbmUuIFdlIHNlZSB0aGF0IGxvd2VyIGFjaWRpdHkgbWVhbnMgYSBoaWdoZXIgcXVhbGl0eSwgd2hpbGUgaGlnaGVyIHN1bHBoYXRlIGFuZCBhbGNvaG9sIGxldmVscyBhcmUgYWxzbyBpbmRpY2F0b3JzIG9mIGEgaGlnaGVyIHF1YWxpdHkgd2luZS4gQ2hsb3JpZGVzIGFjdHVhbGx5IGRvbid0IHNpZ25pZmljYW50bHkgcHJlZGljdCB0aGUgcXVhbGl0eSwgYnV0IGRpZCBsb3dlciB0aGUgbWVhbiBzcXVhcmVkIGVycm9yLCB3aGljaCBpcyB3aHkgaXQncyBzdGlsbCBpbmNsdWRlZC4gU28sIG5leHQgdGltZSB5b3UncmUgc3RhbmRpbmcgaW4gdGhlIHN1cGVybWFya2V0IGxvb2tpbmcgZm9yIGEgZ29vZCBidXQgY2hlYXAgd2luZSwgdGFraW5nIHRoZSBhbGNvaG9sIGxldmVsIGFzIGFuIGluZGljYXRvciBpcyBhY3R1YWxseSBhIGdvb2QgaWRlYSEgCgoKCgoKQXBwZW5kaXggQTogRGlmZmVyZW50IGVycm9yIGZ1bmN0aW9uCgpJbiBvcmRlciB0byBhY2NvdW50IGZvciB0aGUgc2tld2VkIGRhdGEgd2UgaGF2ZSBhbmQgaG9wZWZ1bGx5IGJlIGJldHRlciBhYmxlIHRvIHByZWRpY3Qgd2hldGhlciBhIHdpbmUgaXMgcmVhbGx5IGdvb2Qgb3IgcmVhbGx5IGJhZCwgd2UgaGF2ZSBpbXBsZW1lbnRlZCBhIHNsaWdodGx5IGRpZmZlcmVudCBlcnJvciBmdW5jdGlvbiBoZXJlLiBGaXJzdCB3ZSBkZWZpbmUgYSBmcmVxdWVuY3kgY29sdW1uIGluIHRoZSB2YWxpZGF0aW9uIGRhdGFzZXQuIAoKYGBge3J9CmZyZXEgPC0gYXMuZGF0YS5mcmFtZSh0YWJsZSh3aW5lX3ZhbGlkJHF1YWxpdHkpIC8gbGVuZ3RoKHdpbmVfdmFsaWQkcXVhbGl0eSApKQpuYW1lcyhmcmVxKSA8LSBjKCdxdWFsaXR5JywgJ2ZyZXEnKQp3aW5lX3ZhbGlkX2luY2xfZnJlcSA8LSBtZXJnZSh3aW5lX3ZhbGlkLCBmcmVxLCBieSA9ICdxdWFsaXR5JywgYWxsLnggPSBUUlVFKSAlPiUKICBtdXRhdGUoZnJlcSA9IDEgLSBmcmVxKQpgYGAKCgpXZSB0aGVuIHVzZSB0aGlzIGNvbHVtbiB0byBhZGQgYSAnd2VpZ2h0JyB0byB0aGUgZXJyb3JzIG9mIGVhY2ggZGF0YXBvaW50LgpUaGUgaW52ZXJ0ZWQgZnJlcXVlbmN5IGlzIHVzZWQgdG8gZ2l2ZSBtb3JlIHdlaWdodCB0byB0aGUgcXVhbGl0aWVzIHRoYXQgaGF2ZSBhIGxvd2VyIGZyZXF1ZW5jeS4gVGhlIGdvYWwgaXMgdG8gbWFrZSB0aGUgY2hvc2VuIGZ1bmN0aW9uIG1vcmUgYWNjdXJhdGUgZm9yIGhpZ2hlciBhbmQgbG93ZXIgcXVhbGl0eSB3aW5lcy4KCmBgYHtyfQp3ZWlnaHRlZF9lcnJvciA8LSBmdW5jdGlvbihmb3JtdWxhLCB0cmFpbl9kYXRhLCB2YWxpZF9kYXRhLCB2YWxpZF93aXRoX2ZyZXEpIHsKICAjIHRoaXMgY29kZSBpcyB0aGUgc2FtZSBhcyBiZWZvcmUKICB5X25hbWUgPC0gJ3F1YWxpdHknCiAgeV90cnVlIDwtIHZhbGlkX2RhdGFbW3lfbmFtZV1dCiAgCiAgCiAgbG1fZml0IDwtIGxtKGJlc3RfZm9ybXVsYSwgdHJhaW5fZGF0YSkKICB5X3ByZWQgPC0gcHJlZGljdChsbV9maXQsIG5ld2RhdGEgPSB2YWxpZF9kYXRhKQogICAgCiAgIyB3ZSBjcmVhdGUgYW4gaW52ZXJ0ZWQgZnJxdWVuY3kgdmVjdG9yCiAgZnJlcV92ZWN0b3IgPC0gdmFsaWRfd2l0aF9mcmVxW1snZnJlcSddXQogIAogICMgVGhlbiwgd2UgdXNlIHJvdWdobHkgdGhlIHNhbWUgZXJyb3IgZnVuY3Rpb24KICBtZWFuKChmcmVxX3ZlY3RvciooeV90cnVlIC0geV9wcmVkKSleMikKfQoKCmBgYAoKCkJlbG93IHdlIHNlZSB0aGF0IGV4YWN0bHkgdGhlIHNhbWUgZm9ybXVsYSBjYW1lIGZyb20gdGhpcyBlcnJvciBmdW5jdGlvbi4gRnJvbSB0aGlzIHdlIGNhbiBjb25jbHVkZSB0aGF0IHRoZSBjaG9zZW4gZm9ybXVsYSBhbHJlYWR5IGNsYXNzaWZpZXMgaGlnaCBhbmQgbG93IHF1YWxpdHkgd2luZXMgY29ycmVjdGx5LgoKYGBge3J9CgpuZXdfYmVzdF9mb3JtdWxhIDwtIGZpbmRfYmVzdF9mb3JtdWxhKHdlaWdodGVkX2Vycm9yLCB3aW5lX3RyYWluLCB3aW5lX3ZhbGlkLCB3aW5lX3ZhbGlkX2luY2xfZnJlcSkKbmV3X2Jlc3QgPC0gbG0obmV3X2Jlc3RfZm9ybXVsYSwgZGF0YSA9IHdpbmVfdHJhaW4pCm1zZSh3aW5lX3Rlc3QkcXVhbGl0eSwgcHJlZGljdChuZXdfYmVzdCwgbmV3ZGF0YSA9IHdpbmVfdGVzdCkpCgpwcmludChuZXdfYmVzdF9mb3JtdWxhKQpwcmludChiZXN0X2Zvcm11bGEpCgpgYGAKClVuZm9ydHVuYXRlbHksIHRoaXMgd2F5IG9mIGFjY291bnRpbmcgZm9yIHRoZSBpbWJhbGFuY2VkIGRhdGEgZGlkIG5vdCB3b3JrLiBJbiB0aGUgZnV0dXJlIHdlIHdpbGwgaGF2ZSB0byBjaG9vc2UgYSBkaWZmZXJlbnQgd2F5LCBmb3IgZXhhbXBsZSBvdmVyIG9yIHVuZGVyc2FtcGxpbmcgdGhlIGRhdGEuIEhvd2V2ZXIsIEkgY291bGQgbm90IGZpbmQgc3VjaCBhIGZ1bmN0aW9uIGZvciBtdWx0aS1jYXRlZ29yeSBkYXRhLiBUaGlzIGNvdWxkIGJlIHNvbWV0aGluZyBmb3IgYSBmb2xsb3ctdXAgcmVzZWFyY2ggcXVlc3Rpb24uCgoKVGhpcyBlbnRyeSB3YXMgY3JlYXRlZCBiYXNlZCBvbiBhIGNsYXNzIGFzc2lnbm1lbnQgY3JlYXRlZCBpbiBjb2xsYWJvcmF0aW9uIHdpdGggQ2VkcmljIEdldmVycyAoc3R1ZGVudCBuciA4MDUxMDAzKSwgaW4gSnVuZSAyMDIxLgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCg==</div>
 
 
 

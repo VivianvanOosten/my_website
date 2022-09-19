@@ -63,9 +63,9 @@ params:
     button1:
       - name: Get Started
         url: blogs
-    button2:
-      - name: Log In
-        url: '#'
+    #button2:
+    #  - name: Log In
+    #    url: '#'
     links:
       - name: Home
         url: '#'
