@@ -70,7 +70,7 @@ params:
       - name: Home
         url: '#'
       - name: Blogs
-        url: blogs
+        url: blogs/
       - name: Most recent project
         url: blogs/directors
       - name: About me
