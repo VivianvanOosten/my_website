@@ -76,8 +76,8 @@ params:
       - name: About me
         url: blogs/about_me
     menu: Menu
-    subtitle: By HTML5 Up
-    title: Forty
+    subtitle: My Portfolio
+    title: Vivian
   tiles:
     enable: yes
     showcase:
